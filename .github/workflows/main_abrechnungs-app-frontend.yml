@@ -30,17 +30,19 @@ jobs:
       - name: Build Web
         run: flutter build web --release
 
-      - name: Login to Azure
-        uses: azure/login@v1
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_87182DE8362A403988E827A0323C2A7B }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_EBB7188EA89747669099CB4CA0E8DDCA }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_7EB2535AA3824A9EAFF987912F93ACA6 }}
 
-      - name: 'Deploy to Azure Web App'
-        id: deploy-to-webapp
+#      - name: 'Deploy to Azure Web App'
+#        id: deploy-to-webapp
+#        uses: azure/webapps-deploy@v2
+#        with:
+#          app-name: 'Abrechnungs-App-Frontend'
+#          slot-name: 'Production'
+#          package: build/web
+
+      - name: Deploy to Azure
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'Abrechnungs-App-Frontend'
-          slot-name: 'Production'
-          package: build/web
+          app-name: 'neonius-infrastrucutres' # Set your Azure WebApp name
+          slot-name: 'production'  # Optional: if using deployment slot
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: ./build/web

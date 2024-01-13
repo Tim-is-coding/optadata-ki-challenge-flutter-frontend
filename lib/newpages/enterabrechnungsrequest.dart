@@ -1,18 +1,17 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:buzz/widgets/comuntitle.dart';
 import 'package:buzz/api/rest/api.dart';
 import 'package:buzz/appstaticdata/staticdata.dart';
 import 'package:buzz/model/lightabrechnungsrequest.dart';
 import 'package:buzz/model/lightabrechnungsresponse.dart';
 import 'package:buzz/provider/proviercolors.dart';
 import 'package:buzz/widgets/NotImplementedYetScreen.dart';
+import 'package:buzz/widgets/comuntitle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:ribbon_widget/ribbon_widget.dart';
-
 
 class EnterAbrechnungsRequestScreen extends StatefulWidget {
   const EnterAbrechnungsRequestScreen({Key? key}) : super(key: key);
@@ -70,7 +69,7 @@ class _EnterAbrechnungsRequestScreenState
             _width = constraints.maxWidth;
             if (constraints.maxWidth < 600) {
               return NotImplementedYetScreen("Neue Abrechnung");
-            } else  {
+            } else {
               return Form(
                   key: _formKey,
                   // Ein GlobalKey<FormState>, um das Formular später zu validieren
@@ -136,13 +135,6 @@ class _EnterAbrechnungsRequestScreenState
                                             setState(() {
                                               _processingRequest = false;
                                             });
-
-                                          });
-
-                                          Future.delayed(
-                                              const Duration(milliseconds: 50),
-                                              () {
-                                            _scrollToResults();
                                           });
 
                                           // call API
@@ -442,7 +434,7 @@ class _EnterAbrechnungsRequestScreenState
         _buildResultArea(count: 4),
         //_buildtable2(width: _width - 200),
         const SizedBox(
-          height: 10,
+          height: 40,
         ),
       ],
     );
@@ -723,7 +715,7 @@ class _EnterAbrechnungsRequestScreenState
                       return 'Bitte etwas eingeben';
                     }
                     final regex = RegExp(r'^\d{2}\.');
-                    if(!regex.hasMatch(value)){
+                    if (!regex.hasMatch(value)) {
                       return 'Gültige Hilfsmittelnummer eingeben';
                     }
 
@@ -864,6 +856,7 @@ class _EnterAbrechnungsRequestScreenState
     return SizedBox(
         width: _width - 200,
         child: GridView.builder(
+          key: _scrollToKey,
           // physics: const NeverScrollableScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               childAspectRatio: 0.5, crossAxisCount: 3, mainAxisExtent: 400),
