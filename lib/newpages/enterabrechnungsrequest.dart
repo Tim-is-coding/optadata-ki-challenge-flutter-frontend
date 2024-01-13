@@ -1,6 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:buzz/Widgets/comuntitle.dart';
+import 'package:buzz/widgets/comuntitle.dart';
 import 'package:buzz/api/rest/api.dart';
 import 'package:buzz/appstaticdata/staticdata.dart';
 import 'package:buzz/model/lightabrechnungsrequest.dart';
