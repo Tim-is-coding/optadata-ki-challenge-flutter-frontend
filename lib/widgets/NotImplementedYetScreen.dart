@@ -1,7 +1,7 @@
+import 'package:buzz/Widgets/comuntitle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../Widgets/comuntitle.dart';
 
 class NotImplementedYetScreen extends StatelessWidget {
   String title;
