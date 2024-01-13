@@ -21,39 +21,17 @@ jobs:
         with:
           node-version: '20.x'
 
-      - name: npm install, build, and test
-        run: |
-          npm install
-          npm run build --if-present
-          npm run test --if-present
-
-      - name: Zip artifact for deployment
-        run: zip release.zip ./* -r
-
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v3
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v1
         with:
-          name: node-app
-          path: release.zip
+          flutter-version: '3.0.x' # Specify your Flutter version
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    environment:
-      name: 'Production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-    permissions:
-      id-token: write #This is required for requesting the JWT
+      - name: Install dependencies
+        run: flutter pub get
 
-    steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v3
-        with:
-          name: node-app
+      - name: Build Web
+        run: flutter build web --release
 
-      - name: Unzip artifact for deployment
-        run: unzip release.zip
-      
       - name: Login to Azure
         uses: azure/login@v1
         with:
@@ -67,5 +45,4 @@ jobs:
         with:
           app-name: 'Abrechnungs-App-Frontend'
           slot-name: 'Production'
-          package: .
-          
+          package: build/web
