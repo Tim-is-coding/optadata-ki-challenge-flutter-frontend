@@ -58,25 +58,18 @@ class _EnterAbrechnungsRequestScreenState
 
     _lightAbrechnungsrequest.krankenkassenIk = "100189483";
     _lightAbrechnungsrequest.patientBirthday = "01.01.1980";
-    _lightAbrechnungsrequest
-        .productDeliveries![0].deliveryDate = "01.01.2021";
+    _lightAbrechnungsrequest.productDeliveries![0].deliveryDate = "01.01.2021";
 
-    _lightAbrechnungsrequest
-        .productDeliveries![0].deliveredProducts![0] =
+    _lightAbrechnungsrequest.productDeliveries![0].deliveredProducts![0] =
         LightAbrechnungsRequesProduct();
-    _lightAbrechnungsrequest
-        .productDeliveries![0]
-        .deliveredProducts![0]
+    _lightAbrechnungsrequest.productDeliveries![0].deliveredProducts![0]
         .hilfmittelnummer = "15.25.30.5033";
     _lightAbrechnungsrequest
         .productDeliveries![0].deliveredProducts![0].amount = 1;
 
-    _lightAbrechnungsrequest
-        .productDeliveries![0].deliveredProducts!
+    _lightAbrechnungsrequest.productDeliveries![0].deliveredProducts!
         .add(LightAbrechnungsRequesProduct());
-    _lightAbrechnungsrequest
-        .productDeliveries![0]
-        .deliveredProducts![1]
+    _lightAbrechnungsrequest.productDeliveries![0].deliveredProducts![1]
         .hilfmittelnummer = "15.25.31.2042";
     _lightAbrechnungsrequest
         .productDeliveries![0].deliveredProducts![1].amount = 1;
@@ -242,15 +235,14 @@ class _EnterAbrechnungsRequestScreenState
                     color: Colors.grey.withOpacity(0.3)),
               ),
               const SizedBox(width: 5),
-             Text(
-                  "Patientendaten",
-                  style: TextStyle(
-                      color: notifire.getbacktextcolors,
-                      fontWeight: FontWeight.w800,
-                      overflow: TextOverflow.ellipsis,
-                      fontSize: 18),
-                ),
-
+              Text(
+                "Patientendaten",
+                style: TextStyle(
+                    color: notifire.getbacktextcolors,
+                    fontWeight: FontWeight.w800,
+                    overflow: TextOverflow.ellipsis,
+                    fontSize: 18),
+              ),
             ]),
             const SizedBox(
               height: 10,
@@ -298,7 +290,7 @@ class _EnterAbrechnungsRequestScreenState
                               ? null
                               : 'Bitte geben Sie eine gültige Krankenkassen-IK ein.';
                         },
-                        initialValue:  _lightAbrechnungsrequest.krankenkassenIk,
+                        initialValue: _lightAbrechnungsrequest.krankenkassenIk,
                         onChanged: (value) {
                           setState(() {
                             _lightAbrechnungsrequest.krankenkassenIk = value;
@@ -625,10 +617,9 @@ class _EnterAbrechnungsRequestScreenState
                                       },
                                       style: mediumBlackTextStyle.copyWith(
                                           color: notifire.getMainText),
-                                      initialValue:
-                                          _lightAbrechnungsrequest
-                                              .productDeliveries![index]
-                                              .deliveryDate,
+                                      initialValue: _lightAbrechnungsrequest
+                                          .productDeliveries![index]
+                                          .deliveryDate,
                                       decoration: InputDecoration(
                                         border: OutlineInputBorder(
                                             borderSide: BorderSide(
@@ -756,8 +747,8 @@ class _EnterAbrechnungsRequestScreenState
 
                     return null;
                   },
-                  initialValue: delivery.deliveredProducts![index]
-                      .hilfmittelnummer,
+                  initialValue:
+                      delivery.deliveredProducts![index].hilfmittelnummer,
                   onChanged: (value) {
                     setState(() {
                       delivery.deliveredProducts![index].hilfmittelnummer =
@@ -781,7 +772,7 @@ class _EnterAbrechnungsRequestScreenState
             const SizedBox(
               width: 30,
             ),
-            _counter(delivery.deliveredProducts![index]),
+            _counter(delivery.deliveredProducts![index], delivery, index),
             const SizedBox(
               width: 30,
             ),
@@ -799,7 +790,8 @@ class _EnterAbrechnungsRequestScreenState
         ));
   }
 
-  Widget _counter(LightAbrechnungsRequesProduct product) {
+  Widget _counter(LightAbrechnungsRequesProduct product,
+      LightAbrechnungsRequestProductDelivery delivery, int productIndex) {
     return Container(
       height: 35,
       width: 100,
@@ -813,6 +805,9 @@ class _EnterAbrechnungsRequestScreenState
               setState(() {
                 if (product.amount! > 1) {
                   product.amount = product.amount! - 1;
+                } else {
+                  // delete product
+                  delivery.deliveredProducts!.removeAt(productIndex);
                 }
               });
             },
@@ -1007,187 +1002,188 @@ class _EnterAbrechnungsRequestScreenState
     return Container(
         width: 310,
         height: 400,
-        child:Padding(
-      padding: const EdgeInsets.all(padding),
-      child: Theme(
-          data: ThemeData(
-            cardTheme: const CardTheme(
-                elevation: 1,
-                color: Colors.white, // Custom card background color
-                surfaceTintColor: Colors.white),
-          ),
-          child: Ribbon(
-              nearLength: 45,
-              farLength: 75,
-              title: '',
-              titleStyle: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500),
-              color: Colors.lightGreen,
-              location: RibbonLocation.topEnd,
-              child: Card(
-                margin: const EdgeInsets.all(0),
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    CircleAvatar(
-                        radius: 40,
-                        backgroundColor: Colors.transparent,
-                        backgroundImage: item.urlToImage == null
-                            ? AssetImage("assets/hilfsmittel.png")
-                            : NetworkImage(item.urlToImage!) as ImageProvider),
-                    const SizedBox(
-                      height: 10,
-                    ),
-
-                    Text(item.displayName,
-                        style: mediumBlackTextStyle.copyWith(
-                            fontSize: 16, color: notifire!.getMainText)),
-                    // Text("@brookly.simmons",style: mediumGreyTextStyle),
-                    const SizedBox(
-                      height: 35,
-                    ),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+        child: Padding(
+          padding: const EdgeInsets.all(padding),
+          child: Theme(
+              data: ThemeData(
+                cardTheme: const CardTheme(
+                    elevation: 1,
+                    color: Colors.white, // Custom card background color
+                    surfaceTintColor: Colors.white),
+              ),
+              child: Ribbon(
+                  nearLength: 45,
+                  farLength: 75,
+                  title: '',
+                  titleStyle: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500),
+                  color: Colors.lightGreen,
+                  location: RibbonLocation.topEnd,
+                  child: Card(
+                    margin: const EdgeInsets.all(0),
+                    child: Column(
                       children: [
-                        Flexible(
-                          child: Column(
-                            children: [
-                              Text("Brutto",
-                                  style: mediumGreyTextStyle.copyWith(
-                                      fontSize: 16,
-                                      color: notifire!.getMainText)),
-                              const SizedBox(
-                                height: 5,
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        CircleAvatar(
+                            radius: 40,
+                            backgroundColor: Colors.transparent,
+                            backgroundImage: item.urlToImage == null
+                                ? AssetImage("assets/hilfsmittel.png")
+                                : NetworkImage(item.urlToImage!)
+                                    as ImageProvider),
+                        const SizedBox(
+                          height: 10,
+                        ),
+
+                        Text(item.displayName,
+                            style: mediumBlackTextStyle.copyWith(
+                                fontSize: 16, color: notifire!.getMainText)),
+                        // Text("@brookly.simmons",style: mediumGreyTextStyle),
+                        const SizedBox(
+                          height: 35,
+                        ),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Flexible(
+                              child: Column(
+                                children: [
+                                  Text("Brutto",
+                                      style: mediumGreyTextStyle.copyWith(
+                                          fontSize: 16,
+                                          color: notifire!.getMainText)),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text("${item.bruttoPreis!}€",
+                                      style: mediumBlackTextStyle,
+                                      overflow: TextOverflow.ellipsis),
+                                ],
                               ),
-                              Text("${item.bruttoPreis!}€",
-                                  style: mediumBlackTextStyle,
-                                  overflow: TextOverflow.ellipsis),
-                            ],
-                          ),
+                            ),
+                            const SizedBox(
+                                height: 20,
+                                child: VerticalDivider(
+                                    color: Colors.grey, width: 35)),
+                            Flexible(
+                              child: Column(
+                                children: [
+                                  Text("Netto",
+                                      style: mediumGreyTextStyle.copyWith(
+                                          fontSize: 16,
+                                          color: notifire!.getMainText)),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text("${item.nettoPreis!}€",
+                                      style: mediumBlackTextStyle,
+                                      overflow: TextOverflow.ellipsis),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                                height: 20,
+                                child: VerticalDivider(
+                                    color: Colors.grey, width: 35)),
+                            Flexible(
+                              child: Column(
+                                children: [
+                                  Text("Lex",
+                                      style: mediumGreyTextStyle.copyWith(
+                                          fontSize: 16,
+                                          color: notifire!.getMainText)),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(item.lex!,
+                                      style: mediumBlackTextStyle,
+                                      overflow: TextOverflow.ellipsis),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                         const SizedBox(
-                            height: 20,
-                            child:
-                                VerticalDivider(color: Colors.grey, width: 35)),
-                        Flexible(
-                          child: Column(
-                            children: [
-                              Text("Netto",
-                                  style: mediumGreyTextStyle.copyWith(
-                                      fontSize: 16,
-                                      color: notifire!.getMainText)),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Text("${item.nettoPreis!}€",
-                                  style: mediumBlackTextStyle,
-                                  overflow: TextOverflow.ellipsis),
-                            ],
+                          height: 12,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 20, right: 20, bottom: 20),
+                          child: Divider(
+                            color: Colors.grey.withOpacity(0.3),
                           ),
                         ),
-                        const SizedBox(
-                            height: 20,
-                            child:
-                                VerticalDivider(color: Colors.grey, width: 35)),
-                        Flexible(
-                          child: Column(
-                            children: [
-                              Text("Lex",
-                                  style: mediumGreyTextStyle.copyWith(
-                                      fontSize: 16,
-                                      color: notifire!.getMainText)),
-                              const SizedBox(
-                                height: 5,
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Flexible(
+                              child: Column(
+                                children: [
+                                  Text("MwSt",
+                                      style: mediumGreyTextStyle.copyWith(
+                                          fontSize: 16,
+                                          color: notifire!.getMainText)),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text("${item.mwst!}€",
+                                      style: mediumBlackTextStyle,
+                                      overflow: TextOverflow.ellipsis),
+                                ],
                               ),
-                              Text(item.lex!,
-                                  style: mediumBlackTextStyle,
-                                  overflow: TextOverflow.ellipsis),
-                            ],
-                          ),
+                            ),
+                            const SizedBox(
+                                height: 20,
+                                child: VerticalDivider(
+                                    color: Colors.grey, width: 35)),
+                            Flexible(
+                              child: Column(
+                                children: [
+                                  Text("Faktor",
+                                      style: mediumGreyTextStyle.copyWith(
+                                          fontSize: 16,
+                                          color: notifire!.getMainText)),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text("${item.faktor!}",
+                                      style: mediumBlackTextStyle,
+                                      overflow: TextOverflow.ellipsis),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(
+                                height: 20,
+                                child: VerticalDivider(
+                                    color: Colors.grey, width: 35)),
+                            Flexible(
+                              child: Column(
+                                children: [
+                                  Text("Zuzahlen",
+                                      style: mediumGreyTextStyle.copyWith(
+                                          fontSize: 16,
+                                          color: notifire!.getMainText)),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text("${item.zuzahlung!}€",
+                                      style: mediumBlackTextStyle,
+                                      overflow: TextOverflow.ellipsis),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 12,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          left: 20, right: 20, bottom: 20),
-                      child: Divider(
-                        color: Colors.grey.withOpacity(0.3),
-                      ),
-                    ),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Flexible(
-                          child: Column(
-                            children: [
-                              Text("MwSt",
-                                  style: mediumGreyTextStyle.copyWith(
-                                      fontSize: 16,
-                                      color: notifire!.getMainText)),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Text("${item.mwst!}€",
-                                  style: mediumBlackTextStyle,
-                                  overflow: TextOverflow.ellipsis),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                            height: 20,
-                            child:
-                                VerticalDivider(color: Colors.grey, width: 35)),
-                        Flexible(
-                          child: Column(
-                            children: [
-                              Text("Faktor",
-                                  style: mediumGreyTextStyle.copyWith(
-                                      fontSize: 16,
-                                      color: notifire!.getMainText)),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Text("${item.faktor!}",
-                                  style: mediumBlackTextStyle,
-                                  overflow: TextOverflow.ellipsis),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                            height: 20,
-                            child:
-                                VerticalDivider(color: Colors.grey, width: 35)),
-                        Flexible(
-                          child: Column(
-                            children: [
-                              Text("Zuzahlen",
-                                  style: mediumGreyTextStyle.copyWith(
-                                      fontSize: 16,
-                                      color: notifire!.getMainText)),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Text("${item.zuzahlung!}€",
-                                  style: mediumBlackTextStyle,
-                                  overflow: TextOverflow.ellipsis),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ))),
-        ) );
+                  ))),
+        ));
   }
 
   Widget _buildTableResultView({required double width}) {
