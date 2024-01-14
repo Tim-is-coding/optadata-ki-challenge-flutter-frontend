@@ -1352,10 +1352,6 @@ class _EnterAbrechnungsRequestScreenState
                       ],
                     ),
                   ),
-                  SizedBox(
-                    key: _scrollToKey,
-                    height: 20,
-                  ),
                 ],
               ),
             ),
