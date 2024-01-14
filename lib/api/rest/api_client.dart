@@ -21,8 +21,9 @@ class ApiClient {
 
   ApiClient(
       {
-      //this.basePath = "https://neonius-rest-backend.azurewebsites.net/api/v1/"
-      this.basePath = "http://localhost:8080/api/v1/"}) {}
+      this.basePath = "https://insuranceconstract-rest-backend.net/api/v1/"
+      //this.basePath = "http://localhost:8080/api/v1/"
+      }) {}
 
   void addDefaultHeader(String key, String value) {
     _defaultHeaderMap[key] = value;

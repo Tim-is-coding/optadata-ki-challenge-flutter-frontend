@@ -102,62 +102,63 @@ class _EnterAbrechnungsRequestScreenState
                             // const SizedBox(
                             //   height: 30,
                             // ),
-                            if(!_processingFinished)
-                            ElevatedButton(
-                                onPressed: _processingRequest
-                                    ? null
-                                    : () {
-                                        setState(() {
-                                          _hitSubmit = true;
-                                        });
-
-                                        if (_formKey.currentState!.validate()) {
+                            if (!_processingFinished)
+                              ElevatedButton(
+                                  onPressed: _processingRequest
+                                      ? null
+                                      : () {
                                           setState(() {
-                                            _processingRequest = true;
+                                            _hitSubmit = true;
                                           });
 
-                                          var response = AbrechnungLiteApi()
-                                              .requestAbrechnungLite(
-                                                  lightAbrechnungsRequest:
-                                                      _lightAbrechnungsrequest);
-                                          response.then((value) {
+                                          if (_formKey.currentState!
+                                              .validate()) {
                                             setState(() {
-                                              _processingRequest = false;
-                                              _processingFinished = true;
-                                              _lightAbrechnungsResult = value;
+                                              _processingRequest = true;
                                             });
-                                            Future.delayed(
-                                                const Duration(
-                                                    milliseconds: 50), () {
-                                              _scrollToResults();
-                                            });
-                                          });
-                                          response.catchError((error) {
-                                            setState(() {
-                                              _processingRequest = false;
-                                            });
-                                          });
 
-                                          // call API
-                                        }
-                                      },
-                                style: ElevatedButton.styleFrom(
-                                    fixedSize: const Size.fromHeight(40),
-                                    elevation: 0,
-                                    side: BorderSide(
-                                        color: false
-                                            ? Colors.grey.shade300
-                                            : Colors.transparent),
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20, vertical: 18),
-                                    backgroundColor: Colors.lightGreen),
-                                child: const Text(
-                                  "Abrechnungshilfe erstellen",
-                                  style: TextStyle(
-                                      //fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                      color: Colors.black),
-                                )),
+                                            var response = AbrechnungLiteApi()
+                                                .requestAbrechnungLite(
+                                                    lightAbrechnungsRequest:
+                                                        _lightAbrechnungsrequest);
+                                            response.then((value) {
+                                              setState(() {
+                                                _processingRequest = false;
+                                                _processingFinished = true;
+                                                _lightAbrechnungsResult = value;
+                                              });
+                                              Future.delayed(
+                                                  const Duration(
+                                                      milliseconds: 50), () {
+                                                _scrollToResults();
+                                              });
+                                            });
+                                            response.catchError((error) {
+                                              setState(() {
+                                                _processingRequest = false;
+                                              });
+                                            });
+
+                                            // call API
+                                          }
+                                        },
+                                  style: ElevatedButton.styleFrom(
+                                      fixedSize: const Size.fromHeight(40),
+                                      elevation: 0,
+                                      side: BorderSide(
+                                          color: false
+                                              ? Colors.grey.shade300
+                                              : Colors.transparent),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20, vertical: 18),
+                                      backgroundColor: Colors.lightGreen),
+                                  child: const Text(
+                                    "Abrechnungshilfe erstellen",
+                                    style: TextStyle(
+                                        //fontSize: 16,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.black),
+                                  )),
                             const SizedBox(
                               height: 30,
                             ),
@@ -800,81 +801,78 @@ class _EnterAbrechnungsRequestScreenState
     return SizedBox(
         height: 600,
         width: 450,
-        child:Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Theme(
-          data: ThemeData(
-            cardTheme: const CardTheme(elevation: 0, color: Colors.transparent),
-          ),
-          child: Card(
-            elevation: 0,
-            shadowColor: Colors.transparent,
-            //color: Colors.transparent,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                InkWell(
-                    hoverColor: Colors.transparent,
-                    onTap: () {
-                      setState(() {
-                        var lightAbrechnungsRequestProductDelivery =
-                            LightAbrechnungsRequestProductDelivery();
-                        var lightAbrechnungsRequestProduct =
-                            LightAbrechnungsRequesProduct();
-                        lightAbrechnungsRequestProduct.amount = 1;
-                        lightAbrechnungsRequestProductDelivery
-                            .deliveredProducts = [
-                          lightAbrechnungsRequestProduct
-                        ];
-                        _lightAbrechnungsrequest.productDeliveries!
-                            .add(lightAbrechnungsRequestProductDelivery);
-                      });
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          "assets/plus.svg",
-                          height: 50,
-                          width: 50,
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        const Text(
-                          "Lieferung hinzufügen",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16),
-                        ),
-                      ],
-                    )),
-              ],
-            ),
-          )),
-    ));
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Theme(
+              data: ThemeData(
+                cardTheme:
+                    const CardTheme(elevation: 0, color: Colors.transparent),
+              ),
+              child: Card(
+                elevation: 0,
+                shadowColor: Colors.transparent,
+                //color: Colors.transparent,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    InkWell(
+                        hoverColor: Colors.transparent,
+                        onTap: () {
+                          setState(() {
+                            var lightAbrechnungsRequestProductDelivery =
+                                LightAbrechnungsRequestProductDelivery();
+                            var lightAbrechnungsRequestProduct =
+                                LightAbrechnungsRequesProduct();
+                            lightAbrechnungsRequestProduct.amount = 1;
+                            lightAbrechnungsRequestProductDelivery
+                                .deliveredProducts = [
+                              lightAbrechnungsRequestProduct
+                            ];
+                            _lightAbrechnungsrequest.productDeliveries!
+                                .add(lightAbrechnungsRequestProductDelivery);
+                          });
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                              "assets/plus.svg",
+                              height: 50,
+                              width: 50,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            const Text(
+                              "Lieferung hinzufügen",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16),
+                            ),
+                          ],
+                        )),
+                  ],
+                ),
+              )),
+        ));
   }
 
   Widget _buildResultArea({required int count}) {
     return SizedBox(
         width: _width - 200,
-        child: GridView.builder(
-          key: _scrollToKey,
-          // physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              childAspectRatio: 0.5, crossAxisCount: 3, mainAxisExtent: 400),
-          itemCount: _lightAbrechnungsResult!.items!.length,
-          shrinkWrap: true,
-          itemBuilder: (context, index) {
-            if (_lightAbrechnungsResult!.items![index].success!) {
-              return _successCard(_lightAbrechnungsResult!.items![index]);
-            } else {
-              return _failureCard(_lightAbrechnungsResult!.items![index]);
-            }
-          },
-        ));
+        key: _scrollToKey,
+        child: Wrap(
+            spacing: 10, // horizontal spacing between items
+            runSpacing: 10, // vertical spacing between items
+            children: List.generate(count, (index) {
+              if (_lightAbrechnungsResult!.items![index].success!) {
+                return _successCard(_lightAbrechnungsResult!.items![index]);
+              } else {
+                return _failureCard(_lightAbrechnungsResult!.items![index]);
+              }
+            })));
   }
 
   Widget _failureCard(LightAbrechnungsResultIItem item) {
