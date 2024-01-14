@@ -80,6 +80,65 @@ class _EnterAbrechnungsRequestScreenState
     notifire = Provider.of<ColorNotifire>(context, listen: true);
     return Scaffold(
       backgroundColor: notifire.getbgcolor,
+      floatingActionButtonLocation: FloatingActionButtonLocation.miniCenterFloat,
+      floatingActionButton: !_processingFinished ?
+    ElevatedButton(
+    onPressed: _processingRequest
+    ? null
+        : () {
+      setState(() {
+        _hitSubmit = true;
+      });
+
+      if (_formKey.currentState!
+          .validate()) {
+        setState(() {
+          _processingRequest = true;
+        });
+
+        var response = AbrechnungLiteApi()
+            .requestAbrechnungLite(
+            lightAbrechnungsRequest:
+            _lightAbrechnungsrequest);
+        response.then((value) {
+          setState(() {
+            _processingRequest = false;
+            _processingFinished = true;
+            _lightAbrechnungsResult = value;
+          });
+          Future.delayed(
+              const Duration(
+                  milliseconds: 50), () {
+            _scrollToResults();
+          });
+        });
+        response.catchError((error) {
+          setState(() {
+            _processingRequest = false;
+          });
+        });
+
+        // call API
+      }
+    },
+    style: ElevatedButton.styleFrom(
+    fixedSize: const Size.fromHeight(40),
+    elevation: 0,
+    side: BorderSide(
+    color: false
+    ? Colors.grey.shade300
+        : Colors.transparent),
+    padding: const EdgeInsets.symmetric(
+    horizontal: 20, vertical: 18),
+    backgroundColor: const Color(0xFF1A438F)),
+    child: const Text(
+    "Abrechnungshilfe erstellen",
+    style: TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    //fontWeight: FontWeight.w500,
+    color: Colors.white),
+    )): null,
       body: SingleChildScrollView(
         controller: _scrollController,
         child: LayoutBuilder(
@@ -119,64 +178,7 @@ class _EnterAbrechnungsRequestScreenState
                             // ),
                             // const SizedBox(
                             //   height: 30,
-                            // ),
-                            if (!_processingFinished)
-                              ElevatedButton(
-                                  onPressed: _processingRequest
-                                      ? null
-                                      : () {
-                                          setState(() {
-                                            _hitSubmit = true;
-                                          });
-
-                                          if (_formKey.currentState!
-                                              .validate()) {
-                                            setState(() {
-                                              _processingRequest = true;
-                                            });
-
-                                            var response = AbrechnungLiteApi()
-                                                .requestAbrechnungLite(
-                                                    lightAbrechnungsRequest:
-                                                        _lightAbrechnungsrequest);
-                                            response.then((value) {
-                                              setState(() {
-                                                _processingRequest = false;
-                                                _processingFinished = true;
-                                                _lightAbrechnungsResult = value;
-                                              });
-                                              Future.delayed(
-                                                  const Duration(
-                                                      milliseconds: 50), () {
-                                                _scrollToResults();
-                                              });
-                                            });
-                                            response.catchError((error) {
-                                              setState(() {
-                                                _processingRequest = false;
-                                              });
-                                            });
-
-                                            // call API
-                                          }
-                                        },
-                                  style: ElevatedButton.styleFrom(
-                                      fixedSize: const Size.fromHeight(40),
-                                      elevation: 0,
-                                      side: BorderSide(
-                                          color: false
-                                              ? Colors.grey.shade300
-                                              : Colors.transparent),
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 20, vertical: 18),
-                                      backgroundColor: Colors.lightGreen),
-                                  child: const Text(
-                                    "Abrechnungshilfe erstellen",
-                                    style: TextStyle(
-                                        //fontSize: 16,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.black),
-                                  )),
+                            // ),y
                             const SizedBox(
                               height: 30,
                             ),
