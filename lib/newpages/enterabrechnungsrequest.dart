@@ -458,7 +458,7 @@ class _EnterAbrechnungsRequestScreenState
         _buildResultArea(count: 4),
         //_buildtable2(width: _width - 200),
         const SizedBox(
-          height: 40,
+          height: 60,
         ),
       ],
     );
