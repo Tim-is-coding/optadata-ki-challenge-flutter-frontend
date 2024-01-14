@@ -1,52 +1,14 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
-name: Build and deploy Node.js app to Azure Web App - Abrechnungs-App-Frontend
-permissions:
-  id-token: write
-  contents: read
-
+name: Gh-Pages
 
 on:
   push:
-    branches:
-      - main
-  workflow_dispatch:
+    branches: [ master ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Node.js version
-        uses: actions/setup-node@v3
-
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
-
-      - name: Install dependencies
-        run: flutter pub get
-
-      - name: Build Web
-        run: flutter build web --release
-
-
-#      - name: 'Deploy to Azure Web App'
-#        id: deploy-to-webapp
-#        uses: azure/webapps-deploy@v2
-#        with:
-#          app-name: 'Abrechnungs-App-Frontend'
-#          slot-name: 'Production'
-#          package: build/web
-
-      - name: Deploy to Azure
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: 'neonius-infrastrucutres' # Set your Azure WebApp name
-          slot-name: 'production'  # Optional: if using deployment slot
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: ./build/web
+      - uses: actions/checkout@v2 # Only works with v2
+      - uses: subosito/flutter-action@v1
+      - uses: bluefireteam/flutter-gh-pages@v7

@@ -94,14 +94,15 @@ class _EnterAbrechnungsRequestScreenState
                             const SizedBox(
                               height: 30,
                             ),
-                            SvgPicture.asset(
-                              "assets/arrow_down.svg",
-                              width: 50,
-                              height: 50,
-                            ),
-                            const SizedBox(
-                              height: 30,
-                            ),
+                            // SvgPicture.asset(
+                            //   "assets/arrow_down.svg",
+                            //   width: 50,
+                            //   height: 50,
+                            // ),
+                            // const SizedBox(
+                            //   height: 30,
+                            // ),
+                            if(!_processingFinished)
                             ElevatedButton(
                                 onPressed: _processingRequest
                                     ? null
@@ -454,23 +455,18 @@ class _EnterAbrechnungsRequestScreenState
             children: [
               Padding(
                 padding: const EdgeInsets.fromLTRB(15, 12, 15, 0),
-                child: GridView.builder(
-                  shrinkWrap: true,
-                  physics: const BouncingScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      childAspectRatio: 0.9,
-                      crossAxisCount: size,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10),
-                  itemCount:
+                child: Wrap(
+                  spacing: 10, // horizontal spacing between items
+                  runSpacing: 10, // vertical spacing between items
+                  children: List.generate(
                       _lightAbrechnungsrequest.productDeliveries!.length + 1,
-                  itemBuilder: (context, index) {
+                      (index) {
                     if (index ==
                         _lightAbrechnungsrequest.productDeliveries!.length) {
                       return _buildAddCard();
                     }
                     return _buildLieferungsCard(index);
-                  },
+                  }),
                 ),
               ),
             ],
@@ -480,162 +476,168 @@ class _EnterAbrechnungsRequestScreenState
     );
   }
 
-  Column _buildLieferungsCard(int index) {
-    return Column(
-      children: [
-        Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Theme(
-              data: ThemeData(
-                cardTheme: const CardTheme(
-                    elevation: 1,
-                    color: Colors.white, // Custom card background color
-                    surfaceTintColor: Colors.white),
-              ),
-              child: Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(padding),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _buildLieferungsCard(int index) {
+    return SizedBox(
+        height: 600,
+        width: 450,
+        child: Column(
+          children: [
+            Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Theme(
+                  data: ThemeData(
+                    cardTheme: const CardTheme(
+                        elevation: 1,
+                        color: Colors.white, // Custom card background color
+                        surfaceTintColor: Colors.white),
+                  ),
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(padding),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Container(
-                            height: 20,
-                            width: 7,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                                color: Colors.grey.withOpacity(0.3)),
-                          ),
-                          const SizedBox(width: 5),
-                          Text(
-                            "Lieferung ${index + 1}",
-                            style: TextStyle(
-                                color: notifire.getbacktextcolors,
-                                fontWeight: FontWeight.w800,
-                                overflow: TextOverflow.ellipsis,
-                                fontSize: 18),
-                          ),
-                          const Spacer(),
-                          InkWell(
-                              onTap: () {
-                                setState(() {
-                                  _lightAbrechnungsrequest.productDeliveries!
-                                      .removeAt(index);
-                                });
-                              },
-                              child: SvgPicture.asset(
-                                "assets/trash.svg",
-                                height: 20,
-                                width: 20,
-                                color: appGreyColor,
-                              )),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: [
-                          Column(
+                          Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const SizedBox(height: 30),
+                              Container(
+                                height: 20,
+                                width: 7,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(25),
+                                    color: Colors.grey.withOpacity(0.3)),
+                              ),
+                              const SizedBox(width: 5),
                               Text(
-                                "Lieferdatum",
+                                "Lieferung ${index + 1}",
                                 style: TextStyle(
                                     color: notifire.getbacktextcolors,
                                     fontWeight: FontWeight.w800,
-                                    overflow: TextOverflow.ellipsis),
+                                    overflow: TextOverflow.ellipsis,
+                                    fontSize: 18),
                               ),
-                              const SizedBox(height: 8),
-                              Text(
-                                "Das Lieferdatum bestimmt\nden Abrechnungszeitraum.",
-                                style: TextStyle(
-                                    color: notifire.getsubcolors,
-                                    fontSize: 12,
-                                    overflow: TextOverflow.ellipsis),
-                              ),
-                            ],
-                          ),
-                          Expanded(
-                            flex: 2,
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 33, left: 47, right: 20),
-                              child: TextFormField(
-                                  onChanged: (value) {
+                              const Spacer(),
+                              InkWell(
+                                  onTap: () {
                                     setState(() {
                                       _lightAbrechnungsrequest
-                                          .productDeliveries![index]
-                                          .deliveryDate = value;
+                                          .productDeliveries!
+                                          .removeAt(index);
                                     });
                                   },
-                                  autovalidateMode: _hitSubmit
-                                      ? AutovalidateMode.always
-                                      : AutovalidateMode.disabled,
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Bitte geben Sie ein Lieferdatum ein.';
-                                    }
-
-                                    final RegExp dateRegex =
-                                        RegExp(r'^\d{2}\.\d{2}\.\d{4}$');
-                                    if (!dateRegex.hasMatch(value)) {
-                                      return 'Format TT.MM.JJJJ erforderlich';
-                                    }
-
-                                    try {
-                                      DateFormat("dd.MM.yyyy")
-                                          .parseStrict(value);
-                                      return null;
-                                    } on FormatException {
-                                      return 'Bitte geben Sie ein gültiges Datum ein';
-                                    }
-                                  },
-                                  style: mediumBlackTextStyle.copyWith(
-                                      color: notifire.getMainText),
-                                  decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                      color: Colors.grey.withOpacity(0.3),
-                                    )),
-                                    enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color:
-                                                Colors.grey.withOpacity(0.3))),
-                                    labelText: 'Lieferdatum eingeben',
-                                    labelStyle: mediumGreyTextStyle,
+                                  child: SvgPicture.asset(
+                                    "assets/trash.svg",
+                                    height: 20,
+                                    width: 20,
+                                    color: appGreyColor,
                                   )),
-                            ),
-                          )
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SizedBox(height: 30),
+                                  Text(
+                                    "Lieferdatum",
+                                    style: TextStyle(
+                                        color: notifire.getbacktextcolors,
+                                        fontWeight: FontWeight.w800,
+                                        overflow: TextOverflow.ellipsis),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    "Das Lieferdatum bestimmt\nden Abrechnungszeitraum.",
+                                    style: TextStyle(
+                                        color: notifire.getsubcolors,
+                                        fontSize: 12,
+                                        overflow: TextOverflow.ellipsis),
+                                  ),
+                                ],
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 33, left: 47, right: 20),
+                                  child: TextFormField(
+                                      onChanged: (value) {
+                                        setState(() {
+                                          _lightAbrechnungsrequest
+                                              .productDeliveries![index]
+                                              .deliveryDate = value;
+                                        });
+                                      },
+                                      autovalidateMode: _hitSubmit
+                                          ? AutovalidateMode.always
+                                          : AutovalidateMode.disabled,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Bitte geben Sie ein Lieferdatum ein.';
+                                        }
+
+                                        final RegExp dateRegex =
+                                            RegExp(r'^\d{2}\.\d{2}\.\d{4}$');
+                                        if (!dateRegex.hasMatch(value)) {
+                                          return 'Format TT.MM.JJJJ erforderlich';
+                                        }
+
+                                        try {
+                                          DateFormat("dd.MM.yyyy")
+                                              .parseStrict(value);
+                                          return null;
+                                        } on FormatException {
+                                          return 'Bitte geben Sie ein gültiges Datum ein';
+                                        }
+                                      },
+                                      style: mediumBlackTextStyle.copyWith(
+                                          color: notifire.getMainText),
+                                      decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                          color: Colors.grey.withOpacity(0.3),
+                                        )),
+                                        enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.grey
+                                                    .withOpacity(0.3))),
+                                        labelText: 'Lieferdatum eingeben',
+                                        labelStyle: mediumGreyTextStyle,
+                                      )),
+                                ),
+                              )
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 20, right: 20),
+                              child:
+                                  Divider(color: Colors.grey.withOpacity(0.3))),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          _getProductRows(_lightAbrechnungsrequest
+                              .productDeliveries![index]),
+                          const SizedBox(
+                            height: 20,
+                          ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Padding(
-                          padding: const EdgeInsets.only(left: 20, right: 20),
-                          child: Divider(color: Colors.grey.withOpacity(0.3))),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      _getProductRows(
-                          _lightAbrechnungsrequest.productDeliveries![index]),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-            )),
-      ],
-    );
+                )),
+          ],
+        ));
   }
 
   Widget _getProductRows(
@@ -795,7 +797,10 @@ class _EnterAbrechnungsRequestScreenState
   }
 
   Widget _buildAddCard() {
-    return Padding(
+    return SizedBox(
+        height: 600,
+        width: 450,
+        child:Padding(
       padding: const EdgeInsets.all(10.0),
       child: Theme(
           data: ThemeData(
@@ -849,7 +854,7 @@ class _EnterAbrechnungsRequestScreenState
               ],
             ),
           )),
-    );
+    ));
   }
 
   Widget _buildResultArea({required int count}) {
@@ -884,8 +889,8 @@ class _EnterAbrechnungsRequestScreenState
           ),
           child: Ribbon(
               nearLength: 45,
-              farLength: 70,
-              title: 'Fehler',
+              farLength: 75,
+              title: '',
               titleStyle: const TextStyle(
                   color: Colors.black,
                   fontSize: 16,
@@ -971,8 +976,8 @@ class _EnterAbrechnungsRequestScreenState
           ),
           child: Ribbon(
               nearLength: 45,
-              farLength: 70,
-              title: 'OK',
+              farLength: 75,
+              title: '',
               titleStyle: const TextStyle(
                   color: Colors.black,
                   fontSize: 16,
