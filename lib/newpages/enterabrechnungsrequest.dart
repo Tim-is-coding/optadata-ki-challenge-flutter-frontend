@@ -55,6 +55,31 @@ class _EnterAbrechnungsRequestScreenState
     _lightAbrechnungsrequest.productDeliveries = [
       lightAbrechnungsRequestProductDelivery
     ];
+
+    _lightAbrechnungsrequest.krankenkassenIk = "100189483";
+    _lightAbrechnungsrequest.patientBirthday = "01.01.1980";
+    _lightAbrechnungsrequest
+        .productDeliveries![0].deliveryDate = "01.01.2021";
+
+    _lightAbrechnungsrequest
+        .productDeliveries![0].deliveredProducts![0] =
+        LightAbrechnungsRequesProduct();
+    _lightAbrechnungsrequest
+        .productDeliveries![0]
+        .deliveredProducts![0]
+        .hilfmittelnummer = "15.25.30.5033";
+    _lightAbrechnungsrequest
+        .productDeliveries![0].deliveredProducts![0].amount = 1;
+
+    _lightAbrechnungsrequest
+        .productDeliveries![0].deliveredProducts!
+        .add(LightAbrechnungsRequesProduct());
+    _lightAbrechnungsrequest
+        .productDeliveries![0]
+        .deliveredProducts![1]
+        .hilfmittelnummer = "15.25.31.2042";
+    _lightAbrechnungsrequest
+        .productDeliveries![0].deliveredProducts![1].amount = 1;
   }
 
   @override
@@ -217,14 +242,15 @@ class _EnterAbrechnungsRequestScreenState
                     color: Colors.grey.withOpacity(0.3)),
               ),
               const SizedBox(width: 5),
-              Text(
-                "Patientendaten",
-                style: TextStyle(
-                    color: notifire.getbacktextcolors,
-                    fontWeight: FontWeight.w800,
-                    overflow: TextOverflow.ellipsis,
-                    fontSize: 18),
-              ),
+             Text(
+                  "Patientendaten",
+                  style: TextStyle(
+                      color: notifire.getbacktextcolors,
+                      fontWeight: FontWeight.w800,
+                      overflow: TextOverflow.ellipsis,
+                      fontSize: 18),
+                ),
+
             ]),
             const SizedBox(
               height: 10,
@@ -272,6 +298,7 @@ class _EnterAbrechnungsRequestScreenState
                               ? null
                               : 'Bitte geben Sie eine gültige Krankenkassen-IK ein.';
                         },
+                        initialValue:  _lightAbrechnungsrequest.krankenkassenIk,
                         onChanged: (value) {
                           setState(() {
                             _lightAbrechnungsrequest.krankenkassenIk = value;
@@ -329,6 +356,7 @@ class _EnterAbrechnungsRequestScreenState
                             _lightAbrechnungsrequest.patientBirthday = value;
                           });
                         },
+                        initialValue: _lightAbrechnungsrequest.patientBirthday,
                         autovalidateMode: _hitSubmit
                             ? AutovalidateMode.always
                             : AutovalidateMode.disabled,
@@ -597,6 +625,10 @@ class _EnterAbrechnungsRequestScreenState
                                       },
                                       style: mediumBlackTextStyle.copyWith(
                                           color: notifire.getMainText),
+                                      initialValue:
+                                          _lightAbrechnungsrequest
+                                              .productDeliveries![index]
+                                              .deliveryDate,
                                       decoration: InputDecoration(
                                         border: OutlineInputBorder(
                                             borderSide: BorderSide(
@@ -724,6 +756,8 @@ class _EnterAbrechnungsRequestScreenState
 
                     return null;
                   },
+                  initialValue: delivery.deliveredProducts![index]
+                      .hilfmittelnummer,
                   onChanged: (value) {
                     setState(() {
                       delivery.deliveredProducts![index].hilfmittelnummer =
@@ -866,7 +900,8 @@ class _EnterAbrechnungsRequestScreenState
         child: Wrap(
             spacing: 10, // horizontal spacing between items
             runSpacing: 10, // vertical spacing between items
-            children: List.generate(count, (index) {
+            children:
+                List.generate(_lightAbrechnungsResult!.items!.length, (index) {
               if (_lightAbrechnungsResult!.items![index].success!) {
                 return _successCard(_lightAbrechnungsResult!.items![index]);
               } else {
@@ -876,94 +911,103 @@ class _EnterAbrechnungsRequestScreenState
   }
 
   Widget _failureCard(LightAbrechnungsResultIItem item) {
-    return Padding(
-      padding: const EdgeInsets.all(padding),
-      child: Theme(
-          data: ThemeData(
-            cardTheme: const CardTheme(
-                elevation: 1,
-                color: Colors.white, // Custom card background color
-                surfaceTintColor: Colors.white),
-          ),
-          child: Ribbon(
-              nearLength: 45,
-              farLength: 75,
-              title: '',
-              titleStyle: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500),
-              color: Colors.deepOrange,
-              location: RibbonLocation.topEnd,
-              child: Card(
-                margin: const EdgeInsets.all(0),
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    CircleAvatar(
-                        radius: 40,
-                        backgroundColor: Colors.transparent,
-                        backgroundImage: item.urlToImage == null
-                            ? AssetImage("assets/hilfsmittel.png")
-                            : NetworkImage(item.urlToImage!) as ImageProvider),
-                    const SizedBox(
-                      height: 10,
-                    ),
-
-                    Text(item.displayName,
-                        style: mediumBlackTextStyle.copyWith(
-                            fontSize: 16, color: notifire!.getMainText)),
-                    // Text("@brookly.simmons",style: mediumGreyTextStyle),
-                    const SizedBox(
-                      height: 55,
-                    ),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+    return Container(
+        width: 310,
+        height: 400,
+        child: Padding(
+          padding: const EdgeInsets.all(padding),
+          child: Theme(
+              data: ThemeData(
+                cardTheme: const CardTheme(
+                    elevation: 1,
+                    color: Colors.white, // Custom card background color
+                    surfaceTintColor: Colors.white),
+              ),
+              child: Ribbon(
+                  nearLength: 45,
+                  farLength: 75,
+                  title: '',
+                  titleStyle: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500),
+                  color: Colors.deepOrange,
+                  location: RibbonLocation.topEnd,
+                  child: Card(
+                    margin: const EdgeInsets.all(0),
+                    child: Column(
                       children: [
-                        Image.asset(
-                          "assets/error.png",
-                          height: 22,
-                          width: 22,
-                        ),
                         const SizedBox(
-                          width: 15,
+                          height: 40,
                         ),
-                        Text("Vertrag fehlt",
+                        CircleAvatar(
+                            radius: 40,
+                            backgroundColor: Colors.transparent,
+                            backgroundImage: item.urlToImage == null
+                                ? AssetImage("assets/hilfsmittel.png")
+                                : NetworkImage(item.urlToImage!)
+                                    as ImageProvider),
+                        const SizedBox(
+                          height: 10,
+                        ),
+
+                        Text(item.displayName,
                             style: mediumBlackTextStyle.copyWith(
                                 fontSize: 16, color: notifire!.getMainText)),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                        // Text("@brookly.simmons",style: mediumGreyTextStyle),
+                        const SizedBox(
+                          height: 55,
+                        ),
 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        // grey text explaining the error
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 10, left: 10),
-                            child: Text(
-                                "Der benötigte Vertrag ist noch nicht hinterlegt. SaniUp wird automatisch informiert.",
-                                textAlign: TextAlign.center,
-                                style:
-                                    mediumGreyTextStyle.copyWith(fontSize: 16)),
-                          ),
-                        )
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              "assets/error.png",
+                              height: 22,
+                              width: 22,
+                            ),
+                            const SizedBox(
+                              width: 15,
+                            ),
+                            Text("Vertrag fehlt",
+                                style: mediumBlackTextStyle.copyWith(
+                                    fontSize: 16,
+                                    color: notifire!.getMainText)),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            // grey text explaining the error
+                            Expanded(
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.only(right: 10, left: 10),
+                                child: Text(
+                                    "Der benötigte Vertrag ist noch nicht hinterlegt. SaniUp wird automatisch informiert.",
+                                    textAlign: TextAlign.center,
+                                    style: mediumGreyTextStyle.copyWith(
+                                        fontSize: 16)),
+                              ),
+                            )
+                          ],
+                        ),
                       ],
                     ),
-                  ],
-                ),
-              ))),
-    );
+                  ))),
+        ));
   }
 
   Widget _successCard(LightAbrechnungsResultIItem item) {
-    return Padding(
+    return Container(
+        width: 310,
+        height: 400,
+        child:Padding(
       padding: const EdgeInsets.all(padding),
       child: Theme(
           data: ThemeData(
@@ -1143,7 +1187,7 @@ class _EnterAbrechnungsRequestScreenState
                   ],
                 ),
               ))),
-    );
+        ) );
   }
 
   Widget _buildTableResultView({required double width}) {

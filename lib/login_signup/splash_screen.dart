@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     // TODO load data here
     Future.delayed(
-      const Duration(seconds: 3),
+      const Duration(seconds: 1),
       () {
         Get.offAllNamed(Routes.homepage);
       },
