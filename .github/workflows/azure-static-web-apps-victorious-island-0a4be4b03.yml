@@ -35,11 +35,8 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
           action: "upload"
           app_location: 'web'
-          #//app_artifact_location: 'build/web'
           api_location: "" # Api source code path - optional
-          output_location: "build" # Built app content directory - optional
-          #app_artifact_location: 'build/web
-          ###### End of Repository/Build Configurations ######
+          output_location: "build"
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
