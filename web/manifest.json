@@ -1,11 +1,11 @@
 {
-    "name": "buzz",
-    "short_name": "buzz",
+    "name": "SaniUp Abrechnungs Assistent",
+    "short_name": "Abrechnungs Assistent",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Abrechnungs Assistent für Sanitätshäuser - Made by SaniUp",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
