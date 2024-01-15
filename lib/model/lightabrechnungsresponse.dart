@@ -28,7 +28,7 @@ class LightAbrechnungsResult {
 
 class LightAbrechnungsResultIItem {
   bool? success;
-
+  bool? pauschaleAlreadyCoveredy;
   String? urlToImage;
   String? hilfmittelnummer;
   String? pzn;
@@ -44,6 +44,7 @@ class LightAbrechnungsResultIItem {
 
   LightAbrechnungsResultIItem.fromJson(Map<String, dynamic> json) {
     success = json['success'];
+    pauschaleAlreadyCoveredy = json['pauschaleAlreadyCoveredy'];
     urlToImage = json['urlToImage'];
     hilfmittelnummer = json['hilfmittelnummer'];
     pzn = json['pzn'];
@@ -59,6 +60,7 @@ class LightAbrechnungsResultIItem {
     return {
       'success': success,
       'urlToImage': urlToImage,
+      'pauschaleAlreadyCoveredy': pauschaleAlreadyCoveredy,
       'hilfmittelnummer': hilfmittelnummer,
       'pzn': pzn,
       'lex': lex,

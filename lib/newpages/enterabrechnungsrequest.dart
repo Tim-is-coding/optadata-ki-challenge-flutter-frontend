@@ -1042,7 +1042,9 @@ class _EnterAbrechnungsRequestScreenState
                       color: Colors.black,
                       fontSize: 16,
                       fontWeight: FontWeight.w500),
-                  color: Colors.deepOrange,
+                  color: item.pauschaleAlreadyCoveredy!
+                      ? const Color(0xFFf4c847)
+                      : Colors.deepOrange,
                   location: RibbonLocation.topEnd,
                   child: Card(
                     margin: const EdgeInsets.all(0),
@@ -1074,14 +1076,18 @@ class _EnterAbrechnungsRequestScreenState
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Image.asset(
-                              "assets/error.png",
+                              item.pauschaleAlreadyCoveredy!
+                                  ? "assets/warn.png" : "assets/error.png",
                               height: 22,
                               width: 22,
                             ),
                             const SizedBox(
                               width: 15,
                             ),
-                            Text("Vertrag fehlt",
+                            Text(
+                                item.pauschaleAlreadyCoveredy!
+                                    ? "Pauschale abgedeckt"
+                                    : "Vertrag fehlt",
                                 style: mediumBlackTextStyle.copyWith(
                                     fontSize: 16,
                                     color: notifire!.getMainText)),
@@ -1100,7 +1106,9 @@ class _EnterAbrechnungsRequestScreenState
                                 padding:
                                     const EdgeInsets.only(right: 10, left: 10),
                                 child: Text(
-                                    "Der benötigte Vertrag ist noch nicht hinterlegt. SaniUp wird automatisch informiert.",
+                                    item.pauschaleAlreadyCoveredy!
+                                        ? "Die Pauschale des Hilfsmittels wird bereits durch eine andere Position abgedeckt."
+                                        : "Der benötigte Vertrag ist noch nicht hinterlegt. SaniUp wird automatisch informiert.",
                                     textAlign: TextAlign.center,
                                     style: mediumGreyTextStyle.copyWith(
                                         fontSize: 16)),
