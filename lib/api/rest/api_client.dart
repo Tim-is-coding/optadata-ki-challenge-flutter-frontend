@@ -20,7 +20,8 @@ class ApiClient {
   final _RegMap = RegExp(r'^Map<String,(.*)>$');
 
   ApiClient(
-      {this.basePath = "https://insuranceconstract-rest-backend.azurewebsites.net/api/v1/"
+      {
+        this.basePath = "https://insuranceconstract-rest-backend.azurewebsites.net/api/v1/"
       //this.basePath = "http://localhost:8080/api/v1/"
       }) {}
 

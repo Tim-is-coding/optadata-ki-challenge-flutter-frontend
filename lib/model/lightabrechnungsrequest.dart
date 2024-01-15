@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:buzz/model/lightabrechnungsprecheckresponse.dart';
+
 class LightAbrechnungsrequest {
   String? id;
   String? krankenkassenIk;
@@ -31,6 +33,8 @@ class LightAbrechnungsRequestProductDelivery {
 class LightAbrechnungsRequesProduct {
   int? amount;
   String? hilfmittelnummer;
+
+  LightAbrechnungsPrecheckResult? precheckResult;
 
   Map<String, String?> toJson() {
     return {
