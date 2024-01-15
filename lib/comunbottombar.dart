@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,16 +14,18 @@ class ComunBottomBar extends StatefulWidget {
 class _ComunBottomBarState extends State<ComunBottomBar> {
   @override
   Widget build(BuildContext context) {
-    return  Consumer<ColorNotifire>(
+    return Consumer<ColorNotifire>(
       builder: (BuildContext context, value, Widget? child) {
-        return  Container(
+        return Container(
           height: 50,
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-              boxShadow: boxShadow,
-              color: notifire!.getprimerycolor
-          ),
-          child:  Center(child: Text("Copyright 2023 © Buzz.",style: TextStyle(color: notifire!.getMainText),)),
+              boxShadow: boxShadow, color: notifire!.getprimerycolor),
+          child: Center(
+              child: Text(
+            "Copyright 2024 © SaniUp.",
+            style: TextStyle(color: notifire!.getMainText),
+          )),
         );
       },
     );

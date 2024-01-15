@@ -23,7 +23,7 @@ class ApiClient {
       {
         this.basePath = "https://insuranceconstract-rest-backend.azurewebsites.net/api/v1/"
       //this.basePath = "http://localhost:8080/api/v1/"
-      }) {}
+      });
 
   void addDefaultHeader(String key, String value) {
     _defaultHeaderMap[key] = value;
@@ -125,7 +125,7 @@ class ApiClient {
     if (body is MultipartRequest) {
       throw UnimplementedError();
     } else {
-      var response;
+      Response response;
 
       var msgBody = serialize(body?.toJson());
       //msgBody = msgBody.replaceAll("\\\\", "\\");

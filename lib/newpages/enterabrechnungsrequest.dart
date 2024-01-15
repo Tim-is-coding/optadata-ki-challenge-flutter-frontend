@@ -122,7 +122,8 @@ class _EnterAbrechnungsRequestScreenState
                     },
               style: ElevatedButton.styleFrom(
                   fixedSize: const Size.fromHeight(40),
-                  elevation: 0,
+                  elevation: 10,
+                  //shadowColor: Colors.grey.shade300,
                   side: BorderSide(
                       color: false ? Colors.grey.shade300 : Colors.transparent),
                   padding:
@@ -224,7 +225,7 @@ class _EnterAbrechnungsRequestScreenState
       var result = await AbrechnungLiteApi().requestAbrechnungLitePrecheck(
           lightAbrechnungsRequest: cloneOfRequest);
       print(result!.success!);
-      return result!.success!;
+      return result.success!;
     } catch (e) {
       print(e);
       return false;
@@ -893,7 +894,7 @@ class _EnterAbrechnungsRequestScreenState
                       ),
                       Text("Vertrag fehlt",
                           style: mediumBlackTextStyle.copyWith(
-                              fontSize: 14, color: notifire!.getMainText)),
+                              fontSize: 14, color: notifire.getMainText)),
                     ],
                   ),
                 ]));
@@ -1057,7 +1058,7 @@ class _EnterAbrechnungsRequestScreenState
                             radius: 40,
                             backgroundColor: Colors.transparent,
                             backgroundImage: item.urlToImage == null
-                                ? AssetImage("assets/hilfsmittel.png")
+                                ? const AssetImage("assets/hilfsmittel.png")
                                 : NetworkImage(item.urlToImage!)
                                     as ImageProvider),
                         const SizedBox(
@@ -1066,7 +1067,7 @@ class _EnterAbrechnungsRequestScreenState
 
                         Text(item.displayName,
                             style: mediumBlackTextStyle.copyWith(
-                                fontSize: 16, color: notifire!.getMainText)),
+                                fontSize: 16, color: notifire.getMainText)),
                         // Text("@brookly.simmons",style: mediumGreyTextStyle),
                         const SizedBox(
                           height: 55,
@@ -1090,7 +1091,7 @@ class _EnterAbrechnungsRequestScreenState
                                     : "Vertrag fehlt",
                                 style: mediumBlackTextStyle.copyWith(
                                     fontSize: 16,
-                                    color: notifire!.getMainText)),
+                                    color: notifire.getMainText)),
                           ],
                         ),
                         const SizedBox(
@@ -1123,7 +1124,7 @@ class _EnterAbrechnungsRequestScreenState
   }
 
   Widget _successCard(LightAbrechnungsResultIItem item) {
-    return Container(
+    return SizedBox(
         width: 310,
         height: 400,
         child: Padding(
@@ -1156,7 +1157,7 @@ class _EnterAbrechnungsRequestScreenState
                             radius: 40,
                             backgroundColor: Colors.transparent,
                             backgroundImage: item.urlToImage == null
-                                ? AssetImage("assets/hilfsmittel.png")
+                                ? const AssetImage("assets/hilfsmittel.png")
                                 : NetworkImage(item.urlToImage!)
                                     as ImageProvider),
                         const SizedBox(
@@ -1165,7 +1166,7 @@ class _EnterAbrechnungsRequestScreenState
 
                         Text(item.displayName,
                             style: mediumBlackTextStyle.copyWith(
-                                fontSize: 16, color: notifire!.getMainText)),
+                                fontSize: 16, color: notifire.getMainText)),
                         // Text("@brookly.simmons",style: mediumGreyTextStyle),
                         const SizedBox(
                           height: 35,
@@ -1180,7 +1181,7 @@ class _EnterAbrechnungsRequestScreenState
                                   Text("Brutto",
                                       style: mediumGreyTextStyle.copyWith(
                                           fontSize: 16,
-                                          color: notifire!.getMainText)),
+                                          color: notifire.getMainText)),
                                   const SizedBox(
                                     height: 5,
                                   ),
@@ -1200,7 +1201,7 @@ class _EnterAbrechnungsRequestScreenState
                                   Text("Netto",
                                       style: mediumGreyTextStyle.copyWith(
                                           fontSize: 16,
-                                          color: notifire!.getMainText)),
+                                          color: notifire.getMainText)),
                                   const SizedBox(
                                     height: 5,
                                   ),
@@ -1220,7 +1221,7 @@ class _EnterAbrechnungsRequestScreenState
                                   Text("Legs",
                                       style: mediumGreyTextStyle.copyWith(
                                           fontSize: 16,
-                                          color: notifire!.getMainText)),
+                                          color: notifire.getMainText)),
                                   const SizedBox(
                                     height: 5,
                                   ),
@@ -1252,7 +1253,7 @@ class _EnterAbrechnungsRequestScreenState
                                   Text("MwSt",
                                       style: mediumGreyTextStyle.copyWith(
                                           fontSize: 16,
-                                          color: notifire!.getMainText)),
+                                          color: notifire.getMainText)),
                                   const SizedBox(
                                     height: 5,
                                   ),
@@ -1272,7 +1273,7 @@ class _EnterAbrechnungsRequestScreenState
                                   Text("Faktor",
                                       style: mediumGreyTextStyle.copyWith(
                                           fontSize: 16,
-                                          color: notifire!.getMainText)),
+                                          color: notifire.getMainText)),
                                   const SizedBox(
                                     height: 5,
                                   ),
@@ -1292,7 +1293,7 @@ class _EnterAbrechnungsRequestScreenState
                                   Text("Zuzahlen",
                                       style: mediumGreyTextStyle.copyWith(
                                           fontSize: 16,
-                                          color: notifire!.getMainText)),
+                                          color: notifire.getMainText)),
                                   const SizedBox(
                                     height: 5,
                                   ),
@@ -1361,37 +1362,37 @@ class _EnterAbrechnungsRequestScreenState
                                                 style: mediumBlackTextStyle
                                                     .copyWith(
                                                         fontSize: 16,
-                                                        color: notifire!
+                                                        color: notifire
                                                             .getMainText)),
                                             Text("Pzn",
                                                 style: mediumBlackTextStyle
                                                     .copyWith(
                                                         fontSize: 16,
-                                                        color: notifire!
+                                                        color: notifire
                                                             .getMainText)),
                                             Text("Hilfsmittelnummer",
                                                 style: mediumBlackTextStyle
                                                     .copyWith(
                                                         fontSize: 16,
-                                                        color: notifire!
+                                                        color: notifire
                                                             .getMainText)),
                                             Text("Lex",
                                                 style: mediumBlackTextStyle
                                                     .copyWith(
                                                         fontSize: 16,
-                                                        color: notifire!
+                                                        color: notifire
                                                             .getMainText)),
                                             Text("Netto",
                                                 style: mediumBlackTextStyle
                                                     .copyWith(
                                                         fontSize: 16,
-                                                        color: notifire!
+                                                        color: notifire
                                                             .getMainText)),
                                             Text("Brutto",
                                                 style: mediumBlackTextStyle
                                                     .copyWith(
                                                         fontSize: 16,
-                                                        color: notifire!
+                                                        color: notifire
                                                             .getMainText)),
                                           ]),
                                           const TableRow(children: [
@@ -1516,7 +1517,7 @@ class _EnterAbrechnungsRequestScreenState
         contentPadding: const EdgeInsets.all(0),
         title: Text(
           title,
-          style: mediumBlackTextStyle.copyWith(color: notifire!.getMainText),
+          style: mediumBlackTextStyle.copyWith(color: notifire.getMainText),
         ),
         subtitle: Padding(
           padding: const EdgeInsets.only(top: 8),
@@ -1529,14 +1530,14 @@ class _EnterAbrechnungsRequestScreenState
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 20),
         child: Text(lefttorepay,
-            style: mediumBlackTextStyle.copyWith(color: notifire!.getMainText),
+            style: mediumBlackTextStyle.copyWith(color: notifire.getMainText),
             overflow: TextOverflow.ellipsis,
             maxLines: 1),
       ),
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 20),
         child: Text(duration,
-            style: mediumBlackTextStyle.copyWith(color: notifire!.getMainText),
+            style: mediumBlackTextStyle.copyWith(color: notifire.getMainText),
             overflow: TextOverflow.ellipsis,
             maxLines: 1),
       ),

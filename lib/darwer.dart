@@ -129,66 +129,6 @@ class _DarwerCodeState extends State<DarwerCode> {
     });
   }
 
-  Widget _buildsizeboxwithheight() {
-    return SizedBox(
-      height: ispresent ? 25 : 20,
-    );
-  }
-
-  Widget _buildcomuntext({required String title, required int index}) {
-    return Obx(
-      () => Text(title,
-          style: mediumGreyTextStyle.copyWith(
-              fontSize: 13,
-              color: controller.pageselecter.value == index
-                  ? appMainColor
-                  : notifire!.getMainText)),
-    );
-  }
-
-  Widget _buildcomunDesh({required int index}) {
-    return Obx(
-      () => Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SvgPicture.asset("assets/minus.svg",
-              color: controller.pageselecter.value == index
-                  ? appMainColor
-                  : notifire!.getMainText,
-              width: 6),
-          const SizedBox(
-            width: 25,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildexpansiontilt(
-      {required Widget children,
-      required String header,
-      required String iconpath,
-      required int index}) {
-    return ListTileTheme(
-      horizontalTitleGap: 12.0,
-      dense: true,
-      child: ExpansionTile(
-        title: Text(
-          header,
-          style: mediumBlackTextStyle.copyWith(
-              fontSize: 14, color: notifire!.getMainText),
-        ),
-        leading: SvgPicture.asset(iconpath,
-            height: 18, width: 18, color: notifire!.getMainText),
-        tilePadding:
-            EdgeInsets.symmetric(vertical: ispresent ? 5 : 2, horizontal: 8),
-        iconColor: appMainColor,
-        collapsedIconColor: Colors.grey,
-        children: <Widget>[children],
-      ),
-    );
-  }
-
   Widget _buildSingletile(
       {required String header,
       required String iconpath,

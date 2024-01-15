@@ -2,7 +2,7 @@ part of swagger.api;
 
 class ApiException implements Exception {
   int code = 0;
-  String? message = null;
+  String? message;
   Exception? innerException;
   StackTrace? stackTrace;
 

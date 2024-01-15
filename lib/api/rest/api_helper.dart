@@ -1,6 +1,6 @@
 part of swagger.api;
 
-const _delimiters = const {'csv': ',', 'ssv': ' ', 'tsv': '\t', 'pipes': '|'};
+const _delimiters = {'csv': ',', 'ssv': ' ', 'tsv': '\t', 'pipes': '|'};
 
 // port from Java version
 Iterable<QueryParam> _convertParametersForCollectionFormat(
@@ -11,7 +11,7 @@ Iterable<QueryParam> _convertParametersForCollectionFormat(
   if (name.isEmpty || value == null) return params;
 
   if (value is! List) {
-    params.add(new QueryParam(name, parameterToString(value)));
+    params.add(QueryParam(name, parameterToString(value)));
     return params;
   }
 
@@ -23,12 +23,12 @@ Iterable<QueryParam> _convertParametersForCollectionFormat(
       : collectionFormat; // default: csv
 
   if (collectionFormat == "multi") {
-    return values.map((v) => new QueryParam(name, parameterToString(v)));
+    return values.map((v) => QueryParam(name, parameterToString(v)));
   }
 
   String delimiter = _delimiters[collectionFormat] ?? ",";
 
-  params.add(new QueryParam(
+  params.add(QueryParam(
       name, values.map((v) => parameterToString(v)).join(delimiter)));
   return params;
 }

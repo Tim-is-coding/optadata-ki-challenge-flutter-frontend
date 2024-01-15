@@ -40,7 +40,7 @@ class LightAbrechnungsResultIItem {
   double? zuzahlung;
   int? faktor;
 
-  get displayName => hilfmittelnummer == null ? pzn : hilfmittelnummer;
+  get displayName => hilfmittelnummer ?? pzn;
 
   LightAbrechnungsResultIItem.fromJson(Map<String, dynamic> json) {
     success = json['success'];

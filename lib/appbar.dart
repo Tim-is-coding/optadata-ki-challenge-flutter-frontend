@@ -239,7 +239,7 @@ class _AppBarCodeState extends State<AppBarCode> {
                               radius: 18,
                               backgroundImage: AssetImage("assets/profile.png"),
                               backgroundColor: Colors.transparent),
-                          title: Text("Buzz",
+                          title: Text("Tim",
                               style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,

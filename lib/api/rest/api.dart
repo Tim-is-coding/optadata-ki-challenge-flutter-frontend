@@ -2,12 +2,10 @@ library swagger.api;
 
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:buzz/model/lightabrechnungsprecheckresponse.dart';
 import 'package:buzz/model/lightabrechnungsrequest.dart';
 import 'package:buzz/model/lightabrechnungsresponse.dart';
-import 'package:dio/dio.dart' as dio;
 import 'package:http/http.dart';
 
 

@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:buzz/model/lightabrechnungsprecheckresponse.dart';
 
@@ -22,7 +21,7 @@ class LightAbrechnungsRequestProductDelivery {
   String? deliveryDate;
   List<LightAbrechnungsRequesProduct>? deliveredProducts;
 
-  Map<String, dynamic?> toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'deliveryDate': deliveryDate,
       'deliveredProducts': deliveredProducts?.map((e) => e.toJson()).toList(),
