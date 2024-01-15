@@ -57,23 +57,23 @@ class _EnterAbrechnungsRequestScreenState
       lightAbrechnungsRequestProductDelivery
     ];
 
-    _lightAbrechnungsrequest.krankenkassenIk = "100189483";
-    _lightAbrechnungsrequest.patientBirthday = "01.01.1980";
-    _lightAbrechnungsrequest.productDeliveries![0].deliveryDate = "01.01.2021";
-
-    _lightAbrechnungsrequest.productDeliveries![0].deliveredProducts![0] =
-        LightAbrechnungsRequesProduct();
-    _lightAbrechnungsrequest.productDeliveries![0].deliveredProducts![0]
-        .hilfmittelnummer = "15.25.30.5033";
-    _lightAbrechnungsrequest
-        .productDeliveries![0].deliveredProducts![0].amount = 1;
-
-    _lightAbrechnungsrequest.productDeliveries![0].deliveredProducts!
-        .add(LightAbrechnungsRequesProduct());
-    _lightAbrechnungsrequest.productDeliveries![0].deliveredProducts![1]
-        .hilfmittelnummer = "15.25.31.2042";
-    _lightAbrechnungsrequest
-        .productDeliveries![0].deliveredProducts![1].amount = 1;
+    // _lightAbrechnungsrequest.krankenkassenIk = "100189483";
+    // _lightAbrechnungsrequest.patientBirthday = "01.01.1980";
+    // _lightAbrechnungsrequest.productDeliveries![0].deliveryDate = "01.01.2021";
+    //
+    // _lightAbrechnungsrequest.productDeliveries![0].deliveredProducts![0] =
+    //     LightAbrechnungsRequesProduct();
+    // _lightAbrechnungsrequest.productDeliveries![0].deliveredProducts![0]
+    //     .hilfmittelnummer = "15.25.30.5033";
+    // _lightAbrechnungsrequest
+    //     .productDeliveries![0].deliveredProducts![0].amount = 1;
+    //
+    // _lightAbrechnungsrequest.productDeliveries![0].deliveredProducts!
+    //     .add(LightAbrechnungsRequesProduct());
+    // _lightAbrechnungsrequest.productDeliveries![0].deliveredProducts![1]
+    //     .hilfmittelnummer = "15.25.31.2042";
+    // _lightAbrechnungsrequest
+    //     .productDeliveries![0].deliveredProducts![1].amount = 1;
   }
 
   @override
