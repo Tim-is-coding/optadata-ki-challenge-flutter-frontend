@@ -1217,7 +1217,7 @@ class _EnterAbrechnungsRequestScreenState
                             Flexible(
                               child: Column(
                                 children: [
-                                  Text("Lex",
+                                  Text("Legs",
                                       style: mediumGreyTextStyle.copyWith(
                                           fontSize: 16,
                                           color: notifire!.getMainText)),
