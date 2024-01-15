@@ -901,7 +901,7 @@ class _EnterAbrechnungsRequestScreenState
     }
     return Row(children: [
       const SizedBox(
-        width: 19,
+        width: 10,
       ),
       Container(
         height: 35,
@@ -935,7 +935,10 @@ class _EnterAbrechnungsRequestScreenState
               },
               child: Image.asset("assets/ic_plus_top.png")),
         ]),
-      )
+      ),
+      const SizedBox(
+        width: 9,
+      ),
     ]);
   }
 
