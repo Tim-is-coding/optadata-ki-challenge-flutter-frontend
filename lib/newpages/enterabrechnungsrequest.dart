@@ -57,23 +57,23 @@ class _EnterAbrechnungsRequestScreenState
       lightAbrechnungsRequestProductDelivery
     ];
 
-    // _lightAbrechnungsrequest.krankenkassenIk = "100189483";
-    // _lightAbrechnungsrequest.patientBirthday = "01.01.1980";
-    // _lightAbrechnungsrequest.productDeliveries![0].deliveryDate = "01.01.2021";
-    //
-    // _lightAbrechnungsrequest.productDeliveries![0].deliveredProducts![0] =
-    //     LightAbrechnungsRequesProduct();
-    // _lightAbrechnungsrequest.productDeliveries![0].deliveredProducts![0]
-    //     .hilfmittelnummer = "15.25.30.5033";
-    // _lightAbrechnungsrequest
-    //     .productDeliveries![0].deliveredProducts![0].amount = 1;
-    //
-    // _lightAbrechnungsrequest.productDeliveries![0].deliveredProducts!
-    //     .add(LightAbrechnungsRequesProduct());
-    // _lightAbrechnungsrequest.productDeliveries![0].deliveredProducts![1]
-    //     .hilfmittelnummer = "15.25.31.2042";
-    // _lightAbrechnungsrequest
-    //     .productDeliveries![0].deliveredProducts![1].amount = 1;
+    _lightAbrechnungsrequest.krankenkassenIk = "100189483";
+    _lightAbrechnungsrequest.patientBirthday = "01.01.1980";
+    _lightAbrechnungsrequest.productDeliveries![0].deliveryDate = "01.01.2021";
+
+    _lightAbrechnungsrequest.productDeliveries![0].deliveredProducts![0] =
+        LightAbrechnungsRequesProduct();
+    _lightAbrechnungsrequest.productDeliveries![0].deliveredProducts![0]
+        .hilfmittelnummer = "15.25.30.5033";
+    _lightAbrechnungsrequest
+        .productDeliveries![0].deliveredProducts![0].amount = 1;
+
+    _lightAbrechnungsrequest.productDeliveries![0].deliveredProducts!
+        .add(LightAbrechnungsRequesProduct());
+    _lightAbrechnungsrequest.productDeliveries![0].deliveredProducts![1]
+        .hilfmittelnummer = "15.25.31.2042";
+    _lightAbrechnungsrequest
+        .productDeliveries![0].deliveredProducts![1].amount = 1;
   }
 
   @override
@@ -190,11 +190,12 @@ class _EnterAbrechnungsRequestScreenState
                               const SizedBox(
                                 height: 1500,
                               ),
-                            if (_processingFinished)
-                              _processingFinishedWidget(),
+
                           ])
                         ],
                       ),
+                      if (_processingFinished)
+                        _processingFinishedWidget(),
                     ],
                   ));
             }
@@ -323,6 +324,7 @@ class _EnterAbrechnungsRequestScreenState
                         onChanged: (value) {
                           setState(() {
                             _lightAbrechnungsrequest.krankenkassenIk = value;
+                            _processingFinished = false;
                           });
                         },
                         style: mediumBlackTextStyle.copyWith(
@@ -375,6 +377,7 @@ class _EnterAbrechnungsRequestScreenState
                         onChanged: (value) {
                           setState(() {
                             _lightAbrechnungsrequest.patientBirthday = value;
+                            _processingFinished = false;
                           });
                         },
                         initialValue: _lightAbrechnungsrequest.patientBirthday,
@@ -469,26 +472,59 @@ class _EnterAbrechnungsRequestScreenState
     return Column(
       children: [
         // centered row
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SvgPicture.asset(
-              "assets/arrow_down.svg",
-              width: 50,
-              height: 50,
-            ),
-          ],
-        ),
+        Padding(padding: const EdgeInsets.only(left: 50),
+        child:
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            "Ihr Ergebnis ist fertig!",
+            style: TextStyle(
+                color: notifire.getbacktextcolors,
+                fontWeight: FontWeight.w800,
+                overflow: TextOverflow.ellipsis,
+                fontSize: 22),
+          ),
+        ),),
+
         const SizedBox(
           height: 30,
         ),
         _buildResultArea(count: 4),
         //_buildtable2(width: _width - 200),
         const SizedBox(
-          height: 60,
+          height: 40,
+        ),
+        Row(
+          children: [
+            SizedBox(
+              width: 50,
+            ),
+            _buildOutlineLargeButton(title: "Bearbeiten", color: const Color(0xff1a438f)),
+            const SizedBox(
+              width: 20,
+            ),
+            _buildOutlineLargeButton(title: "Neue Abrechnung", color: const Color(0xff54ba4a)),
+          ],
+
+        ),
+         SizedBox(
+          key: _scrollToKey,
+          height: 80,
         ),
       ],
     );
+  }
+
+  Widget _buildOutlineLargeButton({required String title,required Color color,Color? textcolor,bool bordertrue = false}){
+    return  OutlinedButton(
+        onPressed: () {},
+        style: OutlinedButton.styleFrom(elevation: 0,
+          side: BorderSide(color: color),
+          shadowColor: Colors.transparent,
+          padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 18),
+
+        ),
+        child:  Text(title,style:  TextStyle(color: textcolor ?? color,fontSize: 17),));
   }
 
   Widget _buildLieferungenWidget({required int size}) {
@@ -570,6 +606,7 @@ class _EnterAbrechnungsRequestScreenState
                               InkWell(
                                   onTap: () {
                                     setState(() {
+                                      _processingFinished = false;
                                       _lightAbrechnungsrequest
                                           .productDeliveries!
                                           .removeAt(index);
@@ -617,6 +654,7 @@ class _EnterAbrechnungsRequestScreenState
                                   child: TextFormField(
                                       onChanged: (value) {
                                         setState(() {
+                                          _processingFinished = false;
                                           _lightAbrechnungsrequest
                                               .productDeliveries![index]
                                               .deliveryDate = value;
@@ -712,6 +750,7 @@ class _EnterAbrechnungsRequestScreenState
             child: ElevatedButton(
                 onPressed: () {
                   setState(() {
+                    _processingFinished = false;
                     var lightAbrechnungsRequestProduct =
                         LightAbrechnungsRequesProduct();
                     lightAbrechnungsRequestProduct.amount = 1;
@@ -780,6 +819,7 @@ class _EnterAbrechnungsRequestScreenState
                       delivery.deliveredProducts![index].hilfmittelnummer,
                   onChanged: (value) {
                     setState(() {
+                      _processingFinished = false;
                       delivery.deliveredProducts![index].hilfmittelnummer =
                           value;
                     });
@@ -861,6 +901,7 @@ class _EnterAbrechnungsRequestScreenState
                   setState(() {
                     if (delivery.deliveredProducts!.length > 1) {
                       delivery.deliveredProducts!.removeAt(index);
+                      _processingFinished = false;
                     }
                   });
                 },
@@ -918,9 +959,11 @@ class _EnterAbrechnungsRequestScreenState
                 setState(() {
                   if (product.amount! > 1) {
                     product.amount = product.amount! - 1;
+                    _processingFinished = false;
                   } else {
                     // delete product
                     delivery.deliveredProducts!.removeAt(productIndex);
+                    _processingFinished = false;
                   }
                 });
               },
@@ -932,6 +975,7 @@ class _EnterAbrechnungsRequestScreenState
               onTap: () {
                 setState(() {
                   product.amount = product.amount! + 1;
+                  _processingFinished = false;
                 });
               },
               child: Image.asset("assets/ic_plus_top.png")),
@@ -966,6 +1010,7 @@ class _EnterAbrechnungsRequestScreenState
                         hoverColor: Colors.transparent,
                         onTap: () {
                           setState(() {
+                            _processingFinished = false;
                             var lightAbrechnungsRequestProductDelivery =
                                 LightAbrechnungsRequestProductDelivery();
                             var lightAbrechnungsRequestProduct =
@@ -1008,7 +1053,6 @@ class _EnterAbrechnungsRequestScreenState
   Widget _buildResultArea({required int count}) {
     return SizedBox(
         width: _width - 200,
-        key: _scrollToKey,
         child: Wrap(
             spacing: 10, // horizontal spacing between items
             runSpacing: 10, // vertical spacing between items
@@ -1078,7 +1122,8 @@ class _EnterAbrechnungsRequestScreenState
                           children: [
                             Image.asset(
                               item.pauschaleAlreadyCoveredy!
-                                  ? "assets/warn.png" : "assets/error.png",
+                                  ? "assets/warn.png"
+                                  : "assets/error.png",
                               height: 22,
                               width: 22,
                             ),
@@ -1090,8 +1135,7 @@ class _EnterAbrechnungsRequestScreenState
                                     ? "Pauschale abgedeckt"
                                     : "Vertrag fehlt",
                                 style: mediumBlackTextStyle.copyWith(
-                                    fontSize: 16,
-                                    color: notifire.getMainText)),
+                                    fontSize: 16, color: notifire.getMainText)),
                           ],
                         ),
                         const SizedBox(
