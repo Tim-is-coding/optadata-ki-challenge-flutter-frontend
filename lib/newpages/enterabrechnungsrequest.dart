@@ -31,7 +31,11 @@ class _EnterAbrechnungsRequestScreenState
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey _scrollToKey = GlobalKey();
+  final GlobalKey _topScrollKey = GlobalKey();
   final ScrollController _scrollController = ScrollController();
+
+  final TextEditingController _ikController = TextEditingController();
+  final TextEditingController _BdayController = TextEditingController();
 
   bool _processingRequest = false;
   bool _processingFinished = false;
@@ -41,8 +45,34 @@ class _EnterAbrechnungsRequestScreenState
   @override
   void initState() {
     super.initState();
+    _lightAbrechnungsrequest = _makeStartSetting();
 
-    _lightAbrechnungsrequest = LightAbrechnungsrequest();
+    // _lightAbrechnungsrequest.krankenkassenIk = "100189483";
+    // _lightAbrechnungsrequest.patientBirthday = "01.01.1980";
+    // _lightAbrechnungsrequest.productDeliveries![0].deliveryDate = "01.01.2021";
+    //
+    // _lightAbrechnungsrequest.productDeliveries![0].deliveredProducts![0] =
+    //     LightAbrechnungsRequesProduct();
+    // _lightAbrechnungsrequest.productDeliveries![0].deliveredProducts![0]
+    //     .hilfmittelnummer = "15.25.30.5033";
+    // _lightAbrechnungsrequest
+    //     .productDeliveries![0].deliveredProducts![0].amount = 1;
+    //
+    // _lightAbrechnungsrequest.productDeliveries![0].deliveredProducts!
+    //     .add(LightAbrechnungsRequesProduct());
+    // _lightAbrechnungsrequest.productDeliveries![0].deliveredProducts![1]
+    //     .hilfmittelnummer = "15.25.31.2042";
+    // _lightAbrechnungsrequest
+    //     .productDeliveries![0].deliveredProducts![1].amount = 1;
+  }
+
+  void _clearAllTextFields() {
+    _ikController.clear();
+    _BdayController.clear();
+  }
+
+  LightAbrechnungsrequest _makeStartSetting() {
+    LightAbrechnungsrequest lightAbrechnungsrequest = LightAbrechnungsrequest();
 
     var lightAbrechnungsRequestProductDelivery =
         LightAbrechnungsRequestProductDelivery();
@@ -53,27 +83,11 @@ class _EnterAbrechnungsRequestScreenState
     lightAbrechnungsRequestProductDelivery.deliveredProducts = [
       lightAbrechnungsRequestProduct
     ];
-    _lightAbrechnungsrequest.productDeliveries = [
+    lightAbrechnungsrequest.productDeliveries = [
       lightAbrechnungsRequestProductDelivery
     ];
 
-    _lightAbrechnungsrequest.krankenkassenIk = "100189483";
-    _lightAbrechnungsrequest.patientBirthday = "01.01.1980";
-    _lightAbrechnungsrequest.productDeliveries![0].deliveryDate = "01.01.2021";
-
-    _lightAbrechnungsrequest.productDeliveries![0].deliveredProducts![0] =
-        LightAbrechnungsRequesProduct();
-    _lightAbrechnungsrequest.productDeliveries![0].deliveredProducts![0]
-        .hilfmittelnummer = "15.25.30.5033";
-    _lightAbrechnungsrequest
-        .productDeliveries![0].deliveredProducts![0].amount = 1;
-
-    _lightAbrechnungsrequest.productDeliveries![0].deliveredProducts!
-        .add(LightAbrechnungsRequesProduct());
-    _lightAbrechnungsrequest.productDeliveries![0].deliveredProducts![1]
-        .hilfmittelnummer = "15.25.31.2042";
-    _lightAbrechnungsrequest
-        .productDeliveries![0].deliveredProducts![1].amount = 1;
+    return lightAbrechnungsrequest;
   }
 
   @override
@@ -151,8 +165,10 @@ class _EnterAbrechnungsRequestScreenState
                   // Ein GlobalKey<FormState>, um das Formular später zu validieren
                   child: Column(
                     children: [
-                      const ComunTitle(
-                          title: 'Neue Abrechnung', path: "Abrechnung"),
+                      ComunTitle(
+                          key: _topScrollKey,
+                          title: 'Neue Abrechnung',
+                          path: "Abrechnung"),
                       Padding(
                         padding: const EdgeInsets.all(padding),
                         child: Container(
@@ -190,12 +206,10 @@ class _EnterAbrechnungsRequestScreenState
                               const SizedBox(
                                 height: 1500,
                               ),
-
                           ])
                         ],
                       ),
-                      if (_processingFinished)
-                        _processingFinishedWidget(),
+                      if (_processingFinished) _processingFinishedWidget(),
                     ],
                   ));
             }
@@ -308,6 +322,7 @@ class _EnterAbrechnungsRequestScreenState
                     padding:
                         const EdgeInsets.only(top: 23, left: 50, right: 20),
                     child: TextFormField(
+                        controller: _ikController,
                         autovalidateMode: _hitSubmit
                             ? AutovalidateMode.always
                             : AutovalidateMode.disabled,
@@ -320,7 +335,7 @@ class _EnterAbrechnungsRequestScreenState
                               ? null
                               : 'Bitte geben Sie eine gültige Krankenkassen-IK ein.';
                         },
-                        initialValue: _lightAbrechnungsrequest.krankenkassenIk,
+                        //initialValue: _lightAbrechnungsrequest.krankenkassenIk,
                         onChanged: (value) {
                           setState(() {
                             _lightAbrechnungsrequest.krankenkassenIk = value;
@@ -374,13 +389,14 @@ class _EnterAbrechnungsRequestScreenState
                     padding:
                         const EdgeInsets.only(top: 33, left: 47, right: 20),
                     child: TextFormField(
+                        controller: _BdayController,
                         onChanged: (value) {
                           setState(() {
                             _lightAbrechnungsrequest.patientBirthday = value;
                             _processingFinished = false;
                           });
                         },
-                        initialValue: _lightAbrechnungsrequest.patientBirthday,
+                        //initialValue: _lightAbrechnungsrequest.patientBirthday,
                         autovalidateMode: _hitSubmit
                             ? AutovalidateMode.always
                             : AutovalidateMode.disabled,
@@ -472,19 +488,20 @@ class _EnterAbrechnungsRequestScreenState
     return Column(
       children: [
         // centered row
-        Padding(padding: const EdgeInsets.only(left: 50),
-        child:
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            "Ihr Ergebnis ist fertig!",
-            style: TextStyle(
-                color: notifire.getbacktextcolors,
-                fontWeight: FontWeight.w800,
-                overflow: TextOverflow.ellipsis,
-                fontSize: 22),
+        Padding(
+          padding: const EdgeInsets.only(left: 50),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              "Ihr Ergebnis ist fertig!",
+              style: TextStyle(
+                  color: notifire.getbacktextcolors,
+                  fontWeight: FontWeight.w800,
+                  overflow: TextOverflow.ellipsis,
+                  fontSize: 22),
+            ),
           ),
-        ),),
+        ),
 
         const SizedBox(
           height: 30,
@@ -499,15 +516,46 @@ class _EnterAbrechnungsRequestScreenState
             SizedBox(
               width: 50,
             ),
-            _buildOutlineLargeButton(title: "Bearbeiten", color: const Color(0xff1a438f)),
+            _buildOutlineLargeButton(
+                title: "Bearbeiten",
+                color: const Color(0xff1a438f),
+                onPressed: () {
+                  setState(() {
+                    _processingFinished = false;
+                  });
+                  _navigateToTop();
+                }),
             const SizedBox(
               width: 20,
             ),
-            _buildOutlineLargeButton(title: "Neue Abrechnung", color: const Color(0xff54ba4a)),
-          ],
+            _buildOutlineLargeButton(
+                title: "Neue Abrechnung",
+                color: const Color(0xff54ba4a),
+                onPressed: () {
+                  setState(() {
+                    _hitSubmit = false;
+                    _processingFinished = false;
+                    _lightAbrechnungsrequest = _makeStartSetting();
+                    _clearAllTextFields();
+                  });
+                  LightAbrechnungsRequestProductDelivery
+                      lightAbrechnungsRequestProductDelivery =
+                      LightAbrechnungsRequestProductDelivery();
+                  var lightAbrechnungsRequesProduct =
+                      LightAbrechnungsRequesProduct();
+                  lightAbrechnungsRequesProduct.amount = 1;
+                  lightAbrechnungsRequestProductDelivery.deliveredProducts = [
+                    lightAbrechnungsRequesProduct
+                  ];
 
+                  setState(() {
+                    _lightAbrechnungsrequest.productDeliveries = [];
+                  });
+                  _navigateToTop();
+                }),
+          ],
         ),
-         SizedBox(
+        SizedBox(
           key: _scrollToKey,
           height: 80,
         ),
@@ -515,16 +563,32 @@ class _EnterAbrechnungsRequestScreenState
     );
   }
 
-  Widget _buildOutlineLargeButton({required String title,required Color color,Color? textcolor,bool bordertrue = false}){
-    return  OutlinedButton(
-        onPressed: () {},
-        style: OutlinedButton.styleFrom(elevation: 0,
+  void _navigateToTop() {
+    _scrollController.animateTo(
+      0,
+      duration: const Duration(seconds: 1),
+      curve: Curves.easeInOut,
+    );
+  }
+
+  Widget _buildOutlineLargeButton(
+      {required String title,
+      required Color color,
+      Color? textcolor,
+      bool bordertrue = false,
+      required Function() onPressed}) {
+    return OutlinedButton(
+        onPressed: onPressed,
+        style: OutlinedButton.styleFrom(
+          elevation: 0,
           side: BorderSide(color: color),
           shadowColor: Colors.transparent,
-          padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 18),
-
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
         ),
-        child:  Text(title,style:  TextStyle(color: textcolor ?? color,fontSize: 17),));
+        child: Text(
+          title,
+          style: TextStyle(color: textcolor ?? color, fontSize: 17),
+        ));
   }
 
   Widget _buildLieferungenWidget({required int size}) {
@@ -684,9 +748,9 @@ class _EnterAbrechnungsRequestScreenState
                                       },
                                       style: mediumBlackTextStyle.copyWith(
                                           color: notifire.getMainText),
-                                      initialValue: _lightAbrechnungsrequest
-                                          .productDeliveries![index]
-                                          .deliveryDate,
+                                      // initialValue: _lightAbrechnungsrequest
+                                      //     .productDeliveries![index]
+                                      //     .deliveryDate,
                                       decoration: InputDecoration(
                                         border: OutlineInputBorder(
                                             borderSide: BorderSide(
@@ -815,8 +879,8 @@ class _EnterAbrechnungsRequestScreenState
 
                     return null;
                   },
-                  initialValue:
-                      delivery.deliveredProducts![index].hilfmittelnummer,
+                  // initialValue:
+                  //     delivery.deliveredProducts![index].hilfmittelnummer,
                   onChanged: (value) {
                     setState(() {
                       _processingFinished = false;
