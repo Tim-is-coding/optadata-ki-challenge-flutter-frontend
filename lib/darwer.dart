@@ -96,7 +96,7 @@ class _DarwerCodeState extends State<DarwerCode> {
                                 iconpath: "assets/euro.svg",
                                 index: 0,
                                 ontap: () {
-                                  controller.changePage(1);
+                                  controller.changePage(0);
                                   Get.back();
                                 }),
                             _buildSingletile(
@@ -104,7 +104,7 @@ class _DarwerCodeState extends State<DarwerCode> {
                                 iconpath: "assets/home.svg",
                                 index: 1,
                                 ontap: () {
-                                  controller.changePage(0);
+                                  controller.changePage(1);
                                   Get.back();
                                 }),
                             _buildSingletile(
