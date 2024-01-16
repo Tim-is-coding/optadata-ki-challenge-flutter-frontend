@@ -40,9 +40,9 @@ class AppConst extends GetxController implements GetxService {
   RxBool switchistrue = false.obs;
 
   var page = [
+    const EnterAbrechnungsRequestScreen(),
     NotImplementedYetScreen("Übersicht"),
     // const DefaultPage(),//
-    const EnterAbrechnungsRequestScreen(),
     NotImplementedYetScreen("Historie"),
   ].obs;
 

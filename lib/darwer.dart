@@ -92,19 +92,19 @@ class _DarwerCodeState extends State<DarwerCode> {
                               height: ispresent ? 10 : 8,
                             ),
                             _buildSingletile(
-                                header: "Übersicht",
-                                iconpath: "assets/home.svg",
+                                header: "Eingabe",
+                                iconpath: "assets/euro.svg",
                                 index: 0,
                                 ontap: () {
-                                  controller.changePage(0);
+                                  controller.changePage(1);
                                   Get.back();
                                 }),
                             _buildSingletile(
-                                header: "Eingabe",
-                                iconpath: "assets/euro.svg",
+                                header: "Übersicht",
+                                iconpath: "assets/home.svg",
                                 index: 1,
                                 ontap: () {
-                                  controller.changePage(1);
+                                  controller.changePage(0);
                                   Get.back();
                                 }),
                             _buildSingletile(
