@@ -113,23 +113,20 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
                       SvgPicture.network(
                         "https://upload.wikimedia.org/wikipedia/commons/5/5b/Opta_Data_Gruppe_logo_(2021).svg",
                         height: 150,
-                        width: 150  ,
+                        width: 150,
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  // title
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Opta Data KI Challenge",
+                        "Hilfsmittel Recommender",
                         style: TextStyle(
+                            fontFamily: "Aharon",
                             color: notifire.getbacktextcolors,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 26),
+                            fontWeight: FontWeight.w900,
+                            fontSize: 24),
                       ),
                     ],
                   ),
@@ -141,36 +138,6 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: buildContent(false, size: constraints.maxWidth)),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Column(children: [
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        // SvgPicture.asset(
-                        //   "assets/arrow_down.svg",
-                        //   width: 50,
-                        //   height: 50,
-                        // ),
-                        // const SizedBox(
-                        //   height: 30,
-                        // ),y
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        if (_processingRequest)
-                          CircularProgressIndicator(
-                            key: _scrollToKey,
-                            color: Colors.lightGreen,
-                          ),
-                        if (_processingRequest)
-                          const SizedBox(
-                            height: 1500,
-                          ),
-                      ])
-                    ],
                   ),
                   if (_processingFinished) _processingFinishedWidget(),
                 ],
@@ -231,54 +198,13 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
       child: Padding(
         padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Container(
-                height: 20,
-                width: 7,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(25),
-                    color: Colors.grey.withOpacity(0.3)),
-              ),
-              const SizedBox(width: 5),
-              Text(
-                "Patientendaten",
-                style: TextStyle(
-                    color: notifire.getbacktextcolors,
-                    fontWeight: FontWeight.w800,
-                    overflow: TextOverflow.ellipsis,
-                    fontSize: 18),
-              ),
-            ]),
-            const SizedBox(
-              height: 10,
-            ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Krankenkassen-IK",
-                      style: TextStyle(
-                          color: notifire.getbacktextcolors,
-                          fontWeight: FontWeight.w800,
-                          overflow: TextOverflow.ellipsis),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      "Über die IK der Krankenkasse kann der\nrichtige Vertrag ausgewählt werden.",
-                      style: TextStyle(
-                          color: notifire.getsubcolors,
-                          fontSize: 13,
-                          overflow: TextOverflow.ellipsis),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  width: 22,
-                ),
                 Expanded(
                   flex: 2,
                   child: Padding(
@@ -286,24 +212,9 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
                         const EdgeInsets.only(top: 23, left: 50, right: 20),
                     child: TextFormField(
                         controller: _ikController,
-                        autovalidateMode: _hitSubmit
-                            ? AutovalidateMode.always
-                            : AutovalidateMode.disabled,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Bitte geben Sie eine Krankenkassen-IK ein.';
-                          }
-                          final RegExp ikRegex = RegExp(r'^[1-9]\d{8}$');
-                          return ikRegex.hasMatch(value)
-                              ? null
-                              : 'Bitte geben Sie eine gültige Krankenkassen-IK ein.';
-                        },
                         //initialValue: _lightAbrechnungsrequest.krankenkassenIk,
                         onChanged: (value) {
-                          setState(() {
-                            _lightAbrechnungsrequest.krankenkassenIk = value;
-                            _processingFinished = false;
-                          });
+                          setState(() {});
                         },
                         style: mediumBlackTextStyle.copyWith(
                             color: notifire.getMainText),
@@ -316,12 +227,20 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
                               borderSide: BorderSide(
                             color: Colors.grey.withOpacity(0.3),
                           )),
-                          labelText: 'Krankenkassen-IK eingeben',
+                          labelText: 'Krankenkassen-IK',
                           labelStyle: mediumGreyTextStyle,
                         )),
                   ),
                 ),
               ],
+            ),
+            // center text
+            Text(
+              "Gebe die Krankenkassen-IK des Rezeptes ein",
+              style: TextStyle(
+                  color: notifire.getsubcolors,
+                  fontSize: 12,
+                  overflow: TextOverflow.ellipsis),
             ),
             Row(
               children: [
