@@ -205,34 +205,39 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Expanded(
-                  flex: 2,
+                SizedBox(
+                  width: 300,
                   child: Padding(
                     padding:
                         const EdgeInsets.only(top: 23, left: 50, right: 20),
-                    child: TextFormField(
-                        controller: _ikController,
-                        //initialValue: _lightAbrechnungsrequest.krankenkassenIk,
-                        onChanged: (value) {
-                          setState(() {});
-                        },
-                        style: mediumBlackTextStyle.copyWith(
-                            color: notifire.getMainText),
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderSide: BorderSide(
-                            color: Colors.grey.withOpacity(0.3),
-                          )),
-                          enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                            color: Colors.grey.withOpacity(0.3),
-                          )),
-                          labelText: 'Krankenkassen-IK',
-                          labelStyle: mediumGreyTextStyle,
-                        )),
+                    child: SizedBox(
+                        width: 300,
+                        child: TextFormField(
+                            controller: _ikController,
+                            //initialValue: _lightAbrechnungsrequest.krankenkassenIk,
+                            onChanged: (value) {
+                              setState(() {});
+                            },
+                            style: mediumBlackTextStyle.copyWith(
+                                color: notifire.getMainText),
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                color: Colors.grey.withOpacity(0.3),
+                              )),
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                color: Colors.grey.withOpacity(0.3),
+                              )),
+                              labelText: 'Krankenkassen-IK',
+                              labelStyle: mediumGreyTextStyle,
+                            ))),
                   ),
                 ),
               ],
+            ),
+            SizedBox(
+              height: 20,
             ),
             // center text
             Text(
@@ -243,13 +248,88 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
                   overflow: TextOverflow.ellipsis),
             ),
             const SizedBox(
-              height: 20,
+              height: 40,
             ),
-
+            Row(
+              // space items evenly
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: 300,
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.only(top: 23, left: 50, right: 20),
+                    child: SizedBox(
+                        width: 300,
+                        child: TextFormField(
+                            controller: _ikController,
+                            //initialValue: _lightAbrechnungsrequest.krankenkassenIk,
+                            onChanged: (value) {
+                              setState(() {});
+                            },
+                            style: mediumBlackTextStyle.copyWith(
+                                color: notifire.getMainText),
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                color: Colors.grey.withOpacity(0.3),
+                              )),
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                color: Colors.grey.withOpacity(0.3),
+                              )),
+                              labelText: 'ICD-10 Code',
+                              labelStyle: mediumGreyTextStyle,
+                            ))),
+                  ),
+                ),
+                SizedBox(
+                  width: 300,
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.only(top: 23, left: 50, right: 20),
+                    child: SizedBox(
+                        width: 300,
+                        child: TextFormField(
+                            controller: _ikController,
+                            //initialValue: _lightAbrechnungsrequest.krankenkassenIk,
+                            onChanged: (value) {
+                              setState(() {});
+                            },
+                            style: mediumBlackTextStyle.copyWith(
+                                color: notifire.getMainText),
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                color: Colors.grey.withOpacity(0.3),
+                              )),
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                color: Colors.grey.withOpacity(0.3),
+                              )),
+                              labelText: 'Diagnose',
+                              labelStyle: mediumGreyTextStyle,
+                            ))),
+                  ),
+                ),
+              ],
+            ),
             const SizedBox(
               height: 20,
             ),
-            // row with centered items
+            Text(
+              textAlign: TextAlign.center,
+              "sdijfhsodjiafhjosad fhsdof soifiosadfsdaof asofi asf sfosa\nlorem ipsum dolor sit amet lorem ipsum dolor\nsit amet lorem ipsum dolor sit amet",
+              style: TextStyle(
+                  // center text
+                  color: notifire.getsubcolors,
+                  fontSize: 12,
+                  overflow: TextOverflow.ellipsis),
+            ),
+            const SizedBox(
+              height: 60,
+            ),
+
           ],
         ),
       ),
