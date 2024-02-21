@@ -6,8 +6,6 @@ import 'package:buzz/model/lightabrechnungsprecheckresponse.dart';
 import 'package:buzz/model/lightabrechnungsrequest.dart';
 import 'package:buzz/model/lightabrechnungsresponse.dart';
 import 'package:buzz/provider/proviercolors.dart';
-import 'package:buzz/widgets/NotImplementedYetScreen.dart';
-import 'package:buzz/widgets/comuntitle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
@@ -18,12 +16,10 @@ class OpdataChallengeScreen extends StatefulWidget {
   const OpdataChallengeScreen({Key? key}) : super(key: key);
 
   @override
-  State<OpdataChallengeScreen> createState() =>
-      _OpdataChallengeScreenState();
+  State<OpdataChallengeScreen> createState() => _OpdataChallengeScreenState();
 }
 
-class _OpdataChallengeScreenState
-    extends State<OpdataChallengeScreen> {
+class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
   ColorNotifire notifire = ColorNotifire();
 
   late LightAbrechnungsrequest _lightAbrechnungsrequest;
@@ -102,55 +98,84 @@ class _OpdataChallengeScreenState
         child: LayoutBuilder(
           builder: (context, constraints) {
             _width = constraints.maxWidth;
-             return Form(
-                  key: _formKey,
-                  // Ein GlobalKey<FormState>, um das Formular später zu validieren
-                  child: Column(
+            return Form(
+              key: _formKey,
+              // Ein GlobalKey<FormState>, um das Formular später zu validieren
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 20,
+                  ),
+                  // optdadata logo
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(padding),
-                        child: Container(
-                            decoration: BoxDecoration(
-                              color: notifire.getcontiner,
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: buildContent(false,
-                                size: constraints.maxWidth)),
+                      SvgPicture.network(
+                        "https://upload.wikimedia.org/wikipedia/commons/5/5b/Opta_Data_Gruppe_logo_(2021).svg",
+                        height: 150,
+                        width: 150  ,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Column(children: [
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            // SvgPicture.asset(
-                            //   "assets/arrow_down.svg",
-                            //   width: 50,
-                            //   height: 50,
-                            // ),
-                            // const SizedBox(
-                            //   height: 30,
-                            // ),y
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            if (_processingRequest)
-                              CircularProgressIndicator(
-                                key: _scrollToKey,
-                                color: Colors.lightGreen,
-                              ),
-                            if (_processingRequest)
-                              const SizedBox(
-                                height: 1500,
-                              ),
-                          ])
-                        ],
-                      ),
-                      if (_processingFinished) _processingFinishedWidget(),
                     ],
                   ),
-                );
+                  SizedBox(
+                    height: 20,
+                  ),
+                  // title
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Opta Data KI Challenge",
+                        style: TextStyle(
+                            color: notifire.getbacktextcolors,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 26),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(padding),
+                    child: Container(
+                        decoration: BoxDecoration(
+                          color: notifire.getcontiner,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: buildContent(false, size: constraints.maxWidth)),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(children: [
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        // SvgPicture.asset(
+                        //   "assets/arrow_down.svg",
+                        //   width: 50,
+                        //   height: 50,
+                        // ),
+                        // const SizedBox(
+                        //   height: 30,
+                        // ),y
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        if (_processingRequest)
+                          CircularProgressIndicator(
+                            key: _scrollToKey,
+                            color: Colors.lightGreen,
+                          ),
+                        if (_processingRequest)
+                          const SizedBox(
+                            height: 1500,
+                          ),
+                      ])
+                    ],
+                  ),
+                  if (_processingFinished) _processingFinishedWidget(),
+                ],
+              ),
+            );
           },
         ),
       ),
