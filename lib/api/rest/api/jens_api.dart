@@ -20,7 +20,7 @@ class JensApi {
 
     var response = await apiClient.invokeAPI(
         path,
-        'GET',
+        'POST',
         queryParams,
         recommendationRequest.toJson(),
         headerParams,
@@ -54,7 +54,7 @@ class JensApi {
 
     var response = await apiClient.invokeAPI(
         path,
-        'GET',
+        'POST',
         queryParams,
         aiRecommondations.map((e) => e.toJson()).toList(),
         headerParams,

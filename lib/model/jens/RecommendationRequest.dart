@@ -3,6 +3,8 @@ class RecommendationRequest {
   String? diagnoseText;
   String? icd10Code;
 
+  RecommendationRequest();
+
   RecommendationRequest.fromJson(Map<String, dynamic> json) {
     krankenkassenIk = json['krankenkassenIk'];
     diagnoseText = json['diagnoseText'];

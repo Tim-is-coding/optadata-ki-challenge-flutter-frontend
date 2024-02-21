@@ -2,15 +2,20 @@
 
 import 'package:buzz/api/rest/api.dart';
 import 'package:buzz/appstaticdata/staticdata.dart';
+import 'package:buzz/model/jens/AiRecommondation.dart';
+import 'package:buzz/model/jens/product.dart';
 import 'package:buzz/model/lightabrechnungsprecheckresponse.dart';
 import 'package:buzz/model/lightabrechnungsrequest.dart';
 import 'package:buzz/model/lightabrechnungsresponse.dart';
+import 'package:buzz/newpages/product_card.dart';
 import 'package:buzz/provider/proviercolors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:ribbon_widget/ribbon_widget.dart';
+
+import '../model/jens/RecommendationRequest.dart';
 
 class OpdataChallengeScreen extends StatefulWidget {
   const OpdataChallengeScreen({Key? key}) : super(key: key);
@@ -37,6 +42,13 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
   bool _processingFinished = false;
   bool _hitSubmit = false;
   double _width = 0;
+
+  String _krankenkassenIk = "";
+  String _icd10Code = "";
+  String _diagnose = "";
+
+  List<AiRecommondation> _aiRecommondations = [];
+  List<Product> _saniUpRecommondations = [];
 
   @override
   void initState() {
@@ -213,10 +225,12 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
                     child: SizedBox(
                         width: 300,
                         child: TextFormField(
-                            controller: _ikController,
-                            //initialValue: _lightAbrechnungsrequest.krankenkassenIk,
+                            initialValue: _krankenkassenIk,
                             onChanged: (value) {
-                              setState(() {});
+                              setState(() {
+                                _krankenkassenIk = value;
+                              });
+                              _loadNewResultsIfPossible();
                             },
                             style: mediumBlackTextStyle.copyWith(
                                 color: notifire.getMainText),
@@ -262,10 +276,12 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
                     child: SizedBox(
                         width: 300,
                         child: TextFormField(
-                            controller: _ikController,
-                            //initialValue: _lightAbrechnungsrequest.krankenkassenIk,
+                            initialValue: _icd10Code,
                             onChanged: (value) {
-                              setState(() {});
+                              setState(() {
+                                _icd10Code = value;
+                              });
+                              _loadNewResultsIfPossible();
                             },
                             style: mediumBlackTextStyle.copyWith(
                                 color: notifire.getMainText),
@@ -291,10 +307,12 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
                     child: SizedBox(
                         width: 300,
                         child: TextFormField(
-                            controller: _ikController,
-                            //initialValue: _lightAbrechnungsrequest.krankenkassenIk,
+                            initialValue: _diagnose,
                             onChanged: (value) {
-                              setState(() {});
+                              setState(() {
+                                _diagnose = value;
+                              });
+                              _loadNewResultsIfPossible();
                             },
                             style: mediumBlackTextStyle.copyWith(
                                 color: notifire.getMainText),
@@ -329,11 +347,68 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
             const SizedBox(
               height: 60,
             ),
-
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: _saniUpRecommondations.length,
+              itemBuilder: (context, index) {
+                Product product = _saniUpRecommondations[index];
+                return _buildProductCard(product);
+              },
+            ),
           ],
         ),
       ),
     );
+  }
+
+  Widget _buildProductCard(Product product) {
+    return ProductCard(product: product);
+  }
+
+  void _loadNewResultsIfPossible() {
+    if (_krankenkassenIk.isNotEmpty &&
+        (_icd10Code.isNotEmpty || _diagnose.isNotEmpty)) {
+      _loadNewResults();
+    }
+  }
+
+  void _loadNewResults() {
+    if (_processingRequest) {
+      print(
+          "Not loading new results, because a request is already in progress.");
+      return;
+    }
+    setState(() {
+      _processingRequest = true;
+    });
+
+    RecommendationRequest recommendationRequest = RecommendationRequest();
+    recommendationRequest.krankenkassenIk = _krankenkassenIk;
+    recommendationRequest.diagnoseText = _diagnose;
+    recommendationRequest.icd10Code = _icd10Code;
+
+    JensApi()
+        .requestAiSuggestions(recommendationRequest: recommendationRequest)
+        .then((value) => {
+              setState(() {
+                _aiRecommondations = value;
+                _processingRequest = false;
+
+                JensApi()
+                    .requestSaniupSuggestions(
+                        aiRecommondations: _aiRecommondations)
+                    .then((saniUpRecommondations) => {
+                          setState(() {
+                            _saniUpRecommondations = saniUpRecommondations;
+                            _processingRequest = false;
+                          })
+                        });
+              })
+            });
+  }
+
+  Widget _getResultTabs() {
+    return Text("results");
   }
 
   Widget _processingFinishedWidget() {
