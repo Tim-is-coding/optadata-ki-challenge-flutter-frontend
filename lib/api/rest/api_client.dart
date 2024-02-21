@@ -21,9 +21,8 @@ class ApiClient {
 
   ApiClient(
       {
-        this.basePath = "https://insuranceconstract-rest-backend.azurewebsites.net/api/v1/"
-      //this.basePath = "http://localhost:8080/api/v1/"
-      });
+      //this.basePath = "https://insuranceconstract-rest-backend.azurewebsites.net/api/v1/"
+      this.basePath = "http://localhost:8080/api/v1/"});
 
   void addDefaultHeader(String key, String value) {
     _defaultHeaderMap[key] = value;
@@ -40,6 +39,12 @@ class ApiClient {
           return value is bool ? value : '$value'.toLowerCase() == 'true';
         case 'double':
           return value is double ? value : double.parse('$value');
+        case 'AiRecommondation':
+          return AiRecommondation.fromJson(value);
+        case 'LightAbrechnungsPrecheckResult':
+          return LightAbrechnungsPrecheckResult.fromJson(value);
+        case 'Product':
+          return Product.fromJson(value);
 
         default:
           {
@@ -104,7 +109,7 @@ class ApiClient {
       String path,
       String method,
       List<QueryParam> queryParams,
-      LightAbrechnungsrequest? body,
+      Object body,
       Map<String, String> headerParams,
       Map<String, String> formParams,
       String contentType,
@@ -127,7 +132,7 @@ class ApiClient {
     } else {
       Response response;
 
-      var msgBody = serialize(body?.toJson());
+      var msgBody = serialize(body);
       //msgBody = msgBody.replaceAll("\\\\", "\\");
       switch (method) {
         case "POST":

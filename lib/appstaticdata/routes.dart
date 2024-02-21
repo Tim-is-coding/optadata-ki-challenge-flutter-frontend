@@ -19,6 +19,6 @@ final getPage = [
   ),
   GetPage(
     name: Routes.homepage,
-    page: () => HomePage(),
+    page: () => OpdaDataChallenge(),
   ),
 ];

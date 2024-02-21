@@ -57,10 +57,10 @@ class _DarwerCodeState extends State<DarwerCode> {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SvgPicture.asset(
-                          "assets/saniup.svg",
-                          height: 48,
-                          width: 48,
+                        SvgPicture.network(
+                          "https://upload.wikimedia.org/wikipedia/commons/5/5b/Opta_Data_Gruppe_logo_(2021).svg",
+                          height: 40,
+                          width: 40,
                         ),
                         const SizedBox(
                           width: 10,

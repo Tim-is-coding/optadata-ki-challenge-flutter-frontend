@@ -1,7 +1,6 @@
-import 'package:buzz/widgets/NotImplementedYetScreen.dart';
 import 'package:get/get.dart';
 
-import 'newpages/enterabrechnungsrequest.dart';
+import 'newpages/opdata_data_challenge_screen.dart';
 
 class AppConst extends GetxController implements GetxService {
   RxInt pageselecter = 0.obs;
@@ -40,10 +39,7 @@ class AppConst extends GetxController implements GetxService {
   RxBool switchistrue = false.obs;
 
   var page = [
-    const EnterAbrechnungsRequestScreen(),
-    NotImplementedYetScreen("Übersicht"),
-    // const DefaultPage(),//
-    NotImplementedYetScreen("Historie"),
+    const OpdataChallengeScreen(),
   ].obs;
 
   void changePage(int newIndex) {

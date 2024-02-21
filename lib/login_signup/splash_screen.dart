@@ -17,9 +17,8 @@ class _SplashScreenState extends State<SplashScreen> {
   initState() {
     super.initState();
 
-    // TODO load data here
     Future.delayed(
-      const Duration(seconds: 1),
+      const Duration(seconds: 2),
       () {
         Get.offAllNamed(Routes.homepage);
       },
@@ -36,16 +35,16 @@ class _SplashScreenState extends State<SplashScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SvgPicture.asset(
-                "assets/saniup.svg",
-                height: 50,
-                width: 50,
+              SvgPicture.network(
+                "https://upload.wikimedia.org/wikipedia/commons/5/5b/Opta_Data_Gruppe_logo_(2021).svg",
+                height: 200,
+                width: 200,
               ),
               const SizedBox(
                 width: 12,
               ),
               const Text(
-                "SaniUp",
+                "Opta Data KI Challenge",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
               ),
             ],

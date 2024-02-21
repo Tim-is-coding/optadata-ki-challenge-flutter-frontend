@@ -1,15 +1,14 @@
 part of swagger.api;
 
-class AbrechnungLiteApi {
+class JensApi {
   final ApiClient apiClient;
 
-  AbrechnungLiteApi([ApiClient? apiClient])
-      : apiClient = apiClient ?? defaultApiClient;
+  JensApi([ApiClient? apiClient]) : apiClient = apiClient ?? defaultApiClient;
 
-  Future<LightAbrechnungsResult?> requestAbrechnungLite(
-      {required LightAbrechnungsrequest lightAbrechnungsRequest}) async {
+  Future<List<AiRecommondation>> requestAiSuggestions(
+      {required RecommendationRequest recommendationRequest}) async {
     // create path and map variables
-    String path = "abrechnung/light";
+    String path = "jens/ai/suggestions";
 
     // query params
     List<QueryParam> queryParams = [];
@@ -21,9 +20,9 @@ class AbrechnungLiteApi {
 
     var response = await apiClient.invokeAPI(
         path,
-        'POST',
+        'GET',
         queryParams,
-        lightAbrechnungsRequest.toJson(),
+        recommendationRequest.toJson(),
         headerParams,
         formParams,
         contentType,
@@ -32,15 +31,18 @@ class AbrechnungLiteApi {
     if (response.statusCode >= 400) {
       throw ApiException(response.statusCode, response.body);
     } else {
-      return LightAbrechnungsResult.fromJson(
-          json.decode(utf8.decode(response.bodyBytes)));
+      return (apiClient.deserialize(
+                  utf8.decode(response.bodyBytes), 'List<AiRecommondation>')
+              as List)
+          .map((item) => item as AiRecommondation)
+          .toList();
     }
   }
 
-  Future<LightAbrechnungsPrecheckResult?> requestAbrechnungLitePrecheck(
-      {required LightAbrechnungsrequest lightAbrechnungsRequest}) async {
+  Future<List<Product>> requestSaniupSuggestions(
+      {required List<AiRecommondation> aiRecommondations}) async {
     // create path and map variables
-    String path = "abrechnung/light/precheck";
+    String path = "jens/saniup/suggestions";
 
     // query params
     List<QueryParam> queryParams = [];
@@ -50,12 +52,11 @@ class AbrechnungLiteApi {
     String contentType = "application/json";
     List<String> authNames = ["aussendienst_api"];
 
-
     var response = await apiClient.invokeAPI(
         path,
-        'POST',
+        'GET',
         queryParams,
-        lightAbrechnungsRequest.toJson(),
+        aiRecommondations.map((e) => e.toJson()).toList(),
         headerParams,
         formParams,
         contentType,
@@ -64,8 +65,10 @@ class AbrechnungLiteApi {
     if (response.statusCode >= 400) {
       throw ApiException(response.statusCode, response.body);
     } else {
-      return LightAbrechnungsPrecheckResult.fromJson(
-          json.decode(utf8.decode(response.bodyBytes)));
+      return (apiClient.deserialize(
+              utf8.decode(response.bodyBytes), 'List<Product>') as List)
+          .map((item) => item as Product)
+          .toList();
     }
   }
 }
