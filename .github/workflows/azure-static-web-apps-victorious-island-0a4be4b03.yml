@@ -31,6 +31,17 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-flutter-
 
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.pub-cache
+            .dart_tool
+            build
+          key: ${{ runner.os }}-dart-${{ hashFiles('**/pubspec.yaml', '**/pubspec.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-dart-
+        
+
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
