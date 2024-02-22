@@ -293,7 +293,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                       width: isMobile ? 16 : 24,
                       color: notifire.getsubcolors,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Text(
@@ -301,7 +301,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                       style: TextStyle(
                           // hand written styl
                           fontFamily: "Gilroy",
-                          color: notifire.getsubcolors,
+                          color: isMobile ? Colors.black : notifire.getsubcolors,
                           fontSize: isMobile ? 12 : 14,
                           overflow: TextOverflow.ellipsis),
                     ),
