@@ -436,7 +436,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                         _aiRecommondations[index];
                     return SizedBox(
                         width: 360,
-                        child: _buildAiRecommondationCard(aiRecommondation));
+                        child: _buildAiRecommondationCard(aiRecommondation, isMobile));
                   },
                 ),
               ),
@@ -446,7 +446,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
     );
   }
 
-  Widget _buildAiRecommondationCard(AiRecommondation aiRecommondation) {
+  Widget _buildAiRecommondationCard(AiRecommondation aiRecommondation, bool isMobile) {
     return Padding(
       padding: const EdgeInsets.all(padding),
       child: Container(
@@ -469,7 +469,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                     Text(
                       aiRecommondation.hilfsmittelNummer!.value!,
                       style: mainTextStyle.copyWith(
-                          fontSize: 17, color: notifire!.getMainText),
+                          fontSize: isMobile  ? 16 : 17, color: notifire!.getMainText),
                     ),
                     const SizedBox(
                       height: 10,
