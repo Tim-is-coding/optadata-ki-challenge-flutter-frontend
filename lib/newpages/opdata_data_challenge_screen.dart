@@ -139,7 +139,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
                             fontFamily: "Aharon",
                             color: notifire.getbacktextcolors,
                             fontWeight: FontWeight.w900,
-                            fontSize: 24),
+                            fontSize: isMobile ? 16:  24),
                       ),
                     ],
                   ),
