@@ -244,14 +244,14 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                   String icdCode = "N39.3";
                   String icdCodeBuilder = "";
                   for (int i = 0; i < icdCode.length; i++) {
+                    await Future.delayed(delay);
+                    await Future.delayed(delay);
+                    await Future.delayed(delay);
                     icdCodeBuilder += icdCode[i].toString();
                     setState(() {
                       _icd10Code = icdCodeBuilder;
                       _icdkController.text = icdCodeBuilder;
                     });
-                    await Future.delayed(delay);
-                    await Future.delayed(delay);
-                    await Future.delayed(delay);
                   }
                   _loadNewResultsIfPossible();
 
@@ -280,8 +280,8 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                       _diagnose = diagnoseBuilder;
                       _diagnoseController.text = diagnoseBuilder;
                     });
-                    await Future.delayed(delay);
                     _loadNewResultsIfPossible();
+                    await Future.delayed(delay);
                   }
                 },
                 child: Row(
