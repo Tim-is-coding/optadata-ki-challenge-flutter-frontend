@@ -385,7 +385,9 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
             if (_krankenkassenIk.length > 5)
               Text(
                 textAlign: TextAlign.center,
-                "ICD-10 Code oder Diagnose eingeben. \nJe mehr Rezeptdaten eingegeben werden, desto besser werden die Vorschläge.",
+                "ICD-10 Code oder Diagnose eingeben. \nJe mehr Rezeptdaten eingegeben werden," +
+                    (isMobile ? "\n" : "") +
+                    "desto besser werden die Vorschläge.",
                 style: TextStyle(
                     // center text
                     color: notifire.getsubcolors,
