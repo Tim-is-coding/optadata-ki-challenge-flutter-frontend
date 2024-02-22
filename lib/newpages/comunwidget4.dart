@@ -1,4 +1,3 @@
-import 'package:buzz/appstaticdata/staticdata.dart';
 import 'package:buzz/provider/proviercolors.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -31,12 +30,28 @@ class ComunWidget4 extends StatelessWidget {
         animation: true,
         percent: percentage,
         animateFromLastPercent: true,
-        center: Text(
-          "${(percentage * 100).toInt()}%",
-          style: TextStyle(
-              fontSize: big ? 22 : 13.0,
-              fontWeight: big ? FontWeight.w800 : FontWeight.w600,
-              color: color),
+        center:
+            // clummn with itmes in the center
+            Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              textAlign: TextAlign.center,
+              "${(percentage * 100).toInt()}%",
+              style: TextStyle(
+                  fontSize: big ? 22 : 13.0,
+                  fontWeight: big ? FontWeight.w800 : FontWeight.w600,
+                  color: color),
+            ),
+            if (big)
+              Text(
+                "Genauigkeit",
+                style: TextStyle(
+                    fontSize: 13.0,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.black),
+              ),
+          ],
         ),
         backgroundColor: Colors.grey.shade900,
         circularStrokeCap: CircularStrokeCap.round,
