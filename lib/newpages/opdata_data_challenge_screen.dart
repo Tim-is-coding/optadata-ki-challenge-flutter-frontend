@@ -419,7 +419,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
             //   ),
             if (_krankenkassenIk.length > 5)
               SizedBox(
-                height: 6000,
+                height: isMobile ? 9000 : 6000,
                 width: isMobile
                     ? MediaQuery.of(context).size.width - 20
                     : MediaQuery.of(context).size.width - 200,
@@ -451,7 +451,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
       padding: const EdgeInsets.all(padding),
       child: Container(
         height: 180,
-        width: 360,
+        width: 375,
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(12)),
           color: notifire!.getcontiner,
