@@ -110,6 +110,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
         child: LayoutBuilder(
           builder: (context, constraints) {
             _width = constraints.maxWidth;
+            bool isMobile = constraints.maxWidth < 600;
             return Form(
               key: _formKey,
               // Ein GlobalKey<FormState>, um das Formular später zu validieren
@@ -124,8 +125,8 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
                     children: [
                       SvgPicture.network(
                         "https://upload.wikimedia.org/wikipedia/commons/5/5b/Opta_Data_Gruppe_logo_(2021).svg",
-                        height: 150,
-                        width: 150,
+                        height: isMobile ? 90 : 150,
+                        width: isMobile ? 90 :150,
                       ),
                     ],
                   ),
