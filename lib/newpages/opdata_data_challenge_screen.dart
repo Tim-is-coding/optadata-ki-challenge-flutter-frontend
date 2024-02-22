@@ -264,10 +264,10 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
             const SizedBox(
               height: 40,
             ),
-            Row(
-              // space items evenly
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+            // Row(
+            //   // space items evenly
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
                 SizedBox(
                   width: 300,
                   child: Padding(
@@ -330,8 +330,8 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
                             ))),
                   ),
                 ),
-              ],
-            ),
+             // ],
+           // ),
             const SizedBox(
               height: 20,
             ),
