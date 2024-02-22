@@ -484,15 +484,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
       ],
     );
 
-    Widget content = index == 0 ? Ribbon(
-        nearLength: 28,
-        farLength: 55,
-        title: '1.',
-        titleStyle: const TextStyle(
-            color: Colors.yellow, fontSize: 12, fontWeight: FontWeight.w600),
-        color: Colors.lightGreen,
-        location: RibbonLocation.topEnd,
-        child: row) : row;
+    Widget content = row;
 
     return Padding(
       padding: const EdgeInsets.all(padding),
@@ -563,7 +555,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                   // sroll to _scrollToKey
                   offset,
 
-                  duration: const Duration(seconds: 3),
+                  duration: const Duration(seconds: 2),
                   curve: Curves.easeIn,
                 ),
               setState(() {
