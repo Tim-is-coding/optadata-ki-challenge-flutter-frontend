@@ -8,8 +8,7 @@ class ComunWidget4 extends StatefulWidget {
   final double percentage;
   final bool big;
 
-  const ComunWidget4(
-      {Key? key, required this.percentage, this.big = true})
+  const ComunWidget4({Key? key, required this.percentage, this.big = true})
       : super(key: key);
 
   @override
@@ -30,9 +29,10 @@ class _ComunWidget4State extends State<ComunWidget4> {
 
     return Consumer<ColorNotifire>(
       builder: (context, value, child) => CircularPercentIndicator(
+        curve: Curves.easeOut,
         animationDuration: 3000,
         radius: widget.big ? 70 : 40.0,
-        lineWidth: widget.big ? 8: 4.0,
+        lineWidth: widget.big ? 8 : 4.0,
         animation: true,
         percent: widget.percentage,
         animateFromLastPercent: true,
