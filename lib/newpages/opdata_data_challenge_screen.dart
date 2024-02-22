@@ -223,6 +223,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -421,51 +422,63 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
             //     height: 20,
             //   ),
             if (_krankenkassenIk.length > 5)
-               SizedBox(width: 260, child: TabBar(
+              SizedBox(
+                  width: 260,
+                  child: TabBar(
                     controller: _tabController,
                     tabs: <Widget>[
-                      Tab( text: 'KI Ergebnisse'),
-                      Tab(text: 'SaniUp View'),
+                      Tab(text: 'KI Ergebnisse'),
+                      // only show on hover
+
+                      Tab(
+                        text: 'SaniUp View',
+                      ),
                     ],
                   )),
-            if (_krankenkassenIk.length > 50)
-              Material(
-                  child: TabBarView(
-                controller: _tabController,
-                children: <Widget>[
-                  Expanded(
-                      child: GridView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: isMobile ? 1 : 3,
-                      childAspectRatio: 1.5,
-                    ),
-                    itemCount: _aiRecommondations.length,
-                    itemBuilder: (context, index) {
-                      AiRecommondation aiRecommondation =
-                          _aiRecommondations[index];
-                      return SizedBox(
-                          width: 360,
-                          child: _buildAiRecommondationCard(aiRecommondation));
-                    },
+            if (_krankenkassenIk.length > 5)
+              SizedBox(
+                  height: 360,
+                  width: 360 ,child: TabBarView(
+                    controller: _tabController,
+                    children: <Widget>[
+                    SizedBox(
+                       height: 360,
+                    width: 360, child:GridView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: isMobile ? 1 : 3,
+                          childAspectRatio: 1.5,
+                        ),
+                        itemCount: _aiRecommondations.length,
+                        itemBuilder: (context, index) {
+                          AiRecommondation aiRecommondation =
+                              _aiRecommondations[index];
+                          return SizedBox(
+                              width: 360,
+                              child:
+                                  _buildAiRecommondationCard(aiRecommondation));
+                        },
+                      ),),
+     SizedBox(
+                        height: 360,
+    width: 360, child: GridView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: isMobile ? 1 : 3,
+
+                          childAspectRatio: 1.5,
+                        ),
+                        itemCount: _saniUpRecommondations.length,
+                        itemBuilder: (context, index) {
+                          Product product = _saniUpRecommondations[index];
+                          return SizedBox(
+                              width: 360, child: _buildProductCard(product));
+                        },
+                      )),
+                    ],
                   )),
-                  GridView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: isMobile ? 1 : 3,
-                      childAspectRatio: 1.5,
-                    ),
-                    itemCount: _saniUpRecommondations.length,
-                    itemBuilder: (context, index) {
-                      Product product = _saniUpRecommondations[index];
-                      return SizedBox(
-                          width: 360, child: _buildProductCard(product));
-                    },
-                  ),
-                ],
-              )),
           ],
         ),
       ),
@@ -477,6 +490,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
       padding: const EdgeInsets.all(padding),
       child: Container(
         height: 180,
+        width: 360,
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(12)),
           color: notifire!.getcontiner,
