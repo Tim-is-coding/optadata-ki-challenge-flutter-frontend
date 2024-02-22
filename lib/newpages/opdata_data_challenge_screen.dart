@@ -388,29 +388,32 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
               ),
             if (_aiRecommondations.isNotEmpty)
               ComunWidget4(
-                  percentage:
-                      _aiRecommondations.first.hilfsmittelNummer!.percentage! /
-                          100.0),
+                percentage:
+                    _aiRecommondations.first.hilfsmittelNummer!.percentage! /
+                        100.0,
+                big: true,
+              ),
             if (_krankenkassenIk.length > 5)
               const SizedBox(
                 height: 60,
               ),
+            // if (_krankenkassenIk.length > 5)
+            //   ListView.builder(
+            //     shrinkWrap: true,
+            //     itemCount: _saniUpRecommondations.length,
+            //     itemBuilder: (context, index) {
+            //       Product product = _saniUpRecommondations[index];
+            //       return SizedBox(
+            //           width: 360, child: _buildProductCard(product));
+            //     },
+            //   ),
+            // if (_krankenkassenIk.length > 5)
+            //   SizedBox(
+            //     height: 20,
+            //   ),
             if (_krankenkassenIk.length > 5)
               ListView.builder(
-                shrinkWrap: true,
-                itemCount: _saniUpRecommondations.length,
-                itemBuilder: (context, index) {
-                  Product product = _saniUpRecommondations[index];
-                  return SizedBox(
-                      width: 360, child: _buildProductCard(product));
-                },
-              ),
-            if (_krankenkassenIk.length > 5)
-              SizedBox(
-                height: 20,
-              ),
-            if (_krankenkassenIk.length > 5)
-              ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: _aiRecommondations.length,
                 itemBuilder: (context, index) {
@@ -419,12 +422,6 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
                       width: 360,
                       child: _buildAiRecommondationCard(aiRecommondation));
                 },
-                // _buildAverageSalesPerDay(
-                // maincolor: const Color(0xfffc4438),
-                // title: 'Today Profit',
-                // price: '98.1%',
-                // pr: '2.7%',
-                // percentage: 60)
               )
           ],
         ),
@@ -475,9 +472,8 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
             Expanded(
               flex: 1,
               child: ComunWidget4(
-                percentage:
-                    aiRecommondation.hilfsmittelNummer!.percentage! / 100.0
-              ),
+                  percentage:
+                      aiRecommondation.hilfsmittelNummer!.percentage! / 100.0),
             )
           ],
         ),
