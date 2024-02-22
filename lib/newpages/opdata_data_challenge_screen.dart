@@ -428,7 +428,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                   shrinkWrap: true,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: isMobile ? 1 : 3,
-                    childAspectRatio: 1.5,
+                    childAspectRatio: 2.5,
                   ),
                   itemCount: _aiRecommondations.length,
                   itemBuilder: (context, index) {
@@ -450,11 +450,11 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
     return Padding(
       padding: const EdgeInsets.all(padding),
       child: Container(
-        height: 180,
+        height: 120,
         width: 375,
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(12)),
-          color: notifire!.getcontiner,
+          color: Colors.grey.shade50,
           boxShadow: boxShadow,
         ),
         child: Row(

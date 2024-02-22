@@ -44,7 +44,7 @@ class ComunWidget4 extends StatelessWidget {
                   color: color),
             ),
             if (big)
-              Text(
+              const Text(
                 "Genauigkeit",
                 style: TextStyle(
                     fontSize: 13.0,
