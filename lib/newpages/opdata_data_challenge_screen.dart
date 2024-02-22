@@ -456,7 +456,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                 Text(
                   aiRecommondation.hilfsmittelNummer!.value!,
                   style: mainTextStyle.copyWith(
-                      fontSize: isMobile ? 16 : 17,
+                      fontSize: isMobile ? 14 : 17,
                       color: notifire!.getMainText),
                 ),
                 const SizedBox(
