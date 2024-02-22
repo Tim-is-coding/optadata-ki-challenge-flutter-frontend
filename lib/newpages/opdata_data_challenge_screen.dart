@@ -25,7 +25,8 @@ class OpdataChallengeScreen extends StatefulWidget {
   State<OpdataChallengeScreen> createState() => _OpdataChallengeScreenState();
 }
 
-class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
+class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
+    with TickerProviderStateMixin {
   ColorNotifire notifire = ColorNotifire();
 
   late LightAbrechnungsrequest _lightAbrechnungsrequest;
@@ -35,6 +36,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
   final GlobalKey _scrollToKey = GlobalKey();
   final GlobalKey _topScrollKey = GlobalKey();
   final ScrollController _scrollController = ScrollController();
+  late TabController _tabController;
 
   final TextEditingController _ikController = TextEditingController();
   final TextEditingController _BdayController = TextEditingController();
@@ -55,6 +57,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
   void initState() {
     super.initState();
     _lightAbrechnungsrequest = _makeStartSetting();
+    _tabController = TabController(length: 2, vsync: this);
 
     // _lightAbrechnungsrequest.krankenkassenIk = "100189483";
     // _lightAbrechnungsrequest.patientBirthday = "01.01.1980";
@@ -73,6 +76,12 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
     //     .hilfmittelnummer = "15.25.31.2042";
     // _lightAbrechnungsrequest
     //     .productDeliveries![0].deliveredProducts![1].amount = 1;
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 
   void _clearAllTextFields() {
@@ -412,21 +421,51 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
             //     height: 20,
             //   ),
             if (_krankenkassenIk.length > 5)
-              GridView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: isMobile ? 1 : 3,
-                  childAspectRatio: 1.5,
-                ),
-                itemCount: _aiRecommondations.length,
-                itemBuilder: (context, index) {
-                  AiRecommondation aiRecommondation = _aiRecommondations[index];
-                  return SizedBox(
-                      width: 360,
-                      child: _buildAiRecommondationCard(aiRecommondation));
-                },
-              ),
+               SizedBox(width: 260, child: TabBar(
+                    controller: _tabController,
+                    tabs: <Widget>[
+                      Tab( text: 'KI Ergebnisse'),
+                      Tab(text: 'SaniUp View'),
+                    ],
+                  )),
+            if (_krankenkassenIk.length > 50)
+              Material(
+                  child: TabBarView(
+                controller: _tabController,
+                children: <Widget>[
+                  Expanded(
+                      child: GridView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: isMobile ? 1 : 3,
+                      childAspectRatio: 1.5,
+                    ),
+                    itemCount: _aiRecommondations.length,
+                    itemBuilder: (context, index) {
+                      AiRecommondation aiRecommondation =
+                          _aiRecommondations[index];
+                      return SizedBox(
+                          width: 360,
+                          child: _buildAiRecommondationCard(aiRecommondation));
+                    },
+                  )),
+                  GridView.builder(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: isMobile ? 1 : 3,
+                      childAspectRatio: 1.5,
+                    ),
+                    itemCount: _saniUpRecommondations.length,
+                    itemBuilder: (context, index) {
+                      Product product = _saniUpRecommondations[index];
+                      return SizedBox(
+                          width: 360, child: _buildProductCard(product));
+                    },
+                  ),
+                ],
+              )),
           ],
         ),
       ),
