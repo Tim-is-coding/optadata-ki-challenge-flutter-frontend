@@ -403,10 +403,6 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                         100.0,
                 big: true,
               ),
-            if (_krankenkassenIk.length > 5)
-              const SizedBox(
-                height: 60,
-              ),
             // if (_krankenkassenIk.length > 5)
             //   ListView.builder(
             //     shrinkWrap: true,
@@ -423,64 +419,27 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
             //   ),
             if (_krankenkassenIk.length > 5)
               SizedBox(
-                  width: 260,
-                  child: TabBar(
-                    controller: _tabController,
-                    tabs: <Widget>[
-                      const Tab(text: 'KI Ergebnisse'),
-                      // only show on hover
-                      const Tab(
-                        text: 'SaniUp Addon',
-                      ),
-                    ],
-                  )),
-            if (_krankenkassenIk.length > 5)
-              const SizedBox(
-                height: 20,
+                height: 6000,
+                width: isMobile
+                    ? MediaQuery.of(context).size.width - 20
+                    : MediaQuery.of(context).size.width - 200,
+                child: GridView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: isMobile ? 1 : 3,
+                    childAspectRatio: 1.5,
+                  ),
+                  itemCount: _aiRecommondations.length,
+                  itemBuilder: (context, index) {
+                    AiRecommondation aiRecommondation =
+                        _aiRecommondations[index];
+                    return SizedBox(
+                        width: 360,
+                        child: _buildAiRecommondationCard(aiRecommondation));
+                  },
+                ),
               ),
-            if (_krankenkassenIk.length > 5)
-              SizedBox(
-                  height: 5000,
-                  width: isMobile
-                      ? MediaQuery.of(context).size.width - 20
-                      : MediaQuery.of(context).size.width - 200,
-                  child: TabBarView(
-                    physics: const NeverScrollableScrollPhysics(),
-                    controller: _tabController,
-                    children: <Widget>[
-                      GridView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: isMobile ? 1 : 3,
-                          childAspectRatio: 1.5,
-                        ),
-                        itemCount: _aiRecommondations.length,
-                        itemBuilder: (context, index) {
-                          AiRecommondation aiRecommondation =
-                              _aiRecommondations[index];
-                          return SizedBox(
-                              width: 360,
-                              child:
-                                  _buildAiRecommondationCard(aiRecommondation));
-                        },
-                      ),
-                      GridView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: isMobile ? 1 : 3,
-                          childAspectRatio: 1.5,
-                        ),
-                        itemCount: _saniUpRecommondations.length,
-                        itemBuilder: (context, index) {
-                          Product product = _saniUpRecommondations[index];
-                          return SizedBox(
-                              width: 360, child: _buildProductCard(product));
-                        },
-                      ),
-                    ],
-                  )),
           ],
         ),
       ),
@@ -571,16 +530,6 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
               setState(() {
                 _aiRecommondations = value;
                 _processingRequest = false;
-
-                JensApi()
-                    .requestSaniupSuggestions(
-                        aiRecommondations: _aiRecommondations)
-                    .then((saniUpRecommondations) => {
-                          setState(() {
-                            _saniUpRecommondations = saniUpRecommondations;
-                            _processingRequest = false;
-                          })
-                        });
               })
             });
   }
