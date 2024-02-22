@@ -21,6 +21,15 @@ jobs:
           submodules: true
           lfs: false
 
+      # Cache Flutter SDK
+      - uses: actions/cache@v2
+        with:
+          path: |
+            <path-to-flutter-sdk> # Replace with the actual Flutter SDK path
+          key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-flutter-
+
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
