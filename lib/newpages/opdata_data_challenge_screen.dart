@@ -437,7 +437,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                   child: SizedBox(
                       width: 300,
                       child: TextFormField(
-                          initialValue: _diagnose,
+                          controller: _diagnoseController,
                           onChanged: (value) {
                             setState(() {
                               _diagnose = value;
