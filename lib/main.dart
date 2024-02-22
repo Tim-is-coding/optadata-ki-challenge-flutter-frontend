@@ -116,7 +116,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         initialRoute: Routes.initial,
         getPages: getPage,
-        title: 'SaniUp',
+        title: 'Opta Data KI Challenge',
         theme: ThemeData(
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
