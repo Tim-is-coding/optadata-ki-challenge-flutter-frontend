@@ -269,6 +269,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
             //   // space items evenly
             //   mainAxisAlignment: MainAxisAlignment.center,
             //   children: [
+            if(_krankenkassenIk.length > 5)
                 SizedBox(
                   width: 300,
                   child: Padding(
@@ -300,6 +301,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
                             ))),
                   ),
                 ),
+            if(_krankenkassenIk.length > 5)
                 SizedBox(
                   width: 300,
                   child: Padding(
@@ -333,9 +335,11 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
                 ),
              // ],
            // ),
+            if(_krankenkassenIk.length > 5)
             const SizedBox(
               height: 20,
             ),
+            if(_krankenkassenIk.length > 5)
             Text(
               textAlign: TextAlign.center,
               "sdijfhsodjiafhjosad fhsdof soifiosadfsdaof asofi asf sfosa\nlorem ipsum dolor sit amet lorem ipsum dolor\nsit amet lorem ipsum dolor sit amet",
@@ -345,9 +349,11 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
                   fontSize: 12,
                   overflow: TextOverflow.ellipsis),
             ),
+            if(_krankenkassenIk.length > 5)
             const SizedBox(
               height: 60,
             ),
+            if(_krankenkassenIk.length > 5)
             ListView.builder(
               shrinkWrap: true,
               itemCount: _saniUpRecommondations.length,
