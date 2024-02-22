@@ -53,7 +53,7 @@ class ComunWidget4 extends StatelessWidget {
               ),
           ],
         ),
-        backgroundColor: Colors.grey.shade900,
+        backgroundColor: Colors.white,
         circularStrokeCap: CircularStrokeCap.round,
         progressColor: color,
       ),
