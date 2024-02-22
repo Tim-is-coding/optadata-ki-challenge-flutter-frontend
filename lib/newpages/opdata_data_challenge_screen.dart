@@ -337,7 +337,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
                   ),
               ],
             ),
-            if (isMobile)
+            if (_krankenkassenIk.length > 5 && isMobile)
               SizedBox(
                 width: 300,
                 child: Padding(
