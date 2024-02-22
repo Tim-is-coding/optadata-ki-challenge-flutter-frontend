@@ -221,9 +221,9 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                 onTap: () async {
                   String ik = "142177879";
                   String ikBuilder = "";
-                  Duration delay = const Duration(milliseconds: 120);
+                  Duration delay = const Duration(milliseconds: 210);
                   for (int i = 0; i < ik.length; i++) {
-                    ikBuilder += ik[i + 1].toString();
+                    ikBuilder += ik[i].toString();
                     setState(() {
                       _krankenkassenIk = ikBuilder;
                       _ikController.text = ikBuilder;
@@ -231,26 +231,57 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                     await Future.delayed(delay);
                   }
 
+                  await Future.delayed(delay);
+                  await Future.delayed(delay);
+                  await Future.delayed(delay);
+                  await Future.delayed(delay);
+                  await Future.delayed(delay);
+                  await Future.delayed(delay);
+                  await Future.delayed(delay);
+                  await Future.delayed(delay);
+                  await Future.delayed(delay);
+
                   String icdCode = "N39.3";
                   String icdCodeBuilder = "";
                   for (int i = 0; i < icdCode.length; i++) {
-                    icdCodeBuilder += icdCode[i + 1].toString();
+                    icdCodeBuilder += icdCode[i].toString();
                     setState(() {
                       _icd10Code = icdCodeBuilder;
                       _icdkController.text = icdCodeBuilder;
                     });
                     await Future.delayed(delay);
+                    await Future.delayed(delay);
+                    await Future.delayed(delay);
                   }
+                  _loadNewResultsIfPossible();
+
+                  await Future.delayed(delay);
+                  await Future.delayed(delay);
+                  await Future.delayed(delay);
+                  await Future.delayed(delay);
+                  await Future.delayed(delay);
+                  await Future.delayed(delay);
+                  await Future.delayed(delay);
+                  await Future.delayed(delay);
+                  await Future.delayed(delay);
+                  await Future.delayed(delay);
+                  await Future.delayed(delay);
+                  await Future.delayed(delay);
+                  await Future.delayed(delay);
+                  await Future.delayed(delay);
+                  await Future.delayed(delay);
+                  await Future.delayed(delay);
 
                   String diagnose = "Stressinkontinenz";
                   String diagnoseBuilder = "";
                   for (int i = 0; i < diagnose.length; i++) {
-                    diagnoseBuilder += diagnose[i + 1].toString();
+                    diagnoseBuilder += diagnose[i].toString();
                     setState(() {
                       _diagnose = diagnoseBuilder;
                       _diagnoseController.text = diagnoseBuilder;
                     });
                     await Future.delayed(delay);
+                    _loadNewResultsIfPossible();
                   }
                 },
                 child: Row(
@@ -258,15 +289,15 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                   children: [
                     SvgPicture.asset(
                       "auto-generate-svgrepo-com.svg",
-                      height: 20,
-                      width: 20,
+                      height: isMobile ? 16 : 28,
+                      width: isMobile ? 16 : 28,
                       color: notifire.getsubcolors,
                     ),
                     SizedBox(
                       width: 10,
                     ),
                     Text(
-                      "Demo",
+                      "Demo ausführen",
                       style: TextStyle(
                           // hand written styl
                           fontFamily: "Aharon",
