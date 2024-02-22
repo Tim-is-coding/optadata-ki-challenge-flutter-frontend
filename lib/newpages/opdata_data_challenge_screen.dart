@@ -38,6 +38,8 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
   late TabController _tabController;
 
   final TextEditingController _ikController = TextEditingController();
+  final TextEditingController _icdkController = TextEditingController();
+  final TextEditingController _diagnoseController = TextEditingController();
   final TextEditingController _BdayController = TextEditingController();
 
   bool _processingRequest = false;
@@ -153,6 +155,75 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                       ),
                     ],
                   ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  InkWell(
+                      onTap: () async {
+                        String ik = "142177879";
+                        String ikBuilder = "";
+                        Duration delay = const Duration(milliseconds: 120);
+                        for (int i = 0; i < ik.length; i++) {
+                          ikBuilder += ik[i + 1].toString();
+                          setState(() {
+                            _krankenkassenIk = ikBuilder;
+                            _ikController.text = ikBuilder;
+                          });
+                          await Future.delayed(delay);
+                        }
+
+                        await Future.delayed(delay);
+                        await Future.delayed(delay);
+                        await Future.delayed(delay);
+                        await Future.delayed(delay);
+
+                        String icdCode = "N39.3";
+                        String icdCodeBuilder = "";
+                        for (int i = 0; i < icdCode.length; i++) {
+                          icdCodeBuilder += icdCode[i + 1].toString();
+                          setState(() {
+                            _icd10Code = icdCodeBuilder;
+                            _icdkController.text = icdCodeBuilder;
+                          });
+                          await Future.delayed(delay);
+                        }
+
+                        await Future.delayed(delay);
+                        await Future.delayed(delay);
+                        await Future.delayed(delay);
+                        await Future.delayed(delay);
+
+                        String diagnose = "N39.3";
+                        String diagnoseBuilder = "Stressinkontinenz";
+                        for (int i = 0; i < diagnose.length; i++) {
+                          diagnoseBuilder += diagnose[i + 1].toString();
+                          setState(() {
+                            _diagnose = diagnoseBuilder;
+                            _diagnoseController.text = diagnoseBuilder;
+                          });
+                          await Future.delayed(delay);
+                        }
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Demo",
+                            style: TextStyle(
+                                color: notifire.getsubcolors,
+                                fontSize: isMobile ? 12 : 18,
+                                overflow: TextOverflow.ellipsis),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          SvgPicture.asset(
+                            "assets/icons/auto-generate-svgrepo-com.svg",
+                            height: 20,
+                            width: 20,
+                          ),
+                        ],
+                      )),
                   Padding(
                     padding: const EdgeInsets.all(padding),
                     child: Container(
@@ -223,7 +294,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                     child: SizedBox(
                         width: 300,
                         child: TextFormField(
-                            initialValue: _krankenkassenIk,
+                            controller: _ikController,
                             onChanged: (value) {
                               setState(() {
                                 _krankenkassenIk = value;
@@ -276,7 +347,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                       child: SizedBox(
                           width: 300,
                           child: TextFormField(
-                              initialValue: _icd10Code,
+                              controller: _icdkController,
                               onChanged: (value) {
                                 setState(() {
                                   _icd10Code = value;
@@ -308,7 +379,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                       child: SizedBox(
                           width: 300,
                           child: TextFormField(
-                              initialValue: _diagnose,
+                              controller: _diagnoseController,
                               onChanged: (value) {
                                 setState(() {
                                   _diagnose = value;
@@ -443,8 +514,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
 
   Widget _buildAiRecommondationCard(
       AiRecommondation aiRecommondation, bool isMobile, int index) {
-
-    Widget row =  Row(
+    Widget row = Row(
       children: [
         Expanded(
           child: Padding(
@@ -478,8 +548,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
           flex: 1,
           child: ComunWidget4(
               percentage:
-              aiRecommondation.hilfsmittelNummer!.percentage! /
-                  100.0),
+                  aiRecommondation.hilfsmittelNummer!.percentage! / 100.0),
         )
       ],
     );
