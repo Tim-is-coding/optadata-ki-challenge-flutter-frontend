@@ -396,7 +396,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
               const SizedBox(
                 height: 40,
               ),
-            if (_aiRecommondations.isNotEmpty)
+            if (_aiRecommondations.isNotEmpty && _krankenkassenIk.length > 5)
               ComunWidget4(
                 percentage:
                     _aiRecommondations.first.hilfsmittelNummer!.percentage! /
@@ -436,14 +436,19 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                     ],
                   )),
             if (_krankenkassenIk.length > 5)
+              const SizedBox(
+                height: 20,
+              ),
+            if (_krankenkassenIk.length > 5)
               SizedBox(
-                  height: 360,
-                  width: 360 ,child: TabBarView(
+                  height: 800,
+                  width: isMobile
+                      ? MediaQuery.of(context).size.width - 20
+                      : MediaQuery.of(context).size.width - 200,
+                  child: TabBarView(
                     controller: _tabController,
                     children: <Widget>[
-                    SizedBox(
-                       height: 360,
-                    width: 360, child:GridView.builder(
+                      GridView.builder(
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -459,15 +464,12 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                               child:
                                   _buildAiRecommondationCard(aiRecommondation));
                         },
-                      ),),
-     SizedBox(
-                        height: 360,
-    width: 360, child: GridView.builder(
+                      ),
+                      GridView.builder(
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: isMobile ? 1 : 3,
-
                           childAspectRatio: 1.5,
                         ),
                         itemCount: _saniUpRecommondations.length,
@@ -476,7 +478,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                           return SizedBox(
                               width: 360, child: _buildProductCard(product));
                         },
-                      )),
+                      ),
                     ],
                   )),
           ],
