@@ -412,9 +412,13 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
             //     height: 20,
             //   ),
             if (_krankenkassenIk.length > 5)
-              ListView.builder(
+              GridView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: isMobile ? 1 : 3,
+                  childAspectRatio: 1.5,
+                ),
                 itemCount: _aiRecommondations.length,
                 itemBuilder: (context, index) {
                   AiRecommondation aiRecommondation = _aiRecommondations[index];
@@ -422,7 +426,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
                       width: 360,
                       child: _buildAiRecommondationCard(aiRecommondation));
                 },
-              )
+              ),
           ],
         ),
       ),
