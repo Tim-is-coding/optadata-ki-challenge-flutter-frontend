@@ -151,7 +151,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                             fontFamily: "Gilroy",
                             color: notifire.getbacktextcolors,
                             fontWeight: FontWeight.w900,
-                            fontSize: isMobile ? 16 : 24),
+                            fontSize: isMobile ? 16 : 22),
                       ),
                     ],
                   ),
