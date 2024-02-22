@@ -425,10 +425,13 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                   itemBuilder: (context, index) {
                     AiRecommondation aiRecommondation =
                         _aiRecommondations[index];
-                    return SizedBox(
+
+                    var card = SizedBox(
                         width: 360,
                         child: _buildAiRecommondationCard(
-                            aiRecommondation, isMobile));
+                            aiRecommondation, isMobile, index));
+
+                    return card;
                   },
                 ),
               ),
@@ -439,55 +442,70 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
   }
 
   Widget _buildAiRecommondationCard(
-      AiRecommondation aiRecommondation, bool isMobile) {
+      AiRecommondation aiRecommondation, bool isMobile, int index) {
+
+    Widget row =  Row(
+      children: [
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(14.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  aiRecommondation.hilfsmittelNummer!.value!,
+                  style: mainTextStyle.copyWith(
+                      fontSize: isMobile ? 16 : 17,
+                      color: notifire!.getMainText),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  aiRecommondation.prices!.first.value!,
+                  style: mediumGreyTextStyle.copyWith(fontSize: 14),
+                ),
+                const SizedBox(height: 4),
+                const SizedBox(
+                  height: 10,
+                ),
+              ],
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: ComunWidget4(
+              percentage:
+              aiRecommondation.hilfsmittelNummer!.percentage! /
+                  100.0),
+        )
+      ],
+    );
+
+    Widget content = index == 0 ? Ribbon(
+        nearLength: 28,
+        farLength: 55,
+        title: '1.',
+        titleStyle: const TextStyle(
+            color: Colors.yellow, fontSize: 12, fontWeight: FontWeight.w600),
+        color: Colors.lightGreen,
+        location: RibbonLocation.topEnd,
+        child: row) : row;
+
     return Padding(
       padding: const EdgeInsets.all(padding),
       child: Container(
         height: 120,
         width: 375,
         decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey.withOpacity(0.3)),
           borderRadius: const BorderRadius.all(Radius.circular(12)),
-          color: Colors.grey.shade50,
+          color: Colors.white,
           boxShadow: boxShadow,
         ),
-        child: Row(
-          children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(14.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      aiRecommondation.hilfsmittelNummer!.value!,
-                      style: mainTextStyle.copyWith(
-                          fontSize: isMobile ? 16 : 17,
-                          color: notifire!.getMainText),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      aiRecommondation.prices!.first.value!,
-                      style: mediumGreyTextStyle.copyWith(fontSize: 14),
-                    ),
-                    const SizedBox(height: 4),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: ComunWidget4(
-                  percentage:
-                      aiRecommondation.hilfsmittelNummer!.percentage! / 100.0),
-            )
-          ],
-        ),
+        child: content,
       ),
     );
   }
