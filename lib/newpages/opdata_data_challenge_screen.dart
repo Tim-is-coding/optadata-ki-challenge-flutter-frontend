@@ -300,7 +300,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                       "Demo ausführen",
                       style: TextStyle(
                           // hand written styl
-                          fontFamily: "Aharon",
+                          fontFamily: "Gilroy",
                           color: notifire.getsubcolors,
                           fontSize: isMobile ? 12 : 14,
                           overflow: TextOverflow.ellipsis),
@@ -506,7 +506,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
               ),
             if (_krankenkassenIk.length > 5)
               SizedBox(
-                height: isMobile ? 3000 : 1300,
+                height: isMobile ? 5000 : 1900,
                 width: isMobile
                     ? MediaQuery.of(context).size.width - 20
                     : MediaQuery.of(context).size.width - 200,

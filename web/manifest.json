@@ -1,11 +1,11 @@
 {
-    "name": "SaniUp Abrechnungs Assistent",
-    "short_name": "Abrechnungs Assistent",
+    "name": "Opta Data KIChallenge",
+    "short_name": "Opta Data KIChallenge",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "Abrechnungs Assistent für Sanitätshäuser - Made by SaniUp",
+    "description": "Opta Data KIChallenge",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
