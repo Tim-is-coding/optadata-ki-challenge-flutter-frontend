@@ -34,9 +34,9 @@ class ComunWidget4 extends StatelessWidget {
         center: Text(
           "${(percentage * 100).toInt()}%",
           style: TextStyle(
-              fontSize: big ? 18 : 13.0,
-              fontWeight: FontWeight.w600,
-              color: notifire!.getMainText),
+              fontSize: big ? 22 : 13.0,
+              fontWeight: big ? FontWeight.w800 : FontWeight.w600,
+              color: color),
         ),
         backgroundColor: Colors.grey.shade900,
         circularStrokeCap: CircularStrokeCap.round,
