@@ -155,75 +155,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  InkWell(
-                      onTap: () async {
-                        String ik = "142177879";
-                        String ikBuilder = "";
-                        Duration delay = const Duration(milliseconds: 120);
-                        for (int i = 0; i < ik.length; i++) {
-                          ikBuilder += ik[i + 1].toString();
-                          setState(() {
-                            _krankenkassenIk = ikBuilder;
-                            _ikController.text = ikBuilder;
-                          });
-                          await Future.delayed(delay);
-                        }
 
-                        await Future.delayed(delay);
-                        await Future.delayed(delay);
-                        await Future.delayed(delay);
-                        await Future.delayed(delay);
-
-                        String icdCode = "N39.3";
-                        String icdCodeBuilder = "";
-                        for (int i = 0; i < icdCode.length; i++) {
-                          icdCodeBuilder += icdCode[i + 1].toString();
-                          setState(() {
-                            _icd10Code = icdCodeBuilder;
-                            _icdkController.text = icdCodeBuilder;
-                          });
-                          await Future.delayed(delay);
-                        }
-
-                        await Future.delayed(delay);
-                        await Future.delayed(delay);
-                        await Future.delayed(delay);
-                        await Future.delayed(delay);
-
-                        String diagnose = "N39.3";
-                        String diagnoseBuilder = "Stressinkontinenz";
-                        for (int i = 0; i < diagnose.length; i++) {
-                          diagnoseBuilder += diagnose[i + 1].toString();
-                          setState(() {
-                            _diagnose = diagnoseBuilder;
-                            _diagnoseController.text = diagnoseBuilder;
-                          });
-                          await Future.delayed(delay);
-                        }
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Demo",
-                            style: TextStyle(
-                                color: notifire.getsubcolors,
-                                fontSize: isMobile ? 12 : 18,
-                                overflow: TextOverflow.ellipsis),
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          SvgPicture.asset(
-                            "assets/icons/auto-generate-svgrepo-com.svg",
-                            height: 20,
-                            width: 20,
-                          ),
-                        ],
-                      )),
                   Padding(
                     padding: const EdgeInsets.all(padding),
                     child: Container(
@@ -234,7 +166,6 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                         child:
                             buildContent(isMobile, size: constraints.maxWidth)),
                   ),
-                  if (_processingFinished) _processingFinishedWidget(),
                 ],
               ),
             );
@@ -282,6 +213,69 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
+            if (!isMobile)
+              SizedBox(
+                height: 30,
+              ),
+            InkWell(
+                onTap: () async {
+                  String ik = "142177879";
+                  String ikBuilder = "";
+                  Duration delay = const Duration(milliseconds: 120);
+                  for (int i = 0; i < ik.length; i++) {
+                    ikBuilder += ik[i + 1].toString();
+                    setState(() {
+                      _krankenkassenIk = ikBuilder;
+                      _ikController.text = ikBuilder;
+                    });
+                    await Future.delayed(delay);
+                  }
+
+                  String icdCode = "N39.3";
+                  String icdCodeBuilder = "";
+                  for (int i = 0; i < icdCode.length; i++) {
+                    icdCodeBuilder += icdCode[i + 1].toString();
+                    setState(() {
+                      _icd10Code = icdCodeBuilder;
+                      _icdkController.text = icdCodeBuilder;
+                    });
+                    await Future.delayed(delay);
+                  }
+
+                  String diagnose = "Stressinkontinenz";
+                  String diagnoseBuilder = "";
+                  for (int i = 0; i < diagnose.length; i++) {
+                    diagnoseBuilder += diagnose[i + 1].toString();
+                    setState(() {
+                      _diagnose = diagnoseBuilder;
+                      _diagnoseController.text = diagnoseBuilder;
+                    });
+                    await Future.delayed(delay);
+                  }
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                      "auto-generate-svgrepo-com.svg",
+                      height: 20,
+                      width: 20,
+                      color: notifire.getsubcolors,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      "Demo",
+                      style: TextStyle(
+                          // hand written styl
+                          fontFamily: "Aharon",
+                          color: notifire.getsubcolors,
+                          fontSize: isMobile ? 12 : 16,
+                          overflow: TextOverflow.ellipsis),
+                    ),
+                  ],
+                )),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
