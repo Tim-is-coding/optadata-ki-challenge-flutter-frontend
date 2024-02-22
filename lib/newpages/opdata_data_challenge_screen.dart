@@ -148,7 +148,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                       Text(
                         "Hilfsmittel Recommender",
                         style: TextStyle(
-                            fontFamily: "Aharon",
+                            fontFamily: "Gilroy",
                             color: notifire.getbacktextcolors,
                             fontWeight: FontWeight.w900,
                             fontSize: isMobile ? 16 : 24),
