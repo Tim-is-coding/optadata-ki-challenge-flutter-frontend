@@ -419,7 +419,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
             //   ),
             if (_krankenkassenIk.length > 5)
               SizedBox(
-                height: isMobile ? 9000 : 6000,
+                height: isMobile ? 2000 : 1300,
                 width: isMobile
                     ? MediaQuery.of(context).size.width - 20
                     : MediaQuery.of(context).size.width - 200,
