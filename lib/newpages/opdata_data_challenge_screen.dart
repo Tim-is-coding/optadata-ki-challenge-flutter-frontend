@@ -16,6 +16,7 @@ import 'package:provider/provider.dart';
 import 'package:ribbon_widget/ribbon_widget.dart';
 
 import '../model/jens/RecommendationRequest.dart';
+import 'comunwidget4.dart';
 
 class OpdataChallengeScreen extends StatefulWidget {
   const OpdataChallengeScreen({Key? key}) : super(key: key);
@@ -126,7 +127,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
                       SvgPicture.network(
                         "https://upload.wikimedia.org/wikipedia/commons/5/5b/Opta_Data_Gruppe_logo_(2021).svg",
                         height: isMobile ? 90 : 150,
-                        width: isMobile ? 90 :150,
+                        width: isMobile ? 90 : 150,
                       ),
                     ],
                   ),
@@ -139,7 +140,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
                             fontFamily: "Aharon",
                             color: notifire.getbacktextcolors,
                             fontWeight: FontWeight.w900,
-                            fontSize: isMobile ? 16:  24),
+                            fontSize: isMobile ? 16 : 24),
                       ),
                     ],
                   ),
@@ -150,7 +151,8 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
                           color: notifire.getcontiner,
                           borderRadius: BorderRadius.circular(12),
                         ),
-                        child: buildContent(false, size: constraints.maxWidth)),
+                        child:
+                            buildContent(isMobile, size: constraints.maxWidth)),
                   ),
                   if (_processingFinished) _processingFinishedWidget(),
                 ],
@@ -204,8 +206,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
     );
   }
 
-  Widget buildContent(bool bigMode, {required double size}) {
-    bigMode = size > 1200;
+  Widget buildContent(bool isMobile, {required double size}) {
     return SizedBox(
       width: double.infinity,
       child: Padding(
@@ -265,103 +266,219 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
             const SizedBox(
               height: 40,
             ),
-            // Row(
-            //   // space items evenly
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            if(_krankenkassenIk.length > 5)
-                SizedBox(
-                  width: 300,
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.only(top: 23, left: 20, right: 20),
-                    child: SizedBox(
-                        width: 300,
-                        child: TextFormField(
-                            initialValue: _icd10Code,
-                            onChanged: (value) {
-                              setState(() {
-                                _icd10Code = value;
-                              });
-                              _loadNewResultsIfPossible();
-                            },
-                            style: mediumBlackTextStyle.copyWith(
-                                color: notifire.getMainText),
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                color: Colors.grey.withOpacity(0.3),
-                              )),
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                color: Colors.grey.withOpacity(0.3),
-                              )),
-                              labelText: 'ICD-10 Code',
-                              labelStyle: mediumGreyTextStyle,
-                            ))),
+
+            Row(
+              // space items evenly
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (_krankenkassenIk.length > 5)
+                  SizedBox(
+                    width: 300,
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.only(top: 23, left: 20, right: 20),
+                      child: SizedBox(
+                          width: 300,
+                          child: TextFormField(
+                              initialValue: _icd10Code,
+                              onChanged: (value) {
+                                setState(() {
+                                  _icd10Code = value;
+                                });
+                                _loadNewResultsIfPossible();
+                              },
+                              style: mediumBlackTextStyle.copyWith(
+                                  color: notifire.getMainText),
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                  color: Colors.grey.withOpacity(0.3),
+                                )),
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                  color: Colors.grey.withOpacity(0.3),
+                                )),
+                                labelText: 'ICD-10 Code',
+                                labelStyle: mediumGreyTextStyle,
+                              ))),
+                    ),
                   ),
-                ),
-            if(_krankenkassenIk.length > 5)
-                SizedBox(
-                  width: 300,
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.only(top: 23, left: 20, right: 20),
-                    child: SizedBox(
-                        width: 300,
-                        child: TextFormField(
-                            initialValue: _diagnose,
-                            onChanged: (value) {
-                              setState(() {
-                                _diagnose = value;
-                              });
-                              _loadNewResultsIfPossible();
-                            },
-                            style: mediumBlackTextStyle.copyWith(
-                                color: notifire.getMainText),
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                color: Colors.grey.withOpacity(0.3),
-                              )),
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                color: Colors.grey.withOpacity(0.3),
-                              )),
-                              labelText: 'Diagnose',
-                              labelStyle: mediumGreyTextStyle,
-                            ))),
+                if (_krankenkassenIk.length > 5 && !isMobile)
+                  SizedBox(
+                    width: 300,
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.only(top: 23, left: 20, right: 20),
+                      child: SizedBox(
+                          width: 300,
+                          child: TextFormField(
+                              initialValue: _diagnose,
+                              onChanged: (value) {
+                                setState(() {
+                                  _diagnose = value;
+                                });
+                                _loadNewResultsIfPossible();
+                              },
+                              style: mediumBlackTextStyle.copyWith(
+                                  color: notifire.getMainText),
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                  color: Colors.grey.withOpacity(0.3),
+                                )),
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                  color: Colors.grey.withOpacity(0.3),
+                                )),
+                                labelText: 'Diagnose',
+                                labelStyle: mediumGreyTextStyle,
+                              ))),
+                    ),
                   ),
+              ],
+            ),
+            if (isMobile)
+              SizedBox(
+                width: 300,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 23, left: 20, right: 20),
+                  child: SizedBox(
+                      width: 300,
+                      child: TextFormField(
+                          initialValue: _diagnose,
+                          onChanged: (value) {
+                            setState(() {
+                              _diagnose = value;
+                            });
+                            _loadNewResultsIfPossible();
+                          },
+                          style: mediumBlackTextStyle.copyWith(
+                              color: notifire.getMainText),
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide(
+                              color: Colors.grey.withOpacity(0.3),
+                            )),
+                            enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                              color: Colors.grey.withOpacity(0.3),
+                            )),
+                            labelText: 'Diagnose',
+                            labelStyle: mediumGreyTextStyle,
+                          ))),
                 ),
-             // ],
-           // ),
-            if(_krankenkassenIk.length > 5)
-            const SizedBox(
-              height: 20,
+              ),
+            if (_krankenkassenIk.length > 5)
+              const SizedBox(
+                height: 20,
+              ),
+            if (_krankenkassenIk.length > 5)
+              Text(
+                textAlign: TextAlign.center,
+                "sdijfhsodjiafhjosad fhsdof soifiosadfsdaof asofi asf sfosa\nlorem ipsum dolor sit amet lorem ipsum dolor\nsit amet lorem ipsum dolor sit amet",
+                style: TextStyle(
+                    // center text
+                    color: notifire.getsubcolors,
+                    fontSize: 12,
+                    overflow: TextOverflow.ellipsis),
+              ),
+            if (_krankenkassenIk.length > 5)
+              const SizedBox(
+                height: 40,
+              ),
+            if (_aiRecommondations.isNotEmpty)
+              ComunWidget4(
+                  percentage:
+                      _aiRecommondations.first.hilfsmittelNummer!.percentage! /
+                          100.0),
+            if (_krankenkassenIk.length > 5)
+              const SizedBox(
+                height: 60,
+              ),
+            if (_krankenkassenIk.length > 5)
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: _saniUpRecommondations.length,
+                itemBuilder: (context, index) {
+                  Product product = _saniUpRecommondations[index];
+                  return SizedBox(
+                      width: 360, child: _buildProductCard(product));
+                },
+              ),
+            if (_krankenkassenIk.length > 5)
+              SizedBox(
+                height: 20,
+              ),
+            if (_krankenkassenIk.length > 5)
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: _aiRecommondations.length,
+                itemBuilder: (context, index) {
+                  AiRecommondation aiRecommondation = _aiRecommondations[index];
+                  return SizedBox(
+                      width: 360,
+                      child: _buildAiRecommondationCard(aiRecommondation));
+                },
+                // _buildAverageSalesPerDay(
+                // maincolor: const Color(0xfffc4438),
+                // title: 'Today Profit',
+                // price: '98.1%',
+                // pr: '2.7%',
+                // percentage: 60)
+              )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAiRecommondationCard(AiRecommondation aiRecommondation) {
+    return Padding(
+      padding: const EdgeInsets.all(padding),
+      child: Container(
+        height: 180,
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(12)),
+          color: notifire!.getcontiner,
+          boxShadow: boxShadow,
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(14.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      aiRecommondation.hilfsmittelNummer!.value!,
+                      style: mainTextStyle.copyWith(
+                          fontSize: 17, color: notifire!.getMainText),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      aiRecommondation.prices!.first.value!,
+                      style: mainTextStyle.copyWith(
+                          fontSize: 17, color: Colors.green),
+                    ),
+                    const SizedBox(height: 4),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                  ],
+                ),
+              ),
             ),
-            if(_krankenkassenIk.length > 5)
-            Text(
-              textAlign: TextAlign.center,
-              "sdijfhsodjiafhjosad fhsdof soifiosadfsdaof asofi asf sfosa\nlorem ipsum dolor sit amet lorem ipsum dolor\nsit amet lorem ipsum dolor sit amet",
-              style: TextStyle(
-                  // center text
-                  color: notifire.getsubcolors,
-                  fontSize: 12,
-                  overflow: TextOverflow.ellipsis),
-            ),
-            if(_krankenkassenIk.length > 5)
-            const SizedBox(
-              height: 60,
-            ),
-            if(_krankenkassenIk.length > 5)
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: _saniUpRecommondations.length,
-              itemBuilder: (context, index) {
-                Product product = _saniUpRecommondations[index];
-                return _buildProductCard(product);
-              },
-            ),
+            Expanded(
+              flex: 1,
+              child: ComunWidget4(
+                percentage:
+                    aiRecommondation.hilfsmittelNummer!.percentage! / 100.0
+              ),
+            )
           ],
         ),
       ),
