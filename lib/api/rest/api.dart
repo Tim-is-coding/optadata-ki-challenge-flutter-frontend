@@ -7,6 +7,7 @@ import 'package:buzz/model/jens/AiRecommondation.dart';
 import 'package:buzz/model/lightabrechnungsprecheckresponse.dart';
 import 'package:buzz/model/lightabrechnungsrequest.dart';
 import 'package:buzz/model/lightabrechnungsresponse.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 
 import '../../model/jens/RecommendationRequest.dart';

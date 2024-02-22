@@ -10,7 +10,7 @@ class QueryParam {
 class ApiClient {
   // final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
 
-  String basePath;
+  late String basePath;
   var client = Client();
 
   final Map<String, String> _defaultHeaderMap = {};
@@ -19,10 +19,13 @@ class ApiClient {
   final _RegList = RegExp(r'^List<(.*)>$');
   final _RegMap = RegExp(r'^Map<String,(.*)>$');
 
-  ApiClient(
-      {
-      //this.basePath = "https://insuranceconstract-rest-backend.azurewebsites.net/api/v1/"
-      this.basePath = "http://localhost:8080/api/v1/"});
+  ApiClient() {
+    if (!kDebugMode)
+      this.basePath =
+          "https://insuranceconstract-rest-backend.azurewebsites.net/api/v1/";
+    else
+      this.basePath = "http://localhost:8080/api/v1/";
+  }
 
   void addDefaultHeader(String key, String value) {
     _defaultHeaderMap[key] = value;
