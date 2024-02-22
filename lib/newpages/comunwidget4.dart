@@ -26,7 +26,7 @@ class ComunWidget4 extends StatelessWidget {
       builder: (context, value, child) => CircularPercentIndicator(
         curve: Curves.easeOut,
         animationDuration: 3000,
-        radius: big ? 70 : 40.0,
+        radius: big ? 70 : 30.0,
         lineWidth: big ? 8 : 4.0,
         animation: true,
         percent: percentage,

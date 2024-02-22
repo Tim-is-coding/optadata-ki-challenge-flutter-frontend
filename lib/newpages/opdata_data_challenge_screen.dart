@@ -126,7 +126,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
               // Ein GlobalKey<FormState>, um das Formular später zu validieren
               child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   // optdadata logo
@@ -262,7 +262,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             // center text
@@ -427,11 +427,10 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                   child: TabBar(
                     controller: _tabController,
                     tabs: <Widget>[
-                      Tab(text: 'KI Ergebnisse'),
+                      const Tab(text: 'KI Ergebnisse'),
                       // only show on hover
-
-                      Tab(
-                        text: 'SaniUp View',
+                      const Tab(
+                        text: 'SaniUp Addon',
                       ),
                     ],
                   )),
@@ -441,11 +440,12 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
               ),
             if (_krankenkassenIk.length > 5)
               SizedBox(
-                  height: 800,
+                  height: 5000,
                   width: isMobile
                       ? MediaQuery.of(context).size.width - 20
                       : MediaQuery.of(context).size.width - 200,
                   child: TabBarView(
+                    physics: const NeverScrollableScrollPhysics(),
                     controller: _tabController,
                     children: <Widget>[
                       GridView.builder(
@@ -517,8 +517,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                     ),
                     Text(
                       aiRecommondation.prices!.first.value!,
-                      style: mainTextStyle.copyWith(
-                          fontSize: 17, color: Colors.green),
+                      style: mediumGreyTextStyle.copyWith(fontSize: 14),
                     ),
                     const SizedBox(height: 4),
                     const SizedBox(
@@ -587,7 +586,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
   }
 
   Widget _getResultTabs() {
-    return Text("results");
+    return const Text("results");
   }
 
   Widget _processingFinishedWidget() {
@@ -619,7 +618,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
         ),
         Row(
           children: [
-            SizedBox(
+            const SizedBox(
               width: 50,
             ),
             _buildOutlineLargeButton(
