@@ -222,7 +222,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
                   width: 300,
                   child: Padding(
                     padding:
-                        const EdgeInsets.only(top: 23, left: 50, right: 20),
+                        const EdgeInsets.only(top: 23, left: 20, right: 20),
                     child: SizedBox(
                         width: 300,
                         child: TextFormField(
@@ -273,7 +273,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
                   width: 300,
                   child: Padding(
                     padding:
-                        const EdgeInsets.only(top: 23, left: 50, right: 20),
+                        const EdgeInsets.only(top: 23, left: 20, right: 20),
                     child: SizedBox(
                         width: 300,
                         child: TextFormField(
@@ -304,7 +304,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen> {
                   width: 300,
                   child: Padding(
                     padding:
-                        const EdgeInsets.only(top: 23, left: 50, right: 20),
+                        const EdgeInsets.only(top: 23, left: 20, right: 20),
                     child: SizedBox(
                         width: 300,
                         child: TextFormField(
