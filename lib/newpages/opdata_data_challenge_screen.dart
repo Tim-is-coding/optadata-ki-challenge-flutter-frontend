@@ -34,7 +34,6 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey _scrollToKey = GlobalKey();
-  final GlobalKey _topScrollKey = GlobalKey();
   final ScrollController _scrollController = ScrollController();
   late TabController _tabController;
 
@@ -45,6 +44,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
   bool _processingFinished = false;
   bool _hitSubmit = false;
   double _width = 0;
+  bool _isFirstTime = true;
 
   String _krankenkassenIk = "";
   String _icd10Code = "";
@@ -199,20 +199,6 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
       print(e);
       return false;
     }
-  }
-
-  void _scrollToResults() {
-    // Erhalten Sie den RenderBox des Widgets und damit seine Position
-    final RenderBox renderBox =
-        _scrollToKey.currentContext?.findRenderObject() as RenderBox;
-    final position = renderBox.localToGlobal(Offset.zero);
-
-    // Scrollen Sie zu der berechneten Offset-Position des RenderBox
-    _scrollController.animateTo(
-      position.dy,
-      duration: const Duration(seconds: 1),
-      curve: Curves.easeInOut,
-    );
   }
 
   Widget buildContent(bool isMobile, {required double size}) {
@@ -393,7 +379,8 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                     overflow: TextOverflow.ellipsis),
               ),
             if (_krankenkassenIk.length > 5)
-              const SizedBox(
+              SizedBox(
+                key: _scrollToKey,
                 height: 40,
               ),
             if (_aiRecommondations.isNotEmpty && _krankenkassenIk.length > 5)
@@ -419,6 +406,10 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
             //   ),
             if (_krankenkassenIk.length > 5)
               SizedBox(
+                height: 40,
+              ),
+            if (_krankenkassenIk.length > 5)
+              SizedBox(
                 height: isMobile ? 3000 : 1300,
                 width: isMobile
                     ? MediaQuery.of(context).size.width - 20
@@ -436,7 +427,8 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                         _aiRecommondations[index];
                     return SizedBox(
                         width: 360,
-                        child: _buildAiRecommondationCard(aiRecommondation, isMobile));
+                        child: _buildAiRecommondationCard(
+                            aiRecommondation, isMobile));
                   },
                 ),
               ),
@@ -446,7 +438,8 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
     );
   }
 
-  Widget _buildAiRecommondationCard(AiRecommondation aiRecommondation, bool isMobile) {
+  Widget _buildAiRecommondationCard(
+      AiRecommondation aiRecommondation, bool isMobile) {
     return Padding(
       padding: const EdgeInsets.all(padding),
       child: Container(
@@ -469,7 +462,8 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                     Text(
                       aiRecommondation.hilfsmittelNummer!.value!,
                       style: mainTextStyle.copyWith(
-                          fontSize: isMobile  ? 16 : 17, color: notifire!.getMainText),
+                          fontSize: isMobile ? 16 : 17,
+                          color: notifire!.getMainText),
                     ),
                     const SizedBox(
                       height: 10,
@@ -524,13 +518,39 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
     recommendationRequest.diagnoseText = _diagnose;
     recommendationRequest.icd10Code = _icd10Code;
 
+    RenderBox renderBox;
+    Offset position;
+    RenderBox scrollBox;
+    double offset;
     JensApi()
         .requestAiSuggestions(recommendationRequest: recommendationRequest)
         .then((value) => {
               setState(() {
                 _aiRecommondations = value;
                 _processingRequest = false;
-              })
+              }),
+
+              renderBox =
+                  _scrollToKey.currentContext?.findRenderObject() as RenderBox,
+              position = renderBox.localToGlobal(Offset.zero),
+              scrollBox = Scrollable.of(_scrollToKey.currentContext!)!
+                  .context
+                  .findRenderObject() as RenderBox,
+              offset = position.dy -
+                  (scrollBox.size.height / 2 - renderBox.size.height / 2),
+
+              // scroll to results
+              if (_isFirstTime)
+                _scrollController.animateTo(
+                  // sroll to _scrollToKey
+                  offset,
+
+                  duration: const Duration(seconds: 3),
+                  curve: Curves.easeIn,
+                ),
+              setState(() {
+                _isFirstTime = false;
+              }),
             });
   }
 
@@ -610,7 +630,6 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
           ],
         ),
         SizedBox(
-          key: _scrollToKey,
           height: 80,
         ),
       ],
