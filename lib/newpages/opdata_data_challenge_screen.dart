@@ -289,8 +289,8 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                   children: [
                     SvgPicture.asset(
                       "auto-generate-svgrepo-com.svg",
-                      height: isMobile ? 16 : 28,
-                      width: isMobile ? 16 : 28,
+                      height: isMobile ? 16 : 24,
+                      width: isMobile ? 16 : 24,
                       color: notifire.getsubcolors,
                     ),
                     SizedBox(
@@ -302,7 +302,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                           // hand written styl
                           fontFamily: "Aharon",
                           color: notifire.getsubcolors,
-                          fontSize: isMobile ? 12 : 16,
+                          fontSize: isMobile ? 12 : 14,
                           overflow: TextOverflow.ellipsis),
                     ),
                   ],
