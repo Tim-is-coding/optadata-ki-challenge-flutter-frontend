@@ -9,8 +9,10 @@ import 'package:buzz/model/lightabrechnungsrequest.dart';
 import 'package:buzz/model/lightabrechnungsresponse.dart';
 import 'package:buzz/newpages/product_card.dart';
 import 'package:buzz/provider/proviercolors.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_draggable_gridview/flutter_draggable_gridview.dart';import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_draggable_gridview/flutter_draggable_gridview.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:ribbon_widget/ribbon_widget.dart';
@@ -556,6 +558,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                   //
                   //   return dragDestination;
                   // },
+
                   dragCompletion: (List<DraggableGridItem> list,
                       int beforeIndex, int afterIndex) {
                     AiRecommondation aiRecommondation =
@@ -567,22 +570,35 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                       _aiRecommondations[afterIndex] = aiRecommondation;
                     });
                   },
+                  dragChildWhenDragging: (List<DraggableGridItem> list, int index) {
+
+                    return PlaceHolderWidget(
+                      child:Opacity(
+                        opacity: 0.3,
+                        child: _buildAiRecommondationCard(
+                          _aiRecommondations[index], isMobile, 33)),
+                    );
+                  },
                   dragFeedback: (List<DraggableGridItem> list, int index) {
                     return PlaceHolderWidget(
                       child: _buildAiRecommondationCard(
-                          _aiRecommondations[index], isMobile, index),
+                          _aiRecommondations[index], isMobile, 33),
                     );
                   },
                   isOnlyLongPress: false,
                   dragPlaceHolder: (List<DraggableGridItem> list, int index) {
-                   return PlaceHolderWidget(
-                      child: _buildAiRecommondationCard(
-                          _aiRecommondations[index], isMobile, index),
+
+                    return PlaceHolderWidget(
+                      // opacity 0.3 card
+                      child:  SizedBox(
+                        height: 360,
+                      )
+
                     );
                   },
                   children: _aiRecommondations
                       .map((e) => DraggableGridItem(
-                    isDraggable: true,
+                          isDraggable: true,
                           child: _buildAiRecommondationCard(e, isMobile, 2)))
                       .toList(),
                 ),
@@ -629,7 +645,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
           flex: 1,
           child: ComunWidget4(
               percentage:
-                  aiRecommondation.hilfsmittelNummer!.percentage! / 100.0),
+                  aiRecommondation.hilfsmittelNummer!.percentage! / 100.0, noAnimation: index == 33 ? true : false,),
         )
       ],
     );
@@ -644,7 +660,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
         decoration: BoxDecoration(
           border: Border.all(color: Colors.grey.withOpacity(0.3)),
           borderRadius: const BorderRadius.all(Radius.circular(12)),
-          color: Colors.white,
+          color:    Colors.white,
           boxShadow: boxShadow,
         ),
         child: content,

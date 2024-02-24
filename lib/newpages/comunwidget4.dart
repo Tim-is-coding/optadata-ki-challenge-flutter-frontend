@@ -7,7 +7,9 @@ class ComunWidget4 extends StatelessWidget {
   final double percentage;
   final bool big;
 
-  ComunWidget4({Key? key, required this.percentage, this.big = false})
+  var noAnimation;
+
+  ComunWidget4({Key? key, required this.percentage, this.big = false, this.noAnimation = false})
       : super(key: key);
 
   @override
@@ -27,7 +29,7 @@ class ComunWidget4 extends StatelessWidget {
         animationDuration: 3000,
         radius: big ? 70 : 30.0,
         lineWidth: big ? 8 : 4.0,
-        animation: true,
+        animation: noAnimation ? false : true,
         percent: percentage,
         animateFromLastPercent: true,
         center:
