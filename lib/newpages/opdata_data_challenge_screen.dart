@@ -585,7 +585,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                           _aiRecommondations[index], isMobile, 33),
                     );
                   },
-                  isOnlyLongPress: false,
+                  isOnlyLongPress: isMobile,
                   dragPlaceHolder: (List<DraggableGridItem> list, int index) {
 
                     return PlaceHolderWidget(
