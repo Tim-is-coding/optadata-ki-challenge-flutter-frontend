@@ -301,7 +301,8 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                       style: TextStyle(
                           // hand written styl
                           fontFamily: "Gilroy",
-                          color: isMobile ? Colors.black : notifire.getsubcolors,
+                          color:
+                              isMobile ? Colors.black : notifire.getsubcolors,
                           fontSize: isMobile ? 12 : 14,
                           overflow: TextOverflow.ellipsis),
                     ),
@@ -527,7 +528,34 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                         child: _buildAiRecommondationCard(
                             aiRecommondation, isMobile, index));
 
-                    return card;
+                    var draggableCard = Draggable(
+                      data: aiRecommondation,
+                      feedback: Material(
+                        color: Colors.transparent,
+                        child: card,
+                      ),
+                      childWhenDragging: Container(),
+                      child: card,
+                    );
+
+                    var dragDestination = DragTarget<AiRecommondation>(
+                      builder: (context, candidateData, rejectedData) {
+                        return draggableCard;
+                      },
+                      onWillAccept: (data) => true,
+                      onAccept: (data) {
+                        int oldIndex = _aiRecommondations.indexOf(data);
+                        int newIndex =
+                            _aiRecommondations.indexOf(aiRecommondation);
+                        setState(() {
+                          _aiRecommondations[oldIndex] = aiRecommondation;
+                          _aiRecommondations[newIndex] = data;
+                        });
+                        // Not used in this updated version
+                      },
+                    );
+
+                    return dragDestination;
                   },
                 ),
               ),
