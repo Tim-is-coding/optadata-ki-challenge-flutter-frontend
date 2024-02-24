@@ -10,7 +10,7 @@ import 'package:buzz/model/lightabrechnungsresponse.dart';
 import 'package:buzz/newpages/product_card.dart';
 import 'package:buzz/provider/proviercolors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_draggable_gridview/flutter_draggable_gridview.dart';import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:ribbon_widget/ribbon_widget.dart';
@@ -505,58 +505,86 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
               SizedBox(
                 height: 40,
               ),
-            if (_krankenkassenIk.length > 5)
+            if (_krankenkassenIk.length > 5 && _aiRecommondations.isNotEmpty)
               SizedBox(
                 height: isMobile ? 5000 : 1900,
                 width: isMobile
                     ? MediaQuery.of(context).size.width - 20
                     : MediaQuery.of(context).size.width - 200,
-                child: GridView.builder(
+                child: DraggableGridViewBuilder(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: isMobile ? 1 : 3,
                     childAspectRatio: 2.5,
                   ),
-                  itemCount: _aiRecommondations.length,
-                  itemBuilder: (context, index) {
+                  // itemBuilder: (context, index) {
+                  //   AiRecommondation aiRecommondation =
+                  //   _aiRecommondations[index];
+                  //
+                  //   var card = SizedBox(
+                  //       width: 360,
+                  //       child: _buildAiRecommondationCard(
+                  //           aiRecommondation, isMobile, index));
+                  //
+                  //   var draggableCard = Draggable(
+                  //     data: aiRecommondation,
+                  //     feedback: Material(
+                  //       color: Colors.transparent,
+                  //       child: card,
+                  //     ),
+                  //     childWhenDragging: Container(),
+                  //     child: card,
+                  //   );
+                  //
+                  //   var dragDestination = DragTarget<AiRecommondation>(
+                  //     builder: (context, candidateData, rejectedData) {
+                  //       return draggableCard;
+                  //     },
+                  //     onWillAccept: (data) => true,
+                  //     onAccept: (data) {
+                  //       int oldIndex = _aiRecommondations.indexOf(data);
+                  //       int newIndex =
+                  //       _aiRecommondations.indexOf(aiRecommondation);
+                  //       setState(() {
+                  //         _aiRecommondations[oldIndex] = aiRecommondation;
+                  //         _aiRecommondations[newIndex] = data;
+                  //       });
+                  //       // Not used in this updated version
+                  //     },
+                  //   );
+                  //
+                  //   return dragDestination;
+                  // },
+                  dragCompletion: (List<DraggableGridItem> list,
+                      int beforeIndex, int afterIndex) {
                     AiRecommondation aiRecommondation =
-                        _aiRecommondations[index];
-
-                    var card = SizedBox(
-                        width: 360,
-                        child: _buildAiRecommondationCard(
-                            aiRecommondation, isMobile, index));
-
-                    var draggableCard = Draggable(
-                      data: aiRecommondation,
-                      feedback: Material(
-                        color: Colors.transparent,
-                        child: card,
-                      ),
-                      childWhenDragging: Container(),
-                      child: card,
-                    );
-
-                    var dragDestination = DragTarget<AiRecommondation>(
-                      builder: (context, candidateData, rejectedData) {
-                        return draggableCard;
-                      },
-                      onWillAccept: (data) => true,
-                      onAccept: (data) {
-                        int oldIndex = _aiRecommondations.indexOf(data);
-                        int newIndex =
-                            _aiRecommondations.indexOf(aiRecommondation);
-                        setState(() {
-                          _aiRecommondations[oldIndex] = aiRecommondation;
-                          _aiRecommondations[newIndex] = data;
-                        });
-                        // Not used in this updated version
-                      },
-                    );
-
-                    return dragDestination;
+                        _aiRecommondations[beforeIndex];
+                    AiRecommondation aiRecommondation2 =
+                        _aiRecommondations[afterIndex];
+                    setState(() {
+                      _aiRecommondations[beforeIndex] = aiRecommondation2;
+                      _aiRecommondations[afterIndex] = aiRecommondation;
+                    });
                   },
+                  dragFeedback: (List<DraggableGridItem> list, int index) {
+                    return PlaceHolderWidget(
+                      child: _buildAiRecommondationCard(
+                          _aiRecommondations[index], isMobile, index),
+                    );
+                  },
+                  isOnlyLongPress: false,
+                  dragPlaceHolder: (List<DraggableGridItem> list, int index) {
+                   return PlaceHolderWidget(
+                      child: _buildAiRecommondationCard(
+                          _aiRecommondations[index], isMobile, index),
+                    );
+                  },
+                  children: _aiRecommondations
+                      .map((e) => DraggableGridItem(
+                    isDraggable: true,
+                          child: _buildAiRecommondationCard(e, isMobile, 2)))
+                      .toList(),
                 ),
               ),
           ],
