@@ -199,7 +199,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
   Widget build(BuildContext context) {
 
     if (!correctCodeEntered) {
-      //return _buildCodeInputWidget();
+      return _buildCodeInputWidget();
     }
 
     notifire = Provider.of<ColorNotifire>(context, listen: true);
