@@ -9,7 +9,6 @@ import 'package:buzz/model/lightabrechnungsrequest.dart';
 import 'package:buzz/model/lightabrechnungsresponse.dart';
 import 'package:buzz/newpages/product_card.dart';
 import 'package:buzz/provider/proviercolors.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_draggable_gridview/flutter_draggable_gridview.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -44,6 +43,8 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
   final TextEditingController _diagnoseController = TextEditingController();
   final TextEditingController _BdayController = TextEditingController();
 
+  bool correctCodeEntered = false;
+
   bool _processingRequest = false;
   bool _processingFinished = false;
   bool _hitSubmit = false;
@@ -56,6 +57,88 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
 
   List<AiRecommondation> _aiRecommondations = [];
   List<Product> _saniUpRecommondations = [];
+
+  Widget _buildCodeInputWidget() {
+    TextEditingController _codeController = TextEditingController();
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Container(
+        decoration: BoxDecoration(
+            // Add your gradient or image background here
+            ),
+        padding: EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.network(
+                  "https://upload.wikimedia.org/wikipedia/commons/5/5b/Opta_Data_Gruppe_logo_(2021).svg",
+                  height: 90,
+                  width: 90,
+                ),
+              ],
+            ),
+            Text(
+              'Gib den Zugangscode ein',
+              style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 20.0),
+            SizedBox(
+                width: 240,
+                child: TextField(
+                  controller: _codeController,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.grey.withOpacity(0.3),
+                      ),
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.grey.withOpacity(0.3),
+                      ),
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    hintText: 'Code',
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Colors.grey.withOpacity(0.3),
+                      ),
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+
+                    // Add more decoration properties as needed
+                  ),
+                  // Add input validation and formatting as needed
+                )),
+            SizedBox(height: 20.0),
+            ElevatedButton(
+              onPressed: () {
+                // Implement your code submission logic
+                String realCode = "6341";
+                if (_codeController.text == realCode) {
+                  setState(() {
+                    correctCodeEntered = true;
+                  });
+                }
+              },
+              child: Text('Code prüfen'),
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                ),
+                // Add more styling as needed
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
   @override
   void initState() {
@@ -114,6 +197,10 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
 
   @override
   Widget build(BuildContext context) {
+    if (!correctCodeEntered) {
+      return _buildCodeInputWidget();
+    }
+
     notifire = Provider.of<ColorNotifire>(context, listen: true);
     return Scaffold(
       backgroundColor: notifire.getbgcolor,
@@ -570,13 +657,13 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                       _aiRecommondations[afterIndex] = aiRecommondation;
                     });
                   },
-                  dragChildWhenDragging: (List<DraggableGridItem> list, int index) {
-
+                  dragChildWhenDragging:
+                      (List<DraggableGridItem> list, int index) {
                     return PlaceHolderWidget(
-                      child:Opacity(
-                        opacity: 0.3,
-                        child: _buildAiRecommondationCard(
-                          _aiRecommondations[index], isMobile, 33)),
+                      child: Opacity(
+                          opacity: 0.3,
+                          child: _buildAiRecommondationCard(
+                              _aiRecommondations[index], isMobile, 33)),
                     );
                   },
                   dragFeedback: (List<DraggableGridItem> list, int index) {
@@ -587,14 +674,11 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                   },
                   isOnlyLongPress: isMobile,
                   dragPlaceHolder: (List<DraggableGridItem> list, int index) {
-
                     return PlaceHolderWidget(
-                      // opacity 0.3 card
-                      child:  SizedBox(
-                        height: 360,
-                      )
-
-                    );
+                        // opacity 0.3 card
+                        child: SizedBox(
+                      height: 360,
+                    ));
                   },
                   children: _aiRecommondations
                       .map((e) => DraggableGridItem(
@@ -644,8 +728,9 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
         Expanded(
           flex: 1,
           child: ComunWidget4(
-              percentage:
-                  aiRecommondation.hilfsmittelNummer!.percentage! / 100.0, noAnimation: index == 33 ? true : false,),
+            percentage: aiRecommondation.hilfsmittelNummer!.percentage! / 100.0,
+            noAnimation: index == 33 ? true : false,
+          ),
         )
       ],
     );
@@ -660,7 +745,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
         decoration: BoxDecoration(
           border: Border.all(color: Colors.grey.withOpacity(0.3)),
           borderRadius: const BorderRadius.all(Radius.circular(12)),
-          color:    Colors.white,
+          color: Colors.white,
           boxShadow: boxShadow,
         ),
         child: content,
