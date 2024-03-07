@@ -92,6 +92,7 @@ import 'package:provider/provider.dart';
 
 import 'appstaticdata/routes.dart';
 import 'login_signup/splash_screen.dart';
+import 'newpages/opdata_data_challenge_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -126,7 +127,7 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSwatch().copyWith(
               primary: const Color(0xFF0059E7),
             )),
-        home: const MyHomePage(),
+        home: const OpdataChallengeScreen(),
       ),
     );
   }

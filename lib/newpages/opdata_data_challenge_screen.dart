@@ -1,5 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:async';
+
 import 'package:buzz/api/rest/api.dart';
 import 'package:buzz/appstaticdata/staticdata.dart';
 import 'package:buzz/model/jens/AiRecommondation.dart';
@@ -406,18 +408,18 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
             const SizedBox(
               height: 5,
             ),
-            _demoButton(isMobile, "Inkontinenz Case 2", "105313145",
-                "Hessen", "R32"),
+            _demoButton(
+                isMobile, "Inkontinenz Case 2", "105313145", "Hessen", "R32"),
             const SizedBox(
               height: 5,
             ),
-            _demoButton(isMobile, "Hörverlust Case 1",
-                "108310400", "Bayern", "H90.3"),
+            _demoButton(
+                isMobile, "Hörverlust Case 1", "108310400", "Bayern", "H90.3"),
             const SizedBox(
               height: 5,
             ),
-            _demoButton(isMobile, "Hörverlust Case 2",
-                "104940005", "Bayern", "H90.5"),
+            _demoButton(
+                isMobile, "Hörverlust Case 2", "104940005", "Bayern", "H90.5"),
             const SizedBox(
               height: 10,
             ),
@@ -789,6 +791,29 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
 
   void _showAiTrainedMessage() {
 
+    SnackBar snackBar = SnackBar(
+      width: 360,
+      behavior: SnackBarBehavior.floating,
+      duration: const Duration(seconds: 3),
+      showCloseIcon: true,
+      closeIconColor: Colors.white,
+
+      animation: Tween<double>(begin: 0, end: 300).animate(AnimationController(vsync: this)),
+      content: Text(
+        "Deine Rückmeldungen hat zur Verbesserung des Modells beigetragen.",
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 14,
+        ),
+      ),
+      backgroundColor: Colors.lightGreen,
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+    Timer(Duration(seconds: 3), () {
+      ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+    });
   }
 
   Widget _buildAiRecommondationCard(
@@ -892,44 +917,43 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
         setState(() {
           _processingRequest = false;
         });
-      }).then((value) =>
-      {
-        setState(() {
-          _aiRecommondations = value;
-          _processingRequest = false;
-          _processingFinished = true;
+      }).then((value) => {
+                setState(() {
+                  _aiRecommondations = value;
+                  _processingRequest = false;
+                  _processingFinished = true;
 
-          if (_aiRecommondations.isEmpty) {
-            _noResults = true;
-          }
-        }),
+                  if (_aiRecommondations.isEmpty) {
+                    _noResults = true;
+                  }
+                }),
 
-        renderBox =
-        _scrollToKey.currentContext?.findRenderObject() as RenderBox,
-        position = renderBox.localToGlobal(Offset.zero),
-        scrollBox = Scrollable.of(_scrollToKey.currentContext!)!
-            .context
-            .findRenderObject() as RenderBox,
-        offset = position.dy -
-            (scrollBox.size.height / 2 - renderBox.size.height / 2),
+                renderBox = _scrollToKey.currentContext?.findRenderObject()
+                    as RenderBox,
+                position = renderBox.localToGlobal(Offset.zero),
+                scrollBox = Scrollable.of(_scrollToKey.currentContext!)!
+                    .context
+                    .findRenderObject() as RenderBox,
+                offset = position.dy -
+                    (scrollBox.size.height / 2 - renderBox.size.height / 2),
 
-        // scroll to results
+                // scroll to results
 
-        // only animate if last animation was more than 2 seconds ago
-        // if (_isFirstTime)
-        //   _scrollController.animateTo(
-        //     // sroll to _scrollToKey
-        //     offset,
-        //
-        //     duration: const Duration(seconds: 2),
-        //     curve: Curves.easeIn,
-        //   ),
-        setState(() {
-          _isFirstTime = false;
-        }),
-      });
-    }catch(e){
-      print("Fehler bei der abfrage d" );
+                // only animate if last animation was more than 2 seconds ago
+                // if (_isFirstTime)
+                //   _scrollController.animateTo(
+                //     // sroll to _scrollToKey
+                //     offset,
+                //
+                //     duration: const Duration(seconds: 2),
+                //     curve: Curves.easeIn,
+                //   ),
+                setState(() {
+                  _isFirstTime = false;
+                }),
+              });
+    } catch (e) {
+      print("Fehler bei der abfrage d");
       print(e);
     }
   }
