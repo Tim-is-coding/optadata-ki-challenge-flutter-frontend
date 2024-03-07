@@ -22,7 +22,7 @@ class ApiClient {
   ApiClient() {
     if (!kDebugMode)
       this.basePath =
-          "https://insuranceconstract-rest-backend.azurewebsites.net/api/v1/";
+          "https://optadata-challenge.azurewebsites.net/";
     else
       this.basePath = "http://localhost:8000/";
   }

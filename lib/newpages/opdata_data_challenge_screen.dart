@@ -767,7 +767,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
     if (_krankenkassenIk.isNotEmpty &&
         _krankenkassenIk.length > 8 &&
         _bundesland.isNotEmpty &&
-        ((_icd10Code.isNotEmpty && _icd10Code.length > 2) ||
+        ((_icd10Code.isNotEmpty && _icd10Code.length >= 2) ||
             _diagnose.isNotEmpty && _icd10Code.length > 5)) {
       _loadNewResults();
     }
