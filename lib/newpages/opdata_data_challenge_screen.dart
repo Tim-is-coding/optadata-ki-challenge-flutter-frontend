@@ -47,6 +47,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
   bool _hitSubmit = false;
   double _width = 0;
   bool _isFirstTime = true;
+  bool _noResults = false;
 
   String _krankenkassenIk = "";
   String _icd10Code = "";
@@ -343,9 +344,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
     await Future.delayed(delay);
     await Future.delayed(delay);
     await Future.delayed(delay);
-    await Future.delayed(delay);
-    await Future.delayed(delay);
-    await Future.delayed(delay);
+
 
     String icdCode = icd10Code;
     String icdCodeBuilder = "";
@@ -698,6 +697,23 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
               ),
             if (_krankenkassenIk.length > 5 && !_processingFinished && _icd10Code.isNotEmpty)
               Lottie.asset('assets/ai.json', height: isMobile ? 200 : 250, width: isMobile ? 200 : 250),
+            if (_krankenkassenIk.length > 5 && _processingFinished && _noResults)
+              Lottie.asset('assets/no_results.json', height: isMobile ? 200 : 250, width: isMobile ? 200 : 250),
+            if (_krankenkassenIk.length > 5 && _processingFinished && _noResults)
+              SizedBox(
+                width: isMobile ?
+                    250
+                    : 500,
+                child:
+              Text(
+                "Leider hat Deine Auswahl zu keinem Ergebnis geführt. Bitte beachte: Unser Modell wurde auf einer validen Vorauswahl von Kassen und Erkrankungen vortrainiert und kann zur Zeit nur in diesem Rahmen Recommendations ausgeben. Ausbaustufen des Modells werden Deine Eingaben als neue Lerninhalte (bspw. neue Erkrankungen) berücksichtigen. Versuche es gerne erneuert mit anderen Daten (bspw. mit einer Inko-Versorgung) oder verwende den Demo-Ausführen-Button mit unseren Testdaten.",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    // center text
+                    color: notifire.getsubcolors,
+                    fontSize: 14),
+              )),
+
             if (_krankenkassenIk.length > 5)
               const SizedBox(
                 height: 40,
@@ -726,6 +742,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                       _aiRecommondations[beforeIndex] = aiRecommondation2;
                       _aiRecommondations[afterIndex] = aiRecommondation;
                     });
+                    _showAiTrainedMessage();
                   },
                   dragChildWhenDragging:
                       (List<DraggableGridItem> list, int index) {
@@ -761,6 +778,10 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
         ),
       ),
     );
+  }
+
+  void _showAiTrainedMessage(){
+
   }
 
   Widget _buildAiRecommondationCard(
@@ -842,6 +863,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
     setState(() {
       _processingRequest = true;
       _processingFinished = false;
+      _noResults = false;
     });
 
     RenderBox renderBox;
@@ -867,6 +889,10 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                 _aiRecommondations = value;
                 _processingRequest = false;
                 _processingFinished = true;
+
+                if(_aiRecommondations.isEmpty){
+                  _noResults = true;
+                }
               }),
 
               renderBox =
