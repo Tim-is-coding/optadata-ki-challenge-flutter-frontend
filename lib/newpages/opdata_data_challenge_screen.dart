@@ -13,6 +13,7 @@ import 'package:flutter_draggable_gridview/flutter_draggable_gridview.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+import 'package:ribbon_widget/ribbon_widget.dart';
 
 import '../model/jens/RecommendationRequest.dart';
 import 'comunwidget4.dart';
@@ -642,11 +643,14 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                     ),
                     if (_diagnose.isNotEmpty)
                       Column(children: [
-                        SizedBox(height: 20,),
-                      InkWell(
-                          onTap: _requestIcd10CodeTranslation,
-                          child: Lottie.asset('assets/translate.json',
-                              height: 50, width: 50))]),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        InkWell(
+                            onTap: _requestIcd10CodeTranslation,
+                            child: Lottie.asset('assets/translate.json',
+                                height: 50, width: 50))
+                      ]),
                   ]),
               ],
             ),
@@ -766,18 +770,21 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                       child: Opacity(
                           opacity: 0.3,
                           child: _buildAiRecommondationCard(
-                              _aiRecommondations[index], isMobile, 33)),
+                              _aiRecommondations[index],
+                              isMobile,
+                              33,
+                              index == 0)),
                     );
                   },
                   dragFeedback: (List<DraggableGridItem> list, int index) {
                     return PlaceHolderWidget(
                       child: _buildAiRecommondationCard(
-                          _aiRecommondations[index], isMobile, 33),
+                          _aiRecommondations[index], isMobile, 33, index == 0),
                     );
                   },
                   isOnlyLongPress: isMobile,
                   dragPlaceHolder: (List<DraggableGridItem> list, int index) {
-                    return const PlaceHolderWidget(
+                    return PlaceHolderWidget(
                         // opacity 0.3 card
                         child: SizedBox(
                       height: 360,
@@ -786,7 +793,8 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                   children: _aiRecommondations
                       .map((e) => DraggableGridItem(
                           isDraggable: true,
-                          child: _buildAiRecommondationCard(e, isMobile, 2)))
+                          child: _buildAiRecommondationCard(
+                              e, isMobile, 2, _aiRecommondations.indexOf(e) == 0)))
                       .toList(),
                 ),
               ),
@@ -846,14 +854,16 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
     });
   }
 
-  Widget _buildAiRecommondationCard(
-      AiRecommondation aiRecommondation, bool isMobile, int index) {
+  Widget _buildAiRecommondationCard(AiRecommondation aiRecommondation,
+      bool isMobile, int index, bool selectedChoice) {
     List<Widget> prices = [];
+    int counter = 0;
     for (var price in aiRecommondation.prices!) {
       prices.add(Text(
         "${price.value!}€   (${price.percentage}%)",
-        style: mediumGreyTextStyle.copyWith(fontSize: 14),
+        style: counter == 0 && selectedChoice ? mediumGreyTextStyle.copyWith(color :Colors.lightGreen,fontSize: 14 ): mediumGreyTextStyle.copyWith(fontSize: 14),
       ));
+      counter++;
     }
 
     Widget row = Row(
@@ -869,7 +879,9 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                   aiRecommondation.hilfsmittelNummer!.value!,
                   style: mainTextStyle.copyWith(
                       fontSize: isMobile ? 14 : 17,
-                      color: notifire!.getMainText),
+                      color: selectedChoice
+                          ? Colors.lightGreen
+                          : notifire!.getMainText),
                 ),
                 const SizedBox(
                   height: 10,
@@ -904,7 +916,10 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
         height: 120,
         width: 375,
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey.withOpacity(0.3)),
+          border: Border.all(
+              color: selectedChoice
+                  ? Colors.lightGreen
+                  : Colors.grey.withOpacity(0.3)),
           borderRadius: const BorderRadius.all(Radius.circular(12)),
           color: Colors.white,
           boxShadow: boxShadow,
