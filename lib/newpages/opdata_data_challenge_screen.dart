@@ -61,10 +61,10 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             // Add your gradient or image background here
             ),
-        padding: EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -79,11 +79,11 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                 ),
               ],
             ),
-            Text(
+            const Text(
               'Gib den Zugangscode ein',
               style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             SizedBox(
                 width: 240,
                 child: TextField(
@@ -113,7 +113,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                   ),
                   // Add input validation and formatting as needed
                 )),
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             ElevatedButton(
               onPressed: () {
                 // Implement your code submission logic
@@ -124,7 +124,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                   });
                 }
               },
-              child: Text('Code prüfen'),
+              child: const Text('Code prüfen'),
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(18.0),
@@ -220,7 +220,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                     ],
                   ),
 
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Row(
@@ -345,7 +345,6 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
     await Future.delayed(delay);
     await Future.delayed(delay);
 
-
     String icdCode = icd10Code;
     String icdCodeBuilder = "";
     for (int i = 0; i < icdCode.length; i++) {
@@ -404,17 +403,17 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
           children: [
             _demoButton(isMobile, "Harninkontinenz Brandenburg", "109519005",
                 "Brandenburg", "R32"),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             _demoButton(isMobile, "Harninkontinenz Hessen", "105313145",
                 "Hessen", "R32"),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             _demoButton(isMobile, "Bds HV durch Schallempfindungsstörung",
                 "108310400", "Bayern", "H90.3"),
-            SizedBox(
+            const SizedBox(
               height: 5,
             ),
             _demoButton(isMobile, "HV durch Schallempfindungsstörung",
@@ -695,24 +694,29 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                         100.0,
                 big: true,
               ),
-            if (_krankenkassenIk.length > 5 && !_processingFinished && _icd10Code.isNotEmpty)
-              Lottie.asset('assets/ai.json', height: isMobile ? 200 : 250, width: isMobile ? 200 : 250),
-            if (_krankenkassenIk.length > 5 && _processingFinished && _noResults)
-              Lottie.asset('assets/no_results.json', height: isMobile ? 200 : 250, width: isMobile ? 200 : 250),
-            if (_krankenkassenIk.length > 5 && _processingFinished && _noResults)
+            if (_krankenkassenIk.length > 5 &&
+                !_processingFinished &&
+                _icd10Code.isNotEmpty)
+              Lottie.asset('assets/ai.json',
+                  height: isMobile ? 200 : 250, width: isMobile ? 200 : 250),
+            if (_krankenkassenIk.length > 5 &&
+                _processingFinished &&
+                _noResults)
+              Lottie.asset('assets/no_results.json',
+                  height: isMobile ? 200 : 250, width: isMobile ? 200 : 250),
+            if (_krankenkassenIk.length > 5 &&
+                _processingFinished &&
+                _noResults)
               SizedBox(
-                width: isMobile ?
-                    250
-                    : 500,
-                child:
-              Text(
-                "Leider hat Deine Auswahl zu keinem Ergebnis geführt. Bitte beachte: Unser Modell wurde auf einer validen Vorauswahl von Kassen und Erkrankungen vortrainiert und kann zur Zeit nur in diesem Rahmen Recommendations ausgeben. Ausbaustufen des Modells werden Deine Eingaben als neue Lerninhalte (bspw. neue Erkrankungen) berücksichtigen. Versuche es gerne erneuert mit anderen Daten (bspw. mit einer Inko-Versorgung) oder verwende den Demo-Ausführen-Button mit unseren Testdaten.",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    // center text
-                    color: notifire.getsubcolors,
-                    fontSize: 14),
-              )),
+                  width: isMobile ? 250 : 500,
+                  child: Text(
+                    "Leider hat Deine Auswahl zu keinem Ergebnis geführt. Bitte beachte: Unser Modell wurde auf einer validen Vorauswahl von Kassen und Erkrankungen vortrainiert und kann zur Zeit nur in diesem Rahmen Recommendations ausgeben. Ausbaustufen des Modells werden Deine Eingaben als neue Lerninhalte (bspw. neue Erkrankungen) berücksichtigen. Versuche es gerne erneuert mit anderen Daten (bspw. mit einer Inko-Versorgung) oder verwende den Demo-Ausführen-Button mit unseren Testdaten.",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        // center text
+                        color: notifire.getsubcolors,
+                        fontSize: 14),
+                  )),
 
             if (_krankenkassenIk.length > 5)
               const SizedBox(
@@ -761,7 +765,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                   },
                   isOnlyLongPress: isMobile,
                   dragPlaceHolder: (List<DraggableGridItem> list, int index) {
-                    return PlaceHolderWidget(
+                    return const PlaceHolderWidget(
                         // opacity 0.3 card
                         child: SizedBox(
                       height: 360,
@@ -780,9 +784,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
     );
   }
 
-  void _showAiTrainedMessage(){
-
-  }
+  void _showAiTrainedMessage() {}
 
   Widget _buildAiRecommondationCard(
       AiRecommondation aiRecommondation, bool isMobile, int index) {
@@ -877,47 +879,53 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
     recommendationRequest.icd10Code = _icd10Code;
     recommendationRequest.bundesLand = _bundesland;
 
-    JensApi()
-        .requestAiSuggestions(recommendationRequest: recommendationRequest)
-        .catchError((e) {
-      print(e);
-      setState(() {
-        _processingRequest = false;
+    try {
+      JensApi()
+          .requestAiSuggestions(recommendationRequest: recommendationRequest)
+          .catchError((e) {
+        print(e);
+        setState(() {
+          _processingRequest = false;
+        });
+      }).then((value) =>
+      {
+        setState(() {
+          _aiRecommondations = value;
+          _processingRequest = false;
+          _processingFinished = true;
+
+          if (_aiRecommondations.isEmpty) {
+            _noResults = true;
+          }
+        }),
+
+        renderBox =
+        _scrollToKey.currentContext?.findRenderObject() as RenderBox,
+        position = renderBox.localToGlobal(Offset.zero),
+        scrollBox = Scrollable.of(_scrollToKey.currentContext!)!
+            .context
+            .findRenderObject() as RenderBox,
+        offset = position.dy -
+            (scrollBox.size.height / 2 - renderBox.size.height / 2),
+
+        // scroll to results
+
+        // only animate if last animation was more than 2 seconds ago
+        // if (_isFirstTime)
+        //   _scrollController.animateTo(
+        //     // sroll to _scrollToKey
+        //     offset,
+        //
+        //     duration: const Duration(seconds: 2),
+        //     curve: Curves.easeIn,
+        //   ),
+        setState(() {
+          _isFirstTime = false;
+        }),
       });
-    }).then((value) => {
-              setState(() {
-                _aiRecommondations = value;
-                _processingRequest = false;
-                _processingFinished = true;
-
-                if(_aiRecommondations.isEmpty){
-                  _noResults = true;
-                }
-              }),
-
-              renderBox =
-                  _scrollToKey.currentContext?.findRenderObject() as RenderBox,
-              position = renderBox.localToGlobal(Offset.zero),
-              scrollBox = Scrollable.of(_scrollToKey.currentContext!)!
-                  .context
-                  .findRenderObject() as RenderBox,
-              offset = position.dy -
-                  (scrollBox.size.height / 2 - renderBox.size.height / 2),
-
-              // scroll to results
-
-              // only animate if last animation was more than 2 seconds ago
-              // if (_isFirstTime)
-              //   _scrollController.animateTo(
-              //     // sroll to _scrollToKey
-              //     offset,
-              //
-              //     duration: const Duration(seconds: 2),
-              //     curve: Curves.easeIn,
-              //   ),
-              setState(() {
-                _isFirstTime = false;
-              }),
-            });
+    }catch(e){
+      print("Fehler bei der abfrage d" );
+      print(e);
+    }
   }
 }

@@ -25,6 +25,7 @@ class ApiClient {
       this.basePath = "https://optadata-challenge.azurewebsites.net/";
     else
       this.basePath = "http://localhost:8000/";
+    //this.basePath = "https://optadata-challenge.azurewebsites.net/";
     print("Basepath: $basePath");
   }
 
