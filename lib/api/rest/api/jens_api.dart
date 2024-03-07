@@ -8,7 +8,7 @@ class JensApi {
   Future<List<AiRecommondation>> requestAiSuggestions(
       {required RecommendationRequest recommendationRequest}) async {
     // create path and map variables
-    String path = "jens/ai/suggestions";
+    String path = "jens/ai/suggestions/";
 
     // query params
     List<QueryParam> queryParams = [];
@@ -42,7 +42,7 @@ class JensApi {
   Future<List<Product>> requestSaniupSuggestions(
       {required List<AiRecommondation> aiRecommondations}) async {
     // create path and map variables
-    String path = "jens/saniup/suggestions";
+    String path = "jens/saniup/suggestions/";
 
     // query params
     List<QueryParam> queryParams = [];

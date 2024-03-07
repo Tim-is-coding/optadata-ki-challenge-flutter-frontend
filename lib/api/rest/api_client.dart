@@ -132,6 +132,8 @@ class ApiClient {
     headerParams['Content-Type'] = contentType;
     //headerParams['Authorization'] = "Bearer $accessToken";
 
+    print("Going to call $url with $method");
+
     if (body is MultipartRequest) {
       throw UnimplementedError();
     } else {
