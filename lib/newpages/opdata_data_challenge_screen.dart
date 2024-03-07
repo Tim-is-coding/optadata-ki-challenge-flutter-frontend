@@ -401,22 +401,22 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            _demoButton(isMobile, "Harninkontinenz Brandenburg", "109519005",
+            _demoButton(isMobile, "Inkontinenz Case 1", "109519005",
                 "Brandenburg", "R32"),
             const SizedBox(
               height: 5,
             ),
-            _demoButton(isMobile, "Harninkontinenz Hessen", "105313145",
+            _demoButton(isMobile, "Inkontinenz Case 2", "105313145",
                 "Hessen", "R32"),
             const SizedBox(
               height: 5,
             ),
-            _demoButton(isMobile, "Bds HV durch Schallempfindungsstörung",
+            _demoButton(isMobile, "Hörverlust Case 1",
                 "108310400", "Bayern", "H90.3"),
             const SizedBox(
               height: 5,
             ),
-            _demoButton(isMobile, "HV durch Schallempfindungsstörung",
+            _demoButton(isMobile, "Hörverlust Case 2",
                 "104940005", "Bayern", "H90.5"),
 
             Row(
