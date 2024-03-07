@@ -418,6 +418,9 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
             ),
             _demoButton(isMobile, "Hörverlust Case 2",
                 "104940005", "Bayern", "H90.5"),
+            const SizedBox(
+              height: 10,
+            ),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
