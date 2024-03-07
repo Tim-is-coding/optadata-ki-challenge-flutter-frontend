@@ -739,7 +739,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                   shrinkWrap: true,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: isMobile ? 1 : 3,
-                    childAspectRatio: 2.5,
+                    childAspectRatio: 2.3,
                   ),
                   dragCompletion: (List<DraggableGridItem> list,
                       int beforeIndex, int afterIndex) {
@@ -799,7 +799,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
       closeIconColor: Colors.white,
 
       animation: Tween<double>(begin: 0, end: 300).animate(AnimationController(vsync: this)),
-      content: Text(
+      content: const Text(
         "Deine Rückmeldungen hat zur Verbesserung des Modells beigetragen.",
         style: TextStyle(
           color: Colors.white,
@@ -811,15 +811,25 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
-    Timer(Duration(seconds: 3), () {
+    Timer(const Duration(seconds: 3), () {
       ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
     });
   }
 
   Widget _buildAiRecommondationCard(
       AiRecommondation aiRecommondation, bool isMobile, int index) {
+
+    List<Widget> prices = [];
+    for (var price in aiRecommondation.prices!) {
+      prices.add(Text(
+        "${price.value!}€   (${price.percentage}%)",
+        style: mediumGreyTextStyle.copyWith(fontSize: 14),
+      ));
+    }
+
     Widget row = Row(
       children: [
+
         Expanded(
           child: Padding(
             padding: const EdgeInsets.all(14.0),
@@ -836,9 +846,9 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                 const SizedBox(
                   height: 10,
                 ),
-                Text(
-                  aiRecommondation.prices!.first.value!,
-                  style: mediumGreyTextStyle.copyWith(fontSize: 14),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: prices,
                 ),
                 const SizedBox(height: 4),
                 const SizedBox(
@@ -860,7 +870,8 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
 
     Widget content = row;
 
-    return Padding(
+    return
+     Padding(
       padding: const EdgeInsets.all(padding),
       child: Container(
         height: 120,
