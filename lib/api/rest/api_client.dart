@@ -20,11 +20,12 @@ class ApiClient {
   final _RegMap = RegExp(r'^Map<String,(.*)>$');
 
   ApiClient() {
+
     if (!kDebugMode)
-      this.basePath =
-          "https://optadata-challenge.azurewebsites.net/";
+      this.basePath = "https://optadata-challenge.azurewebsites.net/";
     else
       this.basePath = "http://localhost:8000/";
+    print("Basepath: $basePath");
   }
 
   void addDefaultHeader(String key, String value) {
