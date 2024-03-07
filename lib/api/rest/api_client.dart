@@ -114,7 +114,7 @@ class ApiClient {
       String path,
       String method,
       List<QueryParam> queryParams,
-      Object body,
+      Object? body,
       Map<String, String> headerParams,
       Map<String, String> formParams,
       String contentType,

@@ -6,7 +6,6 @@ import 'package:buzz/api/rest/api.dart';
 import 'package:buzz/appstaticdata/staticdata.dart';
 import 'package:buzz/model/jens/AiRecommondation.dart';
 import 'package:buzz/model/lightabrechnungsrequest.dart';
-import 'package:buzz/model/lightabrechnungsresponse.dart';
 import 'package:buzz/provider/proviercolors.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +29,6 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
   ColorNotifire notifire = ColorNotifire();
 
   late LightAbrechnungsrequest _lightAbrechnungsrequest;
-  LightAbrechnungsResult? _lightAbrechnungsResult;
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey _scrollToKey = GlobalKey();
@@ -40,7 +38,6 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
   final TextEditingController _ikController = TextEditingController();
   final TextEditingController _icdkController = TextEditingController();
   final TextEditingController _diagnoseController = TextEditingController();
-  final TextEditingController _BdayController = TextEditingController();
 
   bool correctCodeEntered = false;
 
@@ -50,6 +47,8 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
   double _width = 0;
   bool _isFirstTime = true;
   bool _noResults = false;
+
+  bool _icd10CodeIsBeingTranslated = false;
 
   String _krankenkassenIk = "";
   String _icd10Code = "";
@@ -609,37 +608,46 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                     ),
                   ),
                 if (_krankenkassenIk.length > 5 && !isMobile)
-                  SizedBox(
-                    width: 300,
-                    child: Padding(
-                      padding:
-                          const EdgeInsets.only(top: 23, left: 20, right: 20),
-                      child: SizedBox(
-                          width: 300,
-                          child: TextFormField(
-                              controller: _diagnoseController,
-                              onChanged: (value) {
-                                setState(() {
-                                  _diagnose = value;
-                                });
-                                _loadNewResultsIfPossible();
-                              },
-                              style: mediumBlackTextStyle.copyWith(
-                                  color: notifire.getMainText),
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                  color: Colors.grey.withOpacity(0.3),
-                                )),
-                                enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                  color: Colors.grey.withOpacity(0.3),
-                                )),
-                                labelText: 'Diagnose',
-                                labelStyle: mediumGreyTextStyle,
-                              ))),
+                  Row(children: [
+                    SizedBox(
+                      width: 300,
+                      child: Padding(
+                        padding:
+                            const EdgeInsets.only(top: 23, left: 20, right: 20),
+                        child: SizedBox(
+                            width: 300,
+                            child: TextFormField(
+                                controller: _diagnoseController,
+                                onChanged: (value) {
+                                  setState(() {
+                                    _diagnose = value;
+                                  });
+                                  _loadNewResultsIfPossible();
+                                },
+                                style: mediumBlackTextStyle.copyWith(
+                                    color: notifire.getMainText),
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                    color: Colors.grey.withOpacity(0.3),
+                                  )),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                    color: Colors.grey.withOpacity(0.3),
+                                  )),
+                                  labelText: 'Diagnose',
+                                  labelStyle: mediumGreyTextStyle,
+                                ))),
+                      ),
                     ),
-                  ),
+                    if (_diagnose.isNotEmpty)
+                      Column(children: [
+                        SizedBox(height: 20,),
+                      InkWell(
+                          onTap: _requestIcd10CodeTranslation,
+                          child: Lottie.asset('assets/translate.json',
+                              height: 50, width: 50))]),
+                  ]),
               ],
             ),
             if (_krankenkassenIk.length > 5 && isMobile)
@@ -655,7 +663,6 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                             setState(() {
                               _diagnose = value;
                             });
-                            _loadNewResultsIfPossible();
                           },
                           style: mediumBlackTextStyle.copyWith(
                               color: notifire.getMainText),
@@ -790,15 +797,14 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
   }
 
   void _showAiTrainedMessage() {
-
     SnackBar snackBar = SnackBar(
       width: 360,
       behavior: SnackBarBehavior.floating,
       duration: const Duration(seconds: 3),
       showCloseIcon: true,
       closeIconColor: Colors.white,
-
-      animation: Tween<double>(begin: 0, end: 300).animate(AnimationController(vsync: this)),
+      animation: Tween<double>(begin: 0, end: 300)
+          .animate(AnimationController(vsync: this)),
       content: const Text(
         "Deine Rückmeldungen hat zur Verbesserung des Modells beigetragen.",
         style: TextStyle(
@@ -811,14 +817,36 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
 
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
-    Timer(const Duration(seconds: 3), () {
+    Timer(const Duration(seconds: 4), () {
       ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+    });
+  }
+
+  void _requestIcd10CodeTranslation() {
+    if (_icd10CodeIsBeingTranslated) {
+      return;
+    }
+    _icd10CodeIsBeingTranslated = true;
+
+    setState(() {
+      _icd10Code = "";
+    });
+
+    JensApi().icd10CodeTranslation(diagnose: _diagnose).then((value) {
+      setState(() {
+        _icd10Code = value;
+        _icdkController.text = value;
+        _icd10CodeIsBeingTranslated = false;
+      });
+      _loadNewResultsIfPossible();
+    }).catchError((e) {
+      print(e);
+      _icd10CodeIsBeingTranslated = false;
     });
   }
 
   Widget _buildAiRecommondationCard(
       AiRecommondation aiRecommondation, bool isMobile, int index) {
-
     List<Widget> prices = [];
     for (var price in aiRecommondation.prices!) {
       prices.add(Text(
@@ -829,7 +857,6 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
 
     Widget row = Row(
       children: [
-
         Expanded(
           child: Padding(
             padding: const EdgeInsets.all(14.0),
@@ -870,8 +897,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
 
     Widget content = row;
 
-    return
-     Padding(
+    return Padding(
       padding: const EdgeInsets.all(padding),
       child: Container(
         height: 120,
@@ -938,7 +964,6 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                     _noResults = true;
                   }
                 }),
-
                 renderBox = _scrollToKey.currentContext?.findRenderObject()
                     as RenderBox,
                 position = renderBox.localToGlobal(Offset.zero),
@@ -947,18 +972,6 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                     .findRenderObject() as RenderBox,
                 offset = position.dy -
                     (scrollBox.size.height / 2 - renderBox.size.height / 2),
-
-                // scroll to results
-
-                // only animate if last animation was more than 2 seconds ago
-                // if (_isFirstTime)
-                //   _scrollController.animateTo(
-                //     // sroll to _scrollToKey
-                //     offset,
-                //
-                //     duration: const Duration(seconds: 2),
-                //     curve: Curves.easeIn,
-                //   ),
                 setState(() {
                   _isFirstTime = false;
                 }),

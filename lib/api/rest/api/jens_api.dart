@@ -39,10 +39,9 @@ class JensApi {
     }
   }
 
-  Future<List<Product>> requestSaniupSuggestions(
-      {required List<AiRecommondation> aiRecommondations}) async {
+  Future<String> icd10CodeTranslation({required String diagnose}) async {
     // create path and map variables
-    String path = "jens/saniup/suggestions/";
+    String path = "icd10_code/?query=$diagnose";
 
     // query params
     List<QueryParam> queryParams = [];
@@ -52,23 +51,13 @@ class JensApi {
     String contentType = "application/json";
     List<String> authNames = ["aussendienst_api"];
 
-    var response = await apiClient.invokeAPI(
-        path,
-        'POST',
-        queryParams,
-        aiRecommondations.map((e) => e.toJson()).toList(),
-        headerParams,
-        formParams,
-        contentType,
-        authNames);
+    var response = await apiClient.invokeAPI(path, 'GET', queryParams, null,
+        headerParams, formParams, contentType, authNames);
 
     if (response.statusCode >= 400) {
       throw ApiException(response.statusCode, response.body);
     } else {
-      return (apiClient.deserialize(
-              utf8.decode(response.bodyBytes), 'List<Product>') as List)
-          .map((item) => item as Product)
-          .toList();
+      return utf8.decode(response.bodyBytes).replaceAll("\"", "");
     }
   }
 }
