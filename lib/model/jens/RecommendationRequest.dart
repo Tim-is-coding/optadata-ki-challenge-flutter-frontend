@@ -2,6 +2,7 @@ class RecommendationRequest {
   String? krankenkassenIk;
   String? diagnoseText;
   String? icd10Code;
+  String? bundesLand;
 
   RecommendationRequest();
 
@@ -9,6 +10,7 @@ class RecommendationRequest {
     krankenkassenIk = json['krankenkassenIk'];
     diagnoseText = json['diagnoseText'];
     icd10Code = json['icd10Code'];
+    bundesLand = json['bundesLand'];
   }
 
   Map<String, dynamic> toJson() {
@@ -16,6 +18,7 @@ class RecommendationRequest {
       'krankenkassenIk': krankenkassenIk,
       'diagnoseText': diagnoseText,
       'icd10Code': icd10Code,
+      'bundesLand': bundesLand
     };
   }
 

@@ -24,7 +24,7 @@ class ApiClient {
       this.basePath =
           "https://insuranceconstract-rest-backend.azurewebsites.net/api/v1/";
     else
-      this.basePath = "http://localhost:8080/api/v1/";
+      this.basePath = "http://localhost:8000/";
   }
 
   void addDefaultHeader(String key, String value) {

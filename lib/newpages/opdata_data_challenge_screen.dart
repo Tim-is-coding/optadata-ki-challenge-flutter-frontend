@@ -9,6 +9,7 @@ import 'package:buzz/model/lightabrechnungsrequest.dart';
 import 'package:buzz/model/lightabrechnungsresponse.dart';
 import 'package:buzz/newpages/product_card.dart';
 import 'package:buzz/provider/proviercolors.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_draggable_gridview/flutter_draggable_gridview.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -54,9 +55,9 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
   String _krankenkassenIk = "";
   String _icd10Code = "";
   String _diagnose = "";
+  String _bundesland = "";
 
   List<AiRecommondation> _aiRecommondations = [];
-  List<Product> _saniUpRecommondations = [];
 
   Widget _buildCodeInputWidget() {
     TextEditingController _codeController = TextEditingController();
@@ -145,24 +146,6 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
     super.initState();
     _lightAbrechnungsrequest = _makeStartSetting();
     _tabController = TabController(length: 2, vsync: this);
-
-    // _lightAbrechnungsrequest.krankenkassenIk = "100189483";
-    // _lightAbrechnungsrequest.patientBirthday = "01.01.1980";
-    // _lightAbrechnungsrequest.productDeliveries![0].deliveryDate = "01.01.2021";
-    //
-    // _lightAbrechnungsrequest.productDeliveries![0].deliveredProducts![0] =
-    //     LightAbrechnungsRequesProduct();
-    // _lightAbrechnungsrequest.productDeliveries![0].deliveredProducts![0]
-    //     .hilfmittelnummer = "15.25.30.5033";
-    // _lightAbrechnungsrequest
-    //     .productDeliveries![0].deliveredProducts![0].amount = 1;
-    //
-    // _lightAbrechnungsrequest.productDeliveries![0].deliveredProducts!
-    //     .add(LightAbrechnungsRequesProduct());
-    // _lightAbrechnungsrequest.productDeliveries![0].deliveredProducts![1]
-    //     .hilfmittelnummer = "15.25.31.2042";
-    // _lightAbrechnungsrequest
-    //     .productDeliveries![0].deliveredProducts![1].amount = 1;
   }
 
   @override
@@ -197,7 +180,6 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
 
   @override
   Widget build(BuildContext context) {
-
     if (!correctCodeEntered) {
       return _buildCodeInputWidget();
     }
@@ -309,7 +291,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
               ),
             InkWell(
                 onTap: () async {
-                  String ik = "142177879";
+                  String ik = "105313145";
                   String ikBuilder = "";
                   Duration delay = const Duration(milliseconds: 210);
                   for (int i = 0; i < ik.length; i++) {
@@ -326,15 +308,21 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                   await Future.delayed(delay);
                   await Future.delayed(delay);
                   await Future.delayed(delay);
+
+                  setState(() {
+                    _bundesland = "Hessen";
+                  });
+
+                  await Future.delayed(delay);
+                  await Future.delayed(delay);
                   await Future.delayed(delay);
                   await Future.delayed(delay);
                   await Future.delayed(delay);
                   await Future.delayed(delay);
 
-                  String icdCode = "N39.3";
+                  String icdCode = "R32";
                   String icdCodeBuilder = "";
                   for (int i = 0; i < icdCode.length; i++) {
-                    await Future.delayed(delay);
                     await Future.delayed(delay);
                     await Future.delayed(delay);
                     icdCodeBuilder += icdCode[i].toString();
@@ -344,35 +332,6 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                     });
                   }
                   _loadNewResultsIfPossible();
-
-                  await Future.delayed(delay);
-                  await Future.delayed(delay);
-                  await Future.delayed(delay);
-                  await Future.delayed(delay);
-                  await Future.delayed(delay);
-                  await Future.delayed(delay);
-                  await Future.delayed(delay);
-                  await Future.delayed(delay);
-                  await Future.delayed(delay);
-                  await Future.delayed(delay);
-                  await Future.delayed(delay);
-                  await Future.delayed(delay);
-                  await Future.delayed(delay);
-                  await Future.delayed(delay);
-                  await Future.delayed(delay);
-                  await Future.delayed(delay);
-
-                  String diagnose = "Stressinkontinenz";
-                  String diagnoseBuilder = "";
-                  for (int i = 0; i < diagnose.length; i++) {
-                    diagnoseBuilder += diagnose[i].toString();
-                    setState(() {
-                      _diagnose = diagnoseBuilder;
-                      _diagnoseController.text = diagnoseBuilder;
-                    });
-                    _loadNewResultsIfPossible();
-                    await Future.delayed(delay);
-                  }
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -447,7 +406,108 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                   overflow: TextOverflow.ellipsis),
             ),
             const SizedBox(
-              height: 40,
+              height: 20,
+            ),
+            SizedBox(
+                width: 300,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 23, left: 20, right: 20),
+                  child: DropdownButtonFormField2<String>(
+                    isExpanded: true,
+                    decoration: InputDecoration(
+                      // Add Horizontal padding using menuItemStyleData.padding so it matches
+                      // the menu padding when button's width is not specified.
+                      contentPadding: const EdgeInsets.symmetric(vertical: 16),
+                      disabledBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Colors.grey.withOpacity(0.3)),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Colors.grey.withOpacity(0.3)),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Colors.grey.withOpacity(0.3)),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Colors.grey.withOpacity(0.3)),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      // Add more decoration..
+                    ),
+                    hint: Text(
+                      'Bundesland',
+                      maxLines: 1,
+                      style: mediumGreyTextStyle,
+                    ),
+                    items: [
+                      'Brandenburg',
+                      'Rheinland',
+                      'Hessen',
+                      'Niedersachsen',
+                      'Berlin',
+                      'Baden-Württemberg',
+                      'Bayern',
+                      'Westfalen-Lippe',
+                      'Sachsen-Anhalt',
+                      'Sachsen',
+                      'Mecklenburg-Vorpommern',
+                      'Schleswig-Holstein',
+                      'Rheinland-Pfalz',
+                      'Thüringen',
+                      'Hamburg',
+                      'Saarland',
+                      'Bremen'
+                    ]
+                        .map((item) => DropdownMenuItem<String>(
+                              value: item,
+                              child: Text(
+                                item,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ))
+                        .toList(),
+                    onChanged: (value) {
+                      setState(() {
+                        _bundesland = value.toString();
+                      });
+                    },
+                    onSaved: (value) {
+                      _bundesland = value.toString();
+                    },
+                    buttonStyleData: const ButtonStyleData(
+                      padding: EdgeInsets.only(right: 8),
+                    ),
+                    iconStyleData: IconStyleData(
+                      icon: Icon(
+                        Icons.arrow_drop_down,
+                        color: notifire.getbacktextcolors,
+                      ),
+                      iconSize: 24,
+                    ),
+                    style: mediumBlackTextStyle.copyWith(
+                        color: notifire.getMainText),
+                    dropdownStyleData: DropdownStyleData(
+                      decoration: BoxDecoration(
+                        color: notifire.getcontiner,
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),
+                    menuItemStyleData: const MenuItemStyleData(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                    ),
+                  ),
+                )),
+
+            const SizedBox(
+              height: 30,
             ),
 
             Row(
@@ -760,7 +820,10 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
 
   void _loadNewResultsIfPossible() {
     if (_krankenkassenIk.isNotEmpty &&
-        (_icd10Code.isNotEmpty || _diagnose.isNotEmpty)) {
+        _krankenkassenIk.length > 8 &&
+        _bundesland.isNotEmpty &&
+        ((_icd10Code.isNotEmpty && _icd10Code.length > 2) ||
+            _diagnose.isNotEmpty && _icd10Code.length > 5)) {
       _loadNewResults();
     }
   }
@@ -779,6 +842,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
     recommendationRequest.krankenkassenIk = _krankenkassenIk;
     recommendationRequest.diagnoseText = _diagnose;
     recommendationRequest.icd10Code = _icd10Code;
+    recommendationRequest.bundesLand = _bundesland;
 
     RenderBox renderBox;
     Offset position;
