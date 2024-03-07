@@ -713,7 +713,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
               SizedBox(
                   width: isMobile ? 250 : 500,
                   child: Text(
-                    "Leider hat Deine Auswahl zu keinem Ergebnis geführt. Bitte beachte: Unser Modell wurde auf einer validen Vorauswahl von Kassen und Erkrankungen vortrainiert und kann zur Zeit nur in diesem Rahmen Recommendations ausgeben. Ausbaustufen des Modells werden Deine Eingaben als neue Lerninhalte (bspw. neue Erkrankungen) berücksichtigen. Versuche es gerne erneuert mit anderen Daten (bspw. mit einer Inko-Versorgung) oder verwende den Demo-Ausführen-Button mit unseren Testdaten.",
+                    "Leider hat Deine Auswahl zu keinem Ergebnis geführt. Bitte beachte: Unser Modell wurde auf einer validen Vorauswahl von Kassen und Erkrankungen vortrainiert und kann zur Zeit nur in diesem Rahmen Recommendations ausgeben. Ausbaustufen des Modells werden Deine Eingaben als neue Lerninhalte (bspw. neue Erkrankungen) berücksichtigen. Versuche es gerne erneuert mit anderen Daten (bspw. mit einer Inko-Versorgung) oder klicke einen unserer Testcases, um Recommendations mit echten Testdaten zu sehen.",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         // center text
@@ -787,7 +787,9 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
     );
   }
 
-  void _showAiTrainedMessage() {}
+  void _showAiTrainedMessage() {
+
+  }
 
   Widget _buildAiRecommondationCard(
       AiRecommondation aiRecommondation, bool isMobile, int index) {
