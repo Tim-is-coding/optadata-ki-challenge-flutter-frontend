@@ -830,6 +830,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
 
     setState(() {
       _icd10Code = "";
+      _icdkController.text = "";
     });
 
     JensApi().icd10CodeTranslation(diagnose: _diagnose).then((value) {
