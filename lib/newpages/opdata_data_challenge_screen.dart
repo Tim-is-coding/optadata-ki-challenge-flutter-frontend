@@ -3,15 +3,14 @@
 import 'package:buzz/api/rest/api.dart';
 import 'package:buzz/appstaticdata/staticdata.dart';
 import 'package:buzz/model/jens/AiRecommondation.dart';
-import 'package:buzz/model/jens/product.dart';
 import 'package:buzz/model/lightabrechnungsrequest.dart';
 import 'package:buzz/model/lightabrechnungsresponse.dart';
-import 'package:buzz/newpages/product_card.dart';
 import 'package:buzz/provider/proviercolors.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_draggable_gridview/flutter_draggable_gridview.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 import '../model/jens/RecommendationRequest.dart';
@@ -220,6 +219,25 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                     ],
                   ),
 
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                          width: isMobile ? 300 : 600,
+                          child: Text(
+                              "Dies ist eine stark-reduzierte Demo-Version. Der volle Software-Umfang (UI sowie Modell-Umfang) kann auf Wunsch umgesetzt werden. Bitte kontaktieren Sie hierzu jens.hauser@hotmail.de. Vielen Dank!",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: "Gilroy",
+                                color: Colors.black.withOpacity(0.9),
+                                fontSize: isMobile ? 12 : 14,
+                              ))),
+                    ],
+                  ),
+
                   Padding(
                     padding: const EdgeInsets.all(padding),
                     child: Container(
@@ -267,6 +285,114 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
     }
   }
 
+  void _exexute_demo(
+      String krankenkassenIk, String bundesland, String icd10Code) async {
+    setState(() {
+      _krankenkassenIk = "";
+      _bundesland = "";
+      _icd10Code = "";
+      _diagnose = "";
+      _icdkController.text = "";
+      _ikController.text = "";
+      _diagnoseController.text = "";
+      _aiRecommondations = [];
+      _isFirstTime = true;
+    });
+
+    String ik = krankenkassenIk;
+    String ikBuilder = "";
+    Duration delay = const Duration(milliseconds: 210);
+    for (int i = 0; i < ik.length; i++) {
+      ikBuilder += ik[i].toString();
+      setState(() {
+        _krankenkassenIk = ikBuilder;
+        _ikController.text = ikBuilder;
+      });
+      await Future.delayed(delay);
+    }
+
+    await Future.delayed(delay);
+    await Future.delayed(delay);
+    await Future.delayed(delay);
+    await Future.delayed(delay);
+    await Future.delayed(delay);
+
+    setState(() {
+      _bundesland = bundesland;
+    });
+
+    RenderBox renderBox;
+    Offset position;
+    RenderBox scrollBox;
+    double offset;
+    renderBox = _scrollToKey.currentContext?.findRenderObject() as RenderBox;
+    position = renderBox.localToGlobal(Offset.zero);
+    scrollBox = Scrollable.of(_scrollToKey.currentContext!)
+        .context
+        .findRenderObject() as RenderBox;
+    offset =
+        position.dy - (scrollBox.size.height / 2 - renderBox.size.height / 2);
+    _scrollController.animateTo(
+      // sroll to _scrollToKey
+      offset,
+
+      duration: const Duration(seconds: 2),
+      curve: Curves.easeIn,
+    );
+
+    await Future.delayed(delay);
+    await Future.delayed(delay);
+    await Future.delayed(delay);
+    await Future.delayed(delay);
+    await Future.delayed(delay);
+    await Future.delayed(delay);
+
+    String icdCode = icd10Code;
+    String icdCodeBuilder = "";
+    for (int i = 0; i < icdCode.length; i++) {
+      await Future.delayed(delay);
+      await Future.delayed(delay);
+      await Future.delayed(delay);
+      icdCodeBuilder += icdCode[i].toString();
+      setState(() {
+        _icd10Code = icdCodeBuilder;
+        _icdkController.text = icdCodeBuilder;
+      });
+    }
+    _loadNewResultsIfPossible();
+  }
+
+  Widget _demoButton(bool isMobile, String demoName, String ik,
+      String bundesland, String icd10) {
+    return InkWell(
+        onTap: () async {
+          _exexute_demo(ik, bundesland, icd10);
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset(
+              "auto-generate-svgrepo-com.svg",
+              height: isMobile ? 16 : 24,
+              width: isMobile ? 16 : 24,
+              color: notifire.getsubcolors,
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Text(
+              demoName,
+              style: TextStyle(
+                  // hand written styl
+                  fontFamily: "Gilroy",
+                  color: isMobile ? Colors.black : notifire.getsubcolors,
+                  fontSize: isMobile ? 12 : 14,
+                  overflow: TextOverflow.ellipsis),
+            ),
+          ],
+        ));
+  }
+
   Widget buildContent(bool isMobile, {required double size}) {
     return SizedBox(
       width: double.infinity,
@@ -277,78 +403,24 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
-            if (!isMobile)
-              SizedBox(
-                height: 30,
-              ),
-            InkWell(
-                onTap: () async {
-                  String ik = "105313145";
-                  String ikBuilder = "";
-                  Duration delay = const Duration(milliseconds: 210);
-                  for (int i = 0; i < ik.length; i++) {
-                    ikBuilder += ik[i].toString();
-                    setState(() {
-                      _krankenkassenIk = ikBuilder;
-                      _ikController.text = ikBuilder;
-                    });
-                    await Future.delayed(delay);
-                  }
+            _demoButton(isMobile, "Harninkontinenz Brandenburg", "109519005",
+                "Brandenburg", "R32"),
+            SizedBox(
+              height: 5,
+            ),
+            _demoButton(isMobile, "Harninkontinenz Hessen", "105313145",
+                "Hessen", "R32"),
+            SizedBox(
+              height: 5,
+            ),
+            _demoButton(isMobile, "Bds HV durch Schallempfindungsstörung",
+                "108310400", "Bayern", "H90.3"),
+            SizedBox(
+              height: 5,
+            ),
+            _demoButton(isMobile, "HV durch Schallempfindungsstörung",
+                "104940005", "Bayern", "H90.5"),
 
-                  await Future.delayed(delay);
-                  await Future.delayed(delay);
-                  await Future.delayed(delay);
-                  await Future.delayed(delay);
-                  await Future.delayed(delay);
-
-                  setState(() {
-                    _bundesland = "Hessen";
-                  });
-
-                  await Future.delayed(delay);
-                  await Future.delayed(delay);
-                  await Future.delayed(delay);
-                  await Future.delayed(delay);
-                  await Future.delayed(delay);
-                  await Future.delayed(delay);
-
-                  String icdCode = "R32";
-                  String icdCodeBuilder = "";
-                  for (int i = 0; i < icdCode.length; i++) {
-                    await Future.delayed(delay);
-                    await Future.delayed(delay);
-                    icdCodeBuilder += icdCode[i].toString();
-                    setState(() {
-                      _icd10Code = icdCodeBuilder;
-                      _icdkController.text = icdCodeBuilder;
-                    });
-                  }
-                  _loadNewResultsIfPossible();
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      "auto-generate-svgrepo-com.svg",
-                      height: isMobile ? 16 : 24,
-                      width: isMobile ? 16 : 24,
-                      color: notifire.getsubcolors,
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      "Demo ausführen",
-                      style: TextStyle(
-                          // hand written styl
-                          fontFamily: "Gilroy",
-                          color:
-                              isMobile ? Colors.black : notifire.getsubcolors,
-                          fontSize: isMobile ? 12 : 14,
-                          overflow: TextOverflow.ellipsis),
-                    ),
-                  ],
-                )),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -390,16 +462,6 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
               height: 20,
             ),
             // center text
-            Text(
-              "Gebe die Krankenkassen-IK des Rezeptes ein",
-              style: TextStyle(
-                  color: notifire.getsubcolors,
-                  fontSize: 12,
-                  overflow: TextOverflow.ellipsis),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
             SizedBox(
                 width: 300,
                 child: Padding(
@@ -634,11 +696,13 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                         100.0,
                 big: true,
               ),
-
+            if (_krankenkassenIk.length > 5 && !_processingFinished && _icd10Code.isNotEmpty)
+              Lottie.asset('assets/ai.json', height: isMobile ? 200 : 250, width: isMobile ? 200 : 250),
             if (_krankenkassenIk.length > 5)
-              SizedBox(
+              const SizedBox(
                 height: 40,
               ),
+
             if (_krankenkassenIk.length > 5 && _aiRecommondations.isNotEmpty)
               SizedBox(
                 height: isMobile ? 5000 : 1900,
@@ -759,10 +823,6 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
     );
   }
 
-  Widget _buildProductCard(Product product) {
-    return ProductCard(product: product);
-  }
-
   void _loadNewResultsIfPossible() {
     if (_krankenkassenIk.isNotEmpty &&
         _krankenkassenIk.length > 8 &&
@@ -781,7 +841,13 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
     }
     setState(() {
       _processingRequest = true;
+      _processingFinished = false;
     });
+
+    RenderBox renderBox;
+    Offset position;
+    RenderBox scrollBox;
+    double offset;
 
     RecommendationRequest recommendationRequest = RecommendationRequest();
     recommendationRequest.krankenkassenIk = _krankenkassenIk;
@@ -789,10 +855,6 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
     recommendationRequest.icd10Code = _icd10Code;
     recommendationRequest.bundesLand = _bundesland;
 
-    RenderBox renderBox;
-    Offset position;
-    RenderBox scrollBox;
-    double offset;
     JensApi()
         .requestAiSuggestions(recommendationRequest: recommendationRequest)
         .catchError((e) {
@@ -804,6 +866,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
               setState(() {
                 _aiRecommondations = value;
                 _processingRequest = false;
+                _processingFinished = true;
               }),
 
               renderBox =
@@ -816,14 +879,16 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                   (scrollBox.size.height / 2 - renderBox.size.height / 2),
 
               // scroll to results
-              if (_isFirstTime)
-                _scrollController.animateTo(
-                  // sroll to _scrollToKey
-                  offset,
 
-                  duration: const Duration(seconds: 2),
-                  curve: Curves.easeIn,
-                ),
+              // only animate if last animation was more than 2 seconds ago
+              // if (_isFirstTime)
+              //   _scrollController.animateTo(
+              //     // sroll to _scrollToKey
+              //     offset,
+              //
+              //     duration: const Duration(seconds: 2),
+              //     curve: Curves.easeIn,
+              //   ),
               setState(() {
                 _isFirstTime = false;
               }),
