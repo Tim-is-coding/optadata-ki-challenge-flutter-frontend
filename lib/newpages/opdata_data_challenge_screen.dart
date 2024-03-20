@@ -119,7 +119,7 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
             ElevatedButton(
               onPressed: () {
                 // Implement your code submission logic
-                String realCode = "6341";
+                String realCode = "1970";
                 if (_codeController.text == realCode) {
                   setState(() {
                     correctCodeEntered = true;
@@ -655,8 +655,9 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
               ],
             ),
             if (_krankenkassenIk.length > 5 && isMobile)
+              Row(children: [
               SizedBox(
-                width: 300,
+                width: _diagnose.isNotEmpty ? 270 : 300,
                 child: Padding(
                   padding: const EdgeInsets.only(top: 23, left: 20, right: 20),
                   child: SizedBox(
@@ -684,6 +685,16 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
                           ))),
                 ),
               ),
+                if (_diagnose.isNotEmpty)
+                  Column(children: [
+                    SizedBox(
+                      height: 20,
+                    ),
+                    InkWell(
+                        onTap: _requestIcd10CodeTranslation,
+                        child: Lottie.asset('assets/translate.json',
+                            height: 50, width: 50))
+                  ]),]),
             if (_krankenkassenIk.length > 5)
               const SizedBox(
                 height: 20,
