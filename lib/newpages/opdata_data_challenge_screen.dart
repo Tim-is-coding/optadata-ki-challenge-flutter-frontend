@@ -174,9 +174,6 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
 
   @override
   Widget build(BuildContext context) {
-    if (!correctCodeEntered) {
-      return _buildCodeInputWidget();
-    }
 
     notifire = Provider.of<ColorNotifire>(context, listen: true);
     return Scaffold(
