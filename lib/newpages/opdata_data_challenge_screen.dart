@@ -723,12 +723,12 @@ class _OpdataChallengeScreenState extends State<OpdataChallengeScreen>
               ),
             if (_krankenkassenIk.length > 5 &&
                 !_processingFinished &&
-                _icd10Code.isNotEmpty)
+                _icd10Code.isNotEmpty && !isMobile)
               Lottie.asset('assets/ai.json',
                   height: isMobile ? 200 : 250, width: isMobile ? 200 : 250),
             if (_krankenkassenIk.length > 5 &&
                 _processingFinished &&
-                _noResults)
+                _noResults && !isMobile)
               Lottie.asset('assets/no_results.json',
                   height: isMobile ? 200 : 250, width: isMobile ? 200 : 250),
             if (_krankenkassenIk.length > 5 &&
