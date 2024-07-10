@@ -1,40 +1,37 @@
 
-# 2024 Opta Data KI Challenge REST Backend
+# 2024 Opta Data KI Challenge Flutter Frontend
 
 ## Inhalt der Challenge
 
 Opta Data hat für den März 2024 eine Corporate Challenge ausgeschrieben. 
 
-Ziel der Challenge war es mittels KI Hilfsmittel für Krankenkassenrezepte vorzuschlagen. Hierzu wurden 80 Millionen Datenzeilen bereitgestellt und 15 Teams traten gegeneinander an. Unser Team konnte mit seiner Lösung die Jury von Opta Data überzeugen und sich über den ersten Platz freuen. 
+Ziel der Challenge war es mittels KI Hilfsmittel für Krankenkassenrezepte vorzuschlagen. Hierzu wurden 80 Millionen Datenzeilen bereitgestellt und 15 Teams traten gegeneinander an. Unser Team konnte mit seiner Lösung die Jury von Opta Data überzeugen und sich über den ersten Platz freuen.
 
 ## Lokal ausführen
 
-Projekt klonen
+Projekt clonen
 
 ```bash
-git clone https://github.com/Tim-is-coding/optadata-ki-python-rest-server
+git clone https://github.com/Tim-is-coding/optadata-ki-challenge-flutter-frontend
 ```
 
-Packages installieren
+Abhängigkeiten installieren
 
 ```bash
-pip install -r requirements.txt
+flutter pub get
 ```
 
-Server starten
-```bash
-chmod +x startup.sh
-```
+App starten
 
 ```bash
-./startup.sh
+flutter run
 ```
 
 ## 🔗 Links
 
 [LinkedIn Post](https://www.linkedin.com/posts/dr-jana-drechsler-333535102_corporatechallenge-ki-wirsindoptadata-activity-7176935350244638721-n-pY?utm_source=share&utm_medium=member_desktop)
 
-[Frontend Github Repo](https://github.com/Tim-is-coding/optadata-ki-challenge-flutter-frontend)
+[Backend Github Repo](https://github.com/Tim-is-coding/optadata-ki-python-rest-server)
 
 ## Mitwirkende
 
